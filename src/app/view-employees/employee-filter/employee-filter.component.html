@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <div class="text-center">
+        <h5 id="empheading">Search for Employee Profile</h5>
+    </div>
+
+    <div class="card p-3 ">
+        <form (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="filter1">Search by Employee Number:<span class="required-star">*</span></label>
+                    <input type="text" id="filter1" [(ngModel)]="filterInput" name="filterInput" class="form-control" placeholder="Search Employee/CandidateNO">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="empstartDate">Effective start Date:<span class="required-star">*</span></label>
+                    <input type="date"  name="empstartDate" [(ngModel)]="empstartDate" id="empstartDate" class="form-control" (change)="esdDate($event)">
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" id="applyFilter" class="btn btn-primary mx-2">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button type="button" id="removeFilter" class="btn btn-secondary mx-2" (click)="remove()">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

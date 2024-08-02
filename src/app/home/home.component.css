@@ -1,0 +1,297 @@
+/* Custom styles to position the modal on the left side */
+
+.modal-left .modal-dialog {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin: 2; /* Remove default margins */
+  transform: none; /* Override any default transform */
+}
+ 
+.modal-left .modal-content {
+  margin-top: 40%;
+  left: 320%;
+  border-radius: 0; /* Optional: Removes border-radius */
+  width: 400px; /* Adjust width as needed */
+  height: 50%; /* Optional: Full height */
+}
+ 
+span{
+  font-weight: 500;
+}
+ 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+.modal-left .modal-dialog {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin: 2; /* Remove default margins */
+  transform: none; /* Override any default transform */
+}
+ 
+.modal-left .modal-content {
+  margin-top: 40%;
+  left: 320%;
+  border-radius: 0; /* Optional: Removes border-radius */
+  width: 400px; /* Adjust width as needed */
+  height: 100%; /* Optional: Full height */
+}
+
+ 
+/* Navbar Container */
+nav {
+  background-color: #99d0ff;
+  width: 100%;
+  /* height: 10vh; */
+  position: fixed; /* Fix the navbar at the top */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure it stays above other elements */
+  padding: 3px 0; /* Add padding to avoid content touching edges */
+}
+ 
+/* Reset UL and LI styles */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly; /* Space items evenly */
+  align-items: center; /* Center items vertically */
+  flex-wrap: wrap;
+}
+ 
+nav li {
+  position: relative;
+  margin: 0;
+}
+ 
+nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+ 
+/* Logo styling */
+nav img.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Submenu styling */
+
+.head .submenu {
+  display: none;
+  border-radius: 25px;
+  background-color: #99d0ff;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  list-style-type: none;
+  padding: 8px; /* Remove padding */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999; /* Ensure it appears above other content */
+  white-space: nowrap; /* Ensure horizontal scrolling if necessary */
+}
+ 
+/* Ensure submenu is displayed horizontally */
+.head:hover .submenu {
+  display: flex;
+  flex-direction: row;
+ 
+}
+ 
+.head .submenu li {
+  display: inline-block; /* Align items horizontally */
+  margin: 0; /* Remove default margin */
+}
+ 
+.head .submenu li a {
+  color: black;
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+ 
+.head .submenu li a:hover {
+  color: purple;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+ 
+}
+ 
+/* Additional styling if needed */
+.submenu li a {
+  border-right: 1px solid rgba(255, 255, 255, 0.5); /* Optional: add a separator line */
+}
+ 
+.submenu li:last-child a {
+  border-right: none; /* Remove separator line from the last item */
+}
+ 
+ 
+.submenu li a:hover {
+ 
+  background-color: white;
+  border-radius: 45%;
+  color: purple;
+}
+ 
+/* Show submenu on hover */
+.has-submenu:hover .submenu {
+  display: block;
+}
+ 
+/* Style for items with hover effects */
+.has-submenu > a {
+  display: block; /* Ensure the link takes full width for easier hover detection */
+  padding: 10px;
+  text-align: center; /* Center text in the link */
+  border-radius: 25px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+}
+ 
+.has-submenu:hover > a {
+  background-color: white;
+  color: purple;
+}
+ 
+/* Home link specific styles */
+#ch1:hover > a {
+  background-color: white;
+  color: black;
+  border-radius: 25px; /* Round the corners of the hovered item */
+}
+
+i:hover{
+  color: purple;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: x-small;
+}
+
+ 
+/* Button styles */
+.btn-danger{
+  width: 110px;
+  margin-top: 10px;
+  border-radius: 30px;
+  position: relative;
+  padding: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.5s ease, border-color 0.5s ease;    
+}
+
+.btn-danger::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFF;
+  color: #000;
+  transition: left 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+  z-index: 0;
+}
+
+.btn-danger:hover::before {
+  left: 0;
+}
+
+.btn-danger span {
+  position: relative;
+  z-index: 1;
+  transition: black 0.5s ease; 
+}
+
+.btn-danger:hover {
+  color: #000;
+}
+
+
+.custom-close{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.custom-close:hover{
+  color: red;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+ 
+  .submenu {
+    width: 100%;
+    position: static; /* Ensure dropdown is static in small screens */
+  }
+ 
+  .has-submenu:hover .submenu {
+    display: block;
+    position: relative;
+  }
+}
+ 
+@media (max-width: 500px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+ 
+  .submenu {
+    width: 100%;
+    position: static; /* Ensure dropdown is static in smaller screens */
+  }
+ 
+  .has-submenu:hover .submenu {
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+}
+ 
+@media (min-width: 769px) {
+  nav ul {
+    flex-direction: row;
+  }
+ 
+  .submenu {
+    width: auto;
+  }
+}
+
+
+ 
+ 

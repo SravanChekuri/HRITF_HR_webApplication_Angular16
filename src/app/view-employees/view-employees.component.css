@@ -1,0 +1,16 @@
+
+.main{
+    background-color:#F5F5F5;;
+    height: 89vh;
+    width: 100%;
+}
+.blink-text {
+    animation: blink-animation 2s infinite; 
+    margin-left: 5%;
+  }
+  
+  @keyframes blink-animation {
+    0% { opacity: 1.0; } 
+    50% { opacity: 0.0; } 
+    100% { opacity: 1.0; } 
+  }

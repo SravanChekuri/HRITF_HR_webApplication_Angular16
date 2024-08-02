@@ -1,0 +1,23 @@
+.main {
+  background-color: #F5F5F5;
+  position: fixed;
+  top:10%;
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.text-heading {
+  font-weight: bolder;
+  padding: 3% 0 1.5% 3%;
+}
+
+.bulk-add {
+  margin-bottom: 3%;
+}
+
+.single-add{
+  width: 95%;
+  margin-left: 2%;
+  margin-bottom: 10%;
+}

@@ -1,0 +1,199 @@
+ 
+.btn-primary {
+  width: 110px;
+  padding: 10px;
+  border-radius: 30px;
+  margin-top: 20px;
+  margin-left: 30%;
+  position: relative;
+  overflow: hidden;
+  background-color: #4ba6f7;
+  color: white;
+  border: 2px solid transparent;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.5s ease, border-color 0.5s ease;
+}
+ 
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFF;
+  color: #000;
+  transition: left 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+  z-index: 0;
+}
+ 
+.btn-primary:hover::before {
+  left: 0;
+}
+ 
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+  transition: black 0.5s ease;
+}
+ 
+.btn-primary:hover {
+  color: #000;
+}
+ 
+ 
+ 
+.main{
+  background-color: white;
+  width: 90%;
+  height: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+ 
+  margin: 0 0 0 3.5%;
+}
+ 
+p{
+  margin-top: 2%;
+  margin-left: 2%;
+  font-weight: 500;
+}
+ 
+ 
+#excelFile{
+  margin:0 2% 1% 5%;
+}
+ 
+button {
+  background-color: #4ba6f7;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 25px;
+  border: none;
+  margin-right: 2%;
+}
+ 
+button:hover{
+background-color: rgb(132, 234, 132);;
+}
+ 
+button[type='submit']:hover{
+background-color:  rgb(132, 234, 132);;
+}
+ 
+ 
+img{
+  width: 60%;
+  height: 60%;
+  margin: 5% 0 0 30%;
+}
+ 
+input[type="file"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 200px;
+  border: none;
+  padding: 5px;
+  color: #fff;
+  background-color: #4ba6f7;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10%;
+}
+ 
+/* input[type="file"]:hover {
+  background-color: rgb(132, 234, 132);
+  transition: 0s ease-in-out;
+}
+ 
+input[type="file"]:active {
+  background-color: #aabed0;
+} */
+ 
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+}
+ 
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
+ 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+ 
+ 
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.3);
+  border-left-color: #000;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 1s linear infinite;
+  margin-left: 20px;
+}
+ 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+ 
+@media (max-width: 1024px) {
+  .main {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+ 
+  .bulk-content, .bulk-add-image {
+    width: 100%;
+    padding: 10px;
+  }
+ 
+  .bulk-content {
+    order: 2;
+  }
+ 
+  .bulk-add-image {
+    order: 1;
+    margin-bottom: 20px;
+  }
+}
+ 
+@media (max-width: 768px) {
+  .bulk-content button {
+    width: 100%;
+    margin: 5px 0;
+  }
+ 
+  .bulk-content input[type="file"] {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+ 
+ 
+ 
+ 
+ 
+ 

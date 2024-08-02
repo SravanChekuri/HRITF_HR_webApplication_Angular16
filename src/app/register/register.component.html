@@ -1,0 +1,153 @@
+<div class="main-container">
+ 
+    <div>
+        <h4 class="heading">Registration for Admin/HR persons</h4>
+    </div>
+   
+    <div class="view-users"><span>Click view all users button to see all users</span>&nbsp;&nbsp;<button type="button" class="btn btn-primary" routerLink="/viewUsers" role="button" style="width: 10%; background-color: grey; margin-bottom: 2%;"><span class="text">View All Users</span></button></div>
+ 
+    <div class="card">
+       
+        <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()" >
+ 
+            <div class="grid-container">
+ 
+                <div class="label-container">
+ 
+                    <label for="role">Role <span style="color: red;">*</span></label>
+ 
+                    <select name="role" id="role" class="form-control" formControlName="USERTYPE">
+ 
+                        <option value="" selected disabled>Select...</option>
+                        <option value="Admin">Admin</option>
+                        <option value="HR">HR</option>
+ 
+                    </select>
+ 
+                    <div *ngIf="RegisterForm.get('USERTYPE')?.touched && RegisterForm.get('USERTYPE')?.hasError('required')" class="text-danger ">
+                        *Role is required
+                    </div>
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="fn">First Name <span style="color: red;">*</span>:</label>
+ 
+                    <input type="text" id="fn" class="form-control" formControlName="FIRSTNAME">
+<!--
+                    <div *ngIf="RegisterForm.get('FIRSTNAME')?.touched && RegisterForm.get('FIRSTNAME')?.hasError('required')"
+                    class="text-danger ">*First Name is required
+                    </div> -->
+                    <div *ngIf="RegisterForm.get('FIRSTNAME')?.touched && RegisterForm.get('FIRSTNAME')?.hasError('required')" class="text-danger">
+                        *First Name is required
+                    </div>
+                   
+ 
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="mn">Middle Name :</label>
+ 
+                    <input type="text" id="mn" class="form-control" formControlName="MIDDLENAME">
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="ln">Last Name <span style="color: red;">*</span>:</label>
+ 
+                    <input type="text" id="ln" class="form-control" formControlName="LASTNAME">
+ 
+                    <div *ngIf="RegisterForm.get('LASTNAME')?.touched && RegisterForm.get('LASTNAME')?.hasError('required')"
+                    class="text-danger ">*Last Name is required
+                    </div>
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="mbl">Contact <span style="color: red;">*</span>:</label>
+ 
+                    <input type="tel" id="mbl" class="form-control" formControlName="MOBILENUMBER">
+ 
+                    <div *ngIf="RegisterForm.get('MOBILENUMBER')?.touched && RegisterForm.get('MOBILENUMBER')?.hasError('required')"
+                    class="text-danger ">*Mobile Number is required
+                    </div>
+ 
+                    <div *ngIf="RegisterForm.get('MOBILENUMBER')?.touched && RegisterForm.get('MOBILENUMBER')?.hasError('pattern')"
+       class="text-danger">
+    *Invalid phone number format. Enter 10 digits only.
+  </div>
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="email">Email <span style="color: red;">*</span>:</label>
+ 
+                    <input type="text" id="email" class="form-control" formControlName="EMAIL">
+ 
+                    <div *ngIf="RegisterForm.get('EMAIL')?.touched && RegisterForm.get('EMAIL')?.hasError('required')"
+                    class="text-danger ">*Email is required
+                    </div>
+ 
+                    <div *ngIf="RegisterForm.get('EMAIL')?.touched && RegisterForm.get('EMAIL')?.hasError('email')"
+                    class="text-danger">
+                 *Invalid email format
+               </div>
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="uid">User ID <span style="color: red;">*</span>:</label>
+ 
+                    <input type="text" id="uid" class="form-control" formControlName="USERID">
+ 
+                    <div *ngIf="RegisterForm.get('USERID')?.touched && RegisterForm.get('USERID')?.hasError('required')"
+                    class="text-danger ">*User Id is required
+                    </div>
+ 
+                </div>
+ 
+                <div class="label-container">
+ 
+                    <label for="uname">User Name <span style="color: red;">*</span>:</label>
+ 
+                    <input type="text" id="uname" class="form-control" formControlName="USERNAME">
+ 
+                    <div *ngIf="RegisterForm.get('USERNAME')?.touched && RegisterForm.get('USERNAME')?.hasError('required')"
+                    class="text-danger ">*User Name is required
+                    </div>
+ 
+                </div>
+ 
+ 
+            </div>
+ 
+            <div class="button-container">
+ 
+                <button class="btn btn-primary" role="button" type="submit" ><span class="text">Submit</span></button>
+                <button class="btn btn-primary" role="button" type="reset" style="margin-left: 2%;background-color: grey;"><span class="text">Cancel</span></button>
+ 
+                <!-- <button class="btn btn-primary" type="submit" [disabled]="RegisterForm.invalid" style="width: 80px;">save</button>&nbsp;&nbsp;
+ 
+                <button class="btn btn-secondary" type="reset" >Cancel</button> -->
+ 
+            </div>
+ 
+            <div *ngIf="loading" class="spinner mt-3" style="margin-left: 48%;"></div>
+ 
+        </form>
+ 
+    </div>
+ 
+    <p class="note">Note: After successfully registration, User credentials will be sent to the respective mail address.</p>
+ 
+ 
+</div>
+ 
+ 
