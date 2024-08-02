@@ -27,13 +27,13 @@ export class LandingpageComponent implements OnInit {
   totalEmployeesCount: number = 0;
  
   currentPage: number = 1;
- 
   itemsPerPage: number = 8;
- 
   loading:boolean=false;
   employeement: any;
   msg: string;
- isHideErrorMsg=false;
+  isHideErrorMsg=false;
+
+
   constructor(
               private employeeService: GetEmployeesService,
               private router: Router,
@@ -71,7 +71,7 @@ if(event.target.value){
      if (data.length===0){
       this.isHideErrorMsg=true;
  
-      this.msg="Not Found";
+      this.msg="!Employee Not Found";
       console.log("this.msg", this.msg);
      
      }
@@ -125,21 +125,9 @@ getNotifications(){
  
     });
  
-    console.log("employees",this.employees);
-    // console.log("employeement",this.employeement[0].DATE_OF_JOINING);
-   
-   
-   
-  //   this.employees = res.newEmployees.map((element:any) => {
-  //       return element.EMPLOYEE;
-  //   });
-  //   console.log('this.employees',this.employees);
+    // console.log("employees",this.employees);
  
-  //   this.employeement = res.newEmployees.map((element:any) => {
-  //     return element.EMPLOYMENT_DETAILS;
-  // });
- 
-  console.log("sdfghj", this.employeement);
+  // console.log("sdfghj", this.employeement);
  
    
     // this.employees = res.newEmployees || [];

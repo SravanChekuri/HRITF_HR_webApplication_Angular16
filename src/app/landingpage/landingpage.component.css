@@ -3,6 +3,13 @@
   text-decoration: underline;
 }
  
+.error-message{
+  text-align: center;
+  color: red;
+  font-weight: bold;
+ font-size: 20px;
+}
+
 .main {
   position: absolute;
   top:9%;
