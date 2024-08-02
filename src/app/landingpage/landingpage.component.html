@@ -1,66 +1,68 @@
-<div class="main"> 
-
-    <div class="text-center" style="margin: 2% 0 1% 0;">
-      <h5>Quick Search an Employee</h5>
-    </div>
+<div class="main">
  
-    <div class="search-bar">
-      <input type="text" id="filterInput" [(ngModel)]="filterInput" name="filterInput" placeholder="Search Employee by First/Last Name/Employee Number/Email" (keyup)="filterInputData($event)" >
-        <form (ngSubmit)="onSubmit()">
-          <div class="d-flex">&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-primary" (click)="addEmpLanding()" role="button" ><b><span class="text" >AddNewProfile</span></b></button> 
-          </div>
-        </form>
-    </div>
-
-    <div>
-      <h6 style="margin: 1% 0 0 2%;">Last 30 days newly added employees list and search results are appears below:</h6>
-    </div>
- 
-    <div class="employee-list-display" style="overflow-y: auto; max-height: 400px; margin-top: 10px;">
-      <table class="employee-table" style="width: 100%; border-collapse: collapse;" *ngIf="displayedEmployees.length>0">
-        <thead>
-          <tr class="heading">
-            <th style="text-align: center; color: #000; width: 7%;">Emp No</th>
-            <th style="text-align: center; color: #000; width: 20%;">Name</th>
-            <th style="text-align: center; color: #000; width: 12%;">Date of Birth</th>
-            <th style="text-align: center; color: #000; width: 30%;">Email</th>
-            <th style="text-align: center; color: #000;">Work Location</th>
-            <th style="text-align: center; color: #000;">Date of Joining</th>
-          </tr>
-        </thead>
-      <tbody>
-          <ng-container *ngIf="employeeExists; else noEmployees">
-            <tr *ngFor="let employee of displayedEmployees" class="single-employee">
-              <td style="text-align: center;"  (click)="selectedEmpNo(employee)" class="emp">{{ employee?.EMP_NO }}</td>
-              <td style="text-align: center;" (click)="selectedEmpNo(employee)">{{ employee?.FIRST_NAME }} {{ employee?.LAST_NAME }}</td>
-              <td style="text-align: center;" >{{ employee?.DATE_OF_BIRTH | date }}</td>
-              <td style="text-align: center;">{{ employee?.EMAIL_ADDRESS }}</td>
-              <td style="text-align: center;">{{ employee?.WORK_LOCATION }}</td>
-              <td style="text-align: center;">{{ employee?.DATE_OF_JOINING }}</td>
-            </tr>
-          </ng-container>
-          <ng-template #noEmployees>
-            <tr>
-              <td colspan="5" class="no-employees-msg">! No employee found</td>
-            </tr>
-          </ng-template>
-        </tbody>
-      </table>
-    </div>
- 
-    <div class="pagination-controls" *ngIf="totalEmployeesCount > itemsPerPage" style="text-align: center; margin-top: 10px;">
-      <button (click)="prevPage()" [disabled]="currentPage === 1"  class="btn btn-primary " role="button"><span class="text">Previous</span></button>
-      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalEmployeesCount" role="button" class="btn btn-primary" ><span class="text">Next</span></button>
-    </div>
-   
- 
-  <div *ngIf="loading" class="loading-spinner-container">
-    <div class="loading-spinner"></div>
+  <div class="text-center" style="margin: 2% 0 1% 0;">
+    <h5>Quick Search an Employee</h5>
   </div>
-
+ 
+  <div class="search-bar">
+    <input type="text" id="filterInput" [(ngModel)]="filterInput" name="filterInput" placeholder="Search Employee by First/Last Name/Employee Number/Email" (keyup)="filterInputData($event)" >
+   
+      <form (ngSubmit)="onSubmit()">
+        <div class="d-flex">&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-primary" (click)="addEmpLanding()" role="button" ><b><span class="text" >AddNewProfile</span></b></button>
+        </div>
+      </form>
+  </div>
+ 
+ 
+  <div>
+    <h6 style="margin: 0 0 0 2%;">Last 30 days newly added employees list and search results are appears below:</h6>
+  </div>
+  <div *ngIf="isHideErrorMsg" class="error-message">
+    {{msg}}
+  </div>
+ 
+  <div class="employee-list-display" style="overflow-y: auto; max-height: 400px; margin-top: 10px;">
+    <table class="employee-table" style="width: 100%; border-collapse: collapse;" *ngIf="displayedEmployees.length>0">
+      <thead>
+        <tr class="heading">
+          <th style="text-align: center; color: #000; width: 7%;">Emp No</th>
+          <th style="text-align: center; color: #000; width: 20%;">Name</th>
+          <th style="text-align: center; color: #000; width: 12%;">Date of Birth</th>
+          <th style="text-align: center; color: #000; width: 30%;">Email</th>
+          <th style="text-align: center; color: #000;">Work Location</th>
+          <th style="text-align: center; color: #000;">Date of Joining</th>
+        </tr>
+      </thead>
+    <tbody>
+        <ng-container *ngIf="employeeExists";>
+          <tr *ngFor="let employee of displayedEmployees" class="single-employee">
+            <td style="text-align: center;"  (click)="selectedEmpNo(employee)" class="emp">{{ employee?.EMP_NO }}</td>
+            <td style="text-align: center;" (click)="selectedEmpNo(employee)">{{ employee?.FIRST_NAME }} {{ employee?.LAST_NAME }}</td>
+            <td style="text-align: center;" >{{ employee?.DATE_OF_BIRTH | date }}</td>
+            <td style="text-align: center;">{{ employee?.EMAIL_ADDRESS }}</td>
+            <td style="text-align: center;">{{ employee?.WORK_LOCATION }}</td>
+            <td style="text-align: center;">{{ employee?.DATE_OF_JOINING }}</td>
+          </tr>
+        </ng-container>
+     
+        <!-- <ng-template #noEmployees>
+          <tr>
+            <td colspan="5" class="no-employees-msg">! No employee found</td>
+          </tr>
+        </ng-template> -->
+      </tbody>
+    </table>
+  </div>
+ 
+  <div class="pagination-controls" *ngIf="totalEmployeesCount > itemsPerPage" style="text-align: center;">
+    <button (click)="prevPage()" [disabled]="currentPage === 1"  class="btn btn-primary " role="button"><span class="text">Previous</span></button>
+    <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalEmployeesCount" role="button" class="btn btn-primary" ><span class="text">Next</span></button>
+  </div>
+ 
+ 
+<div *ngIf="loading" class="loading-spinner-container">
+  <div class="loading-spinner"></div>
 </div>
  
- 
- 
- 
+</div>
