@@ -15,21 +15,21 @@ import { ArrayType } from '@angular/compiler';
 
 export class EditDetailsComponent implements OnInit {
 
-  sampleData: boolean = false;
 
-  emrgencyEnd: any;
+  //------------------------------------employee/candidate Form and variables-----------------------------------//
+  updateForm: any = new FormGroup({});
 
-  date: any;
+  isConvertedToEmployee = false;
 
-  permanentAddEEd: any
-
-  empDate: any;
-
-  employmentdate: any;
+  employeeESd:any;
 
   effectiveEndDate: any = '4712-12-31';
 
-  empEndDate: any = '4712-12-31';
+  empDate: any;
+
+  empButtons: any = false;
+
+  msg: any;
 
   maxDate: any;
 
@@ -37,93 +37,171 @@ export class EditDetailsComponent implements OnInit {
 
   isEmployee: any = false;
 
-  employee: Employee = {} as Employee;
 
-  updateForm: any = new FormGroup({});
+//-----------------------------------------------------------------------------------------------------------//
 
-  addressForm: any = new FormGroup({});
 
-  addressForm1: any = new FormGroup({});
 
-  emergencyContact: any = new FormGroup({});
-
-  employementId: any;
+  //---------------------------------------------Employement Form and variables---------------------------------------------------//
 
   employementForm: any = new FormGroup({});
 
-  employeeList: any;
+  sampleData: boolean = false;
 
-  length: any;
-  addressButtonsHide: boolean;
+  isHideEditEmployementButton=false
+  
+;
 
-  // showAddress: boolean = true;
-
-  esd: any;
-
-  addressData: boolean = false;
-
-  workAddress: boolean = false;
-
-  presentEnd: any;
-
-  presentGetData: any;
-
-  permanentGetData: any;
-
-  addressType: any;
-
-  empButtons: any = false;
-  employmentbutton: any = false;
-  presentbutton: any = false;
-  permanentbuttons: any = false;
-  emergencybutton: any = false;
-  updateEmergencyButton=false;
-
-
-
-
-  loading: boolean = false;
-  loading2: boolean = false;
-
-  Probation_Period: any[] = ['3 Months', '6 Months', '12 Months'];
-
-  Notice_Period: any[] = ['1 Months', '2 Months', '3 Months'];
-
-  msg: any;
-
-  modalId: any;
-  modalId1: any;
-  todaysDate: any;
-  presentGetAddressData: any;
-  AddressData: any;
-  loading3: any;
-  loading4: boolean;
-  getEmergencydata: any;
-  getPresentAddr: any;
-  getPermanentAddr: any;
-  emergencyDataGet: any;
-  getEmergencyBasedOnDate: any;
-  emergencyformButtons: boolean=false;
-  emergencyEditHideButton:boolean=true;
-
-
-  filterESD:any;
-  employeeESd:any;
   employeementEsd:any;
-  empPresentAddEsd:any;
-  empPermentAddEsd:any;
-  empEmergencyAddEsd:any;
-  isHideEmergencyButtons: boolean=false;
 
+  employmentdate: any;
 
-  ishideEditButton: boolean=true;
-  isPresntEnableButtons: boolean=false;
-  ishideEditPrsentAdd: boolean=true;
+  employmentbutton: any = false;
 
-  ishidePrsentAdd=false;
-
-  isHideEditEmployementButton=true;
   isShowEmployementButtons: boolean=false;
+
+   //-----------------------drop down ng-container looping for employeement---------------------------//
+
+   Probation_Period: any[] = ['3 Months', '6 Months', '12 Months'];
+
+   Notice_Period: any[] = ['1 Months', '2 Months', '3 Months'];
+
+
+//------------------------------------------------------------------------------------------------------------------
+
+
+//---------------------------Address popup variable------------------------------------------------------
+
+addressButtonsHide: boolean;
+
+todaysDate: any;
+
+addressType: any;
+
+modalId1: any;
+
+//-------------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------PresentAddress Form & Variables----------------------
+
+addressForm: any = new FormGroup({});
+
+empPresentAddEsd:any;
+
+presentEnd: any;
+
+presentGetData: any;
+
+ishideEditPrsentAdd: boolean=true;
+
+loading2: boolean = false;
+
+presentbutton: any = false;
+
+ishidePrsentAdd=false;
+
+AddressData: any;
+
+
+//---------------------------------------------------------------------------------------------------------
+
+
+
+ //-----------------------------------------------permanent Address Form & variables---------------------------
+
+ addressForm1: any = new FormGroup({});
+
+ empPermentAddEsd:any;
+
+ permanentAddEEd: any;
+
+ permanentGetData: any;
+
+ ishideEditButton: boolean=true;
+
+ permanentbuttons: any = false;
+
+ isPresntEnableButtons: boolean=false;
+
+ //------------------------------------------------------------------------------------------------------------
+
+ //------------------------------------------------Emergency Form and variables-------------------------------
+ 
+ emergencyContact: any = new FormGroup({});
+
+ getEmergencydata: any;
+
+ emergencyformButtons: boolean=false;
+
+ updateEmergencyButton=false;
+
+ loading4: boolean;
+
+ emergencyEditHideButton:boolean=true;
+
+ empEmergencyAddEsd:any;
+
+ emrgencyEnd: any;
+
+ getEmergencyBasedOnDate: any;
+
+ isHideEmergencyButtons: boolean=false;
+
+ emergencybutton: any = false; //no
+
+
+//--------------------------------------------------------------------------------------------------------
+
+
+//-------------------------------ngOnInt-Variables-------------------------------------------------------
+
+employee: Employee = {} as Employee;
+
+employeeData:any;
+
+filterESD:any;
+
+employeeList: any;
+
+getPresentAddr: any;
+
+getPermanentAddr: any;
+
+
+
+//-----------------------------------------------------------------------------------------------
+
+date: any;
+
+empEndDate: any = '4712-12-31';
+
+// employementId: any; not using
+
+length: any;
+
+esd: any;
+
+// addressData: boolean = false;
+
+// workAddress: boolean = false;
+
+
+loading: boolean = false;
+
+modalId: any;
+
+// presentGetAddressData: any; not using
+
+
+loading3: any;
+
+
+
+
+
+
+
+
 
   constructor(
     private employeeService: GetEmployeesService,
@@ -136,6 +214,7 @@ export class EditDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+ 
     const today = new Date
 
     this.maxDate = today.toISOString().split('T')[0];
@@ -157,20 +236,25 @@ export class EditDetailsComponent implements OnInit {
 
     const empData = localStorage.getItem('employee');
 
+
+
+
     if (empData) {
 
       this.employee = JSON.parse(empData);
-
-      this.check()
+      // console.log("this.employee",this.employee);
+    
+     
 
 
       console.log("empData", this.employee);
       this.fetchEmpData(this.employee.EMP_NO,  this.filterESD, this.employee.EFFECTIVE_END_DATE);
+    
+      this.check()
+      
 
 
-      // this.employementForm()
-
-      //  this.emergency();
+    
     }
   }
   onchange(event: any) {
@@ -204,6 +288,12 @@ export class EditDetailsComponent implements OnInit {
       this.employeeService.fetchEmployeeDetails(id, startDate, endDate).subscribe((result) => {
         //  console.log("result1 :", result)
         this.employeeList = result;
+        this.employeeData=result.employee_details;
+        this.convertToEmployee()
+        console.log("this.employeeData", this.employeeData);
+        
+
+
         this.getEmergencydata = result.emergency_address_details;
         this.getPermanentAddr = result.home_address_details
         console.log(" this.getPermanentAddr", this.getPermanentAddr );
@@ -223,20 +313,7 @@ export class EditDetailsComponent implements OnInit {
           this.updateform1();
         }
 
-        // this.form();
-
-
-        // this.length = this.employeeList.employment_details.length;
-
-        // if (this.employeeList.employee_details.length == 1) {
-        //   // this.loading = true
-        // }
-
-        // if (this.employeeList.employment_details.length == 1) {
-
-        //   this.employementId = this.employeeList.employment_details[0].EMP_ID;
-
-        // }
+       
 
         if (this.employeeList.employment_details.length == 0) {
           // alert("ini")
@@ -250,55 +327,10 @@ export class EditDetailsComponent implements OnInit {
         } else {
           // alert("update")
           this.updateEmploymentDetailsForm();
+          this.isHideEditEmployementButton=true;
 
         }
-        // alert(this.employeeList.work_address_details.length)
-        // if (this.employeeList.work_address_details.length == 0) {
-        //   // alert("1111");
-
-        //   this.formInitilization();
-
-        //   // this.initAddressDetailsForm();
-
-        //   // this.workAddress = true;
-
-        // } else {
-        //   // alert("2222");
-        //   // console.log("sssss",this.employeeList.work_address_details[0].EMP_ID);
-        //   this.updateAddressDetailsForm();
-
-        //   // this.workAddress = true;
-
-        // }
-        // console.log('this.employeeList.emergency_address_details',this.employeeList.emergency_address_details);
-
-        // if (this.employeeList.home_address_details.length == 0) {
-        //   // alert("3333");
-        //   // this.formInitilization()
-
-        //   this.initAddressDetailsForm();
-        // }
-
-        // else {
-        //   // alert("4444")
-        //   this.updateHomeAddress();
-        // }
-        //  console.log("employeeList.home_address_details",this.employeeList.home_address_details);
-
-
-        // if (this.employeeList.emergency_address_details.length == 0) {
-        //   // alert("ini");
-        //   this.emergency();
-
-        //   this.addressData = true;
-
-        // } else {
-        //   // alert("update");
-        //   this.updateEmergency();
-
-        //   this.addressData = true;
-        // }
-        // console.log("addressid :", this.employeeList.work_address_details[0].ADDRESS_ID)
+       
       })
     } catch (error) {
       console.error("Error fetching the Employeee data:", error)
@@ -308,22 +340,34 @@ export class EditDetailsComponent implements OnInit {
 
 
 
-  //...........................Employee/Candidate details........................................
+  //...........................Employee/Candidate Form details........................................
 
   //...............init.............
 
   // empForm: any
+
+
+  //-----------------------------------ForButtonHide------------------------------------------------------//
   isEmployeeContent() {
     // this.updateForm.enable()
     this.empButtons = !this.empButtons;
 
     if (this.empButtons) {
-      this.updateForm.enable()
+      this.updateForm.enable();
+      if (this.employeeData[0].WORKER_TYPE==="Employee"){
+      this.updateForm.get('employeeNumber')?.disable();
+      }
+      else{
+        this.updateForm.get('employeeNumber')?.enable();
+
+      }
+      
 
     }
 
     else {
-      this.updateForm.disable()
+      this.updateForm.disable();
+      this.updateForm.get('employeeNumber')?.disable();
 
     }
 
@@ -331,58 +375,53 @@ export class EditDetailsComponent implements OnInit {
 
   }
 
-  // form() {
+  convertToEmployee() {
+    alert(this.employeeData[0].WORKER_TYPE)
+    if (this.employeeData[0].WORKER_TYPE==="Employee"){
+      this.isConvertedToEmployee = true;
+      
 
 
-  //   this.updateForm = this.formbuilder.group({
+    }
+    else{
+      this.updateForm.get('employeeNumber')?.enable();
 
-  //     employeeId: ['', Validators.required],
-  //     employeeNumber: ['', Validators.required],
-  //     firstName: ['', Validators.required],
-  //     middleName: ['',],
-  //     lastName: ['', Validators.required],
-  //     email: ['', Validators.required],
-  //     dateOfBirth: ['', Validators.required],
-  //     dateOfJoining: ['', Validators.required],
-  //     userId: ['', Validators.required],
-  //     workLocation: ['', Validators.required],
-  //     workerType: ['', Validators.required],
-  //     effectiveStartDate: ['', Validators.required],
-  //     effectiveEndDate: ['4712-12-31']
+    }
+  
+  }
 
-  //   });
 
-  // }
+  //--------------------------------------------------------------------------------------------------------//
 
-  //................update...................
+ 
+  //................update Employee...................
 
   updateform1() {
-    if (this.date) {
-      this.date = this.date
-    } else {
-      this.date = this.employee.EFFECTIVE_START_DATE
-    }
+   
     this.updateForm = this.formbuilder.group({
 
-      employeeId: [this.employee.EMP_ID, Validators.required],
-      employeeNumber: [this.employee.EMP_NO, Validators.required],
-      firstName: [this.employee.FIRST_NAME, Validators.required],
-      middleName: [this.employee.MIDDLE_NAME],
-      lastName: [this.employee.LAST_NAME, Validators.required],
-      email: [this.employee.EMAIL_ADDRESS, Validators.required],
-      dateOfBirth: [this.employee.DATE_OF_BIRTH, Validators.required],
-      userId: [this.employee.USER_ID, Validators.required],
-      workLocation: [this.employee.WORK_LOCATION, Validators.required],
-      workerType: [this.employee.WORKER_TYPE, Validators.required],
-      effectiveStartDate: [this.date, Validators.required],
-      effectiveEndDate: [this.employee.EFFECTIVE_END_DATE]
+      employeeId: [this.employeeData[0].EMP_ID, Validators.required],
+      employeeNumber: [{ value: this.employeeData[0].EMP_NO, disabled: this.isConvertedToEmployee }, Validators.required,],
+      firstName: [this.employeeData[0].FIRST_NAME, Validators.required],
+      middleName: [this.employeeData[0].MIDDLE_NAME],
+      lastName: [this.employeeData[0].LAST_NAME, Validators.required],
+      email: [this.employeeData[0].EMAIL_ADDRESS, Validators.required],
+      dateOfBirth: [this.employeeData[0].DATE_OF_BIRTH, Validators.required],
+      userId: [this.employeeData[0].USER_ID, Validators.required],
+      workLocation: [this.employeeData[0].WORK_LOCATION, Validators.required],
+      workerType: [this.employeeData[0].WORKER_TYPE, Validators.required],
+      effectiveStartDate: [this.employeeData[0].EFFECTIVE_START_DATE, Validators.required],
+      effectiveEndDate: [this.employeeData[0].EFFECTIVE_END_DATE]
 
     });
 
     this.updateForm.disable();
   }
 
-  //.................update to backend....................................
+
+  
+
+  //.................update Employee Submit to backend....................................
 
   submitForm() {
 
@@ -455,12 +494,13 @@ export class EditDetailsComponent implements OnInit {
   }
 
 
-  //....................................for searcch previous records................
+  //....................................for searcch previous records for Employee................
 
   
 
   submitDate() {
-    // alert(this.employeeESd)
+ //  alert(this.employeeESd)
+  //  alert(this.effectiveEndDate)
     this.loading = true;
     this.employeeService.sendDate(this.employeeESd, this.employee.EMP_ID, this.effectiveEndDate).subscribe((res: any) => {
 
@@ -523,11 +563,12 @@ export class EditDetailsComponent implements OnInit {
   }
 
 
+  //==================================================================================================================================
+
 
   //...............................Candidate / employeee Employeement details...................................
 
-
-  //........................................init............................................
+  //Employee Edit Buttons Enable
 
   employeementUpdate() {
 
@@ -542,6 +583,9 @@ export class EditDetailsComponent implements OnInit {
       this.employementForm.disable()
     }
   }
+
+    //........................................init............................................
+
 
   employementInitializationForm() {
 
@@ -573,7 +617,7 @@ export class EditDetailsComponent implements OnInit {
   }
 
 
-  //..........................................sending data to backend...............................
+  //..........................................sending data to backend Employeement...............................
 
   employmentSubmit() {
     this.loading = true;
@@ -600,7 +644,10 @@ export class EditDetailsComponent implements OnInit {
       console.log("empdetails", formattedData);
 
       this.employeeService.EmployeeDetails(formattedData).subscribe((res: any) => {
+        this.isHideEditEmployementButton=true;
+     
         this.loading = false;
+
         Swal.fire({
           position: "top",
           icon: "success",
@@ -641,7 +688,7 @@ export class EditDetailsComponent implements OnInit {
   }
 
 
-  //...........................................update...........................................................
+  //...........................................update Employement...........................................................
 
   updateEmploymentDetailsForm() {
     console.log("PROBATION_PERIOD", this.employeeList.employment_details);
@@ -670,11 +717,11 @@ export class EditDetailsComponent implements OnInit {
     this.sampleData = true;
   }
 
-  //.....................................search.............................................................
+  //.....................................search for previous record for employement.............................................................
 
   empsubmitdate() {
-    // alert(this.employeementEsd)
-    // alert(this.empEndDate)
+ // alert(this.employeementEsd)
+ //alert(this.empEndDate)
 
     this.loading = true;
 
@@ -759,31 +806,9 @@ export class EditDetailsComponent implements OnInit {
     }
   }
 
-  // formInitilization() {
+ 
 
-  //   this.addressForm = this.formbuilder.group({
-
-  //     // AddressId: ['', Validators.required],
-  //     EmployeeId: [this.employee.EMP_ID, Validators.required],
-  //     AddressType: ["PRESENT"],
-  //     Address: ['', Validators.required],
-  //     City: ['', Validators.required],
-  //     State: ['', Validators.required],
-  //     Country: ['', Validators.required],
-  //     Pincode: ['', Validators.required],
-  //     DateForm: ['', Validators.required],
-  //     DateTo: ['4712-12-31'],
-  //     Phone1: ['', [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.maxLength(10), Validators.minLength(10)]],
-  //     // selectOption: [''],
-
-  //   });
-
-  //   this.addressForm.disable();
-
-  // }
-
-
-  //.....................sending data to backend................................
+  //.....................sending Present Address data to backend................................
 
   submitAddress() {
     console.log("this.addressForm.status", this.addressForm.status);
@@ -860,28 +885,7 @@ export class EditDetailsComponent implements OnInit {
   //....................................update .............................................................
 
 
-  // updateAddressDetailsForm() {
-
-  //   this.addressForm = this.formbuilder.group({
-
-  //     EmployeeId: [this.employeeList.work_address_details[0].EMP_ID, Validators.required],
-  //     AddressType: [this.employeeList.work_address_details[0].ADDRESS_TYPE],
-  //     Address: [this.employeeList.work_address_details[0].ADDRESS, Validators.required],
-  //     City: [this.employeeList.work_address_details[0].CITY, Validators.required],
-  //     State: [this.employeeList.work_address_details[0].STATE, Validators.required],
-  //     Country: [this.employeeList.work_address_details[0].COUNTRY, Validators.required],
-  //     Pincode: [this.employeeList.work_address_details[0].PIN_CODE, Validators.required],
-  //     DateForm: [this.employeeList.work_address_details[0].DATE_FROM, Validators.required],
-  //     Phone1: [this.employeeList.work_address_details[0].PHONE_1, [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-  //     DateTo: [this.employeeList.work_address_details[0].DATE_TO],
-  //     // selectOption: [''],
-
-  //   });
-
-  //   this.addressForm.disable();
-
-  // }
-
+  
   presentesdAddData() {
     // console.log("esd", this.esd);
     // console.log("presentEnd", this.presentEnd);
@@ -945,25 +949,7 @@ export class EditDetailsComponent implements OnInit {
 
 
 
-  // initAddressDetailsForm() {
-
-  //   this.addressForm1 = this.formbuilder.group({
-
-  //     EmployeeId: [this.employee.EMP_ID, Validators.required],
-  //     PermanentAdressType: ["PERMANENT"],
-  //     PermanentAddress: ['', Validators.required],
-  //     PermanentCity: ['', Validators.required],
-  //     PermanentState: ['', Validators.required],
-  //     PermanentCountry: ['', Validators.required],
-  //     PermanentPincode: ['', Validators.required],
-  //     PermanentDateForm: ['', Validators.required],
-  //     PermanentDateTo: ['4712-12-31'],
-  //     PermanentPhone1: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-
-  //   });
-
-  //   this.addressForm1.disable();
-  // }
+ 
 
 
   //.................................sending to back end ......................
@@ -1033,27 +1019,10 @@ export class EditDetailsComponent implements OnInit {
   //...............................update.................................................
 
 
-  // updateHomeAddress() {
-
-  //   this.addressForm1 = this.formbuilder.group({
-
-  //     EmployeeId: [this.employeeList.home_address_details[0].EMP_ID, Validators.required],
-  //     PermanentAdressType: [this.employeeList.home_address_details[0].ADDRESS_TYPE, Validators.required],
-  //     PermanentAddress: [this.employeeList.home_address_details[0].ADDRESS, Validators.required],
-  //     PermanentCity: [this.employeeList.home_address_details[0].CITY, Validators.required],
-  //     PermanentState: [this.employeeList.home_address_details[0].STATE, Validators.required],
-  //     PermanentCountry: [this.employeeList.home_address_details[0].COUNTRY, Validators.required],
-  //     PermanentPincode: [this.employeeList.home_address_details[0].PIN_CODE, Validators.required],
-  //     PermanentDateForm: [this.employeeList.home_address_details[0].DATE_FROM, Validators.required],
-  //     PermanentPhone1: [this.employeeList.home_address_details[0].PHONE_1, [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-  //     PermanentDateTo: [this.employeeList.home_address_details[0].DATE_TO]
-
-  //   })
-  //   this.addressForm1.disable();
-  // }
+ 
 
   empPermanentAddEndsubmitdate() {
-    // alert(this.esd)
+    // alert(this.empPermentAddEsd)
     // alert(this.permanentAddEEd)
     let permanentAdd="PERMANENT"
     this.employeeService.getPermanentAddressData(this.employee.EMP_ID, permanentAdd, this.empPermentAddEsd, this.permanentAddEEd).subscribe((res: any) => {
@@ -1087,48 +1056,248 @@ export class EditDetailsComponent implements OnInit {
 
 
 
-  //..................................same as present..............................................
-
-  // openPermanentAddress(event: any) {
-  //   // alert("bdkjadsjhals");
-  //   // console.log("Selected Value :", event.target.value)
-  //   const InputElement = document.getElementById('selectCahnge') as HTMLInputElement
-  //   // console.log("InputElement", InputElement.checked)
-
-  //   if (InputElement.checked) {
-
-  //     this.addressForm1 = this.formbuilder.group({
-  //       EmployeeId: [this.addressForm.value['EmployeeId'], Validators.required],
-  //       PermanentAdressType: ["PERMANENT"],
-  //       PermanentAddress: [this.addressForm.value['Address'], Validators.required],
-  //       PermanentCity: [this.addressForm.value['City'], Validators.required],
-  //       PermanentState: [this.addressForm.value['State'], Validators.required],
-  //       PermanentCountry: [this.addressForm.value['Country'], Validators.required],
-  //       PermanentPincode: [this.addressForm.value['Pincode'], Validators.required],
-  //       PermanentDateForm: [this.addressForm.value['DateForm'], Validators.required],
-  //       PermanentDateTo: [this.addressForm.value['DateTo'] || '4712-12-31', Validators.required],
-  //       PermanentPhone1: [this.addressForm.value['Phone1'],],
-
-  //     });
-  //     // this.addressForm1.disable();
-  //   }
-  //   else {
-  //     this.addressForm1.reset();
-  //   }
-  // }
+  
 
 
+  
+
+
+
+
+
+  //..............resent records search items .....................................
+
+
+  DateChange(event: any) {
+
+    // console.log("date", event.target.value);
+    this.date = event.target.value;
+
+    this.updateform1();
+    // console.log("this.date", this.date);
+    // console.log("this.employee.EMP_ID", this.employee.EMP_ID);
+    // console.log("this.date", this.date);
+  }
+
+  
+
+  
+
+  addressTypeDate() {
+    // alert(this.todaysDate);
+    // alert( this.addressType);
+    let enddate = '4712-12-31'
+    // console.log("ghhg", this.employeeList.employment_details[0].EMP_ID);
+
+      if (this.getPresentAddr.length === 0 && this.addressType == "PRESENT") {
+        this.ishideEditPrsentAdd=false;
+        this.ishidePrsentAdd=true;
+        this.addressForm = this.formbuilder.group({
+          // a: alert("check"),
+          EmployeeId: [this.employee.EMP_ID, Validators.required],
+          AddressType: ['PRESENT'],
+          Address: ['', Validators.required],
+          City: ['', Validators.required],
+          State: ['', Validators.required],
+          Country: ['', Validators.required],
+          Pincode: ['', Validators.required],
+          DateForm: ['', Validators.required],
+          Phone1: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
+          DateTo: ['4712-12-31'],
+          // selectOption: [''],
+        });
+        this.loading2 = true
+        // if (this.loading2) {
+          this.openModal('custom-modal-5')
+        // }
+      } else {
+        // alert(this.todaysDate)
+        this.employeeService.sendAddresstypeDate(this.employee.EMP_ID, this.addressType, this.todaysDate, enddate).subscribe((res: any) => {
+          console.log("ressdgh", res);
+          // alert(3)
+          this.AddressData = res.data
+
+          console.log("this.AddressData", this.AddressData.STATE);
+
+          if (this.AddressData.ADDRESS_TYPE === "PRESENT") {
+            //  alert("1pre")
+            // alert(1)
+            console.log("this.AddressData", this.AddressData.STATE);
+            // alert("present")
+            this.addressForm = this.formbuilder.group({
+              // a: alert("check 1"),
+
+
+              EmployeeId: [this.AddressData.EMP_ID, Validators.required],
+              AddressType: [this.AddressData.ADDRESS_TYPE],
+              Address: [this.AddressData.ADDRESS, Validators.required],
+              City: [this.AddressData.CITY, Validators.required],
+              State: [this.AddressData.STATE, Validators.required],
+              Country: [this.AddressData.COUNTRY, Validators.required],
+              Pincode: [this.AddressData.PIN_CODE, Validators.required],
+              DateForm: [this.AddressData.DATE_FROM, Validators.required],
+              Phone1: [this.AddressData.PHONE_1, [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
+              DateTo: [this.AddressData.DATE_TO],
+              // selectOption: [''],
+
+            });
+
+            this.loading2 = true;
+            // this.addressForm.disable()
+            // if (this.loading2) {
+              this.openModal('custom-modal-5')
+
+            // }
+            // setTimeout(() => {
+            //   this.openModal('custom-modal-5')
+            // }, 1000);
+          }
+
+
+        }, error => {
+          // if(error.message === 'data not found'){
+
+          // }
+          console.log("err", error);
+          throw new Error("Server Error:", error.message)
+
+        })
+      }
+
+
+      if (this.addressType === "PERMANENT" && this.getPermanentAddr.length===0) {
+        this.ishideEditButton=false;
+        this.isPresntEnableButtons=true;
+      
+        // alert('1par')
+        this.addressForm1 = this.formbuilder.group({
+          EmployeeId: [this.employee.EMP_ID, Validators.required],
+          PermanentAdressType: ['PERMANENT'],
+          PermanentAddress: ['', Validators.required],
+          PermanentCity: ['', Validators.required],
+          PermanentState: ['', Validators.required],
+          PermanentCountry: ['', Validators.required],
+          PermanentPincode: ['', Validators.required],
+          PermanentDateForm: ['', Validators.required],
+          PermanentDateTo: ['4712-12-31', ],
+          PermanentPhone1: ['',Validators.required],
+        });
+        this.loading3 = true
+        // if (this.loading3) {
+          this.openModal('custom-modal-6')
+        // }
+      } else {
+        // alert(222)
+        
+        this.employeeService.sendAddresstypeDate(this.employee.EMP_ID, this.addressType, this.todaysDate, enddate).subscribe((res: any) => {
+          console.log("ressdgh", res);
+          this.AddressData = res.data
+
+          console.log("this.AddressData", this.AddressData.STATE);
+
+          if (this.AddressData.ADDRESS_TYPE === "PERMANENT") {
+          //  alert(1)
+            // alert(1)
+            console.log("this.AddressData", this.AddressData.STATE);
+            this.addressForm1 = this.formbuilder.group({
+              EmployeeId: [this.AddressData.EMP_ID, Validators.required],
+              PermanentAdressType: [this.AddressData.ADDRESS_TYPE],
+              PermanentAddress: [this.AddressData.ADDRESS, Validators.required],
+              PermanentCity: [this.AddressData.CITY, Validators.required],
+              PermanentState: [this.AddressData.STATE, Validators.required],
+              PermanentCountry: [this.AddressData.COUNTRY, Validators.required],
+              PermanentPincode: [this.AddressData.PIN_CODE, Validators.required],
+              PermanentDateForm: [this.AddressData.DATE_FROM, Validators.required],
+              PermanentDateTo: [this.AddressData.DATE_TO || '4712-12-31', Validators.required],
+              PermanentPhone1: [this.AddressData.PHONE_1,],
+
+            });
+
+            this.loading3 = true
+            // this.addressForm1.disable();
+            if (this.loading3) {
+              this.openModal('custom-modal-6')
+
+            }
+           
+          }
+
+
+        }, error => {
+         
+          console.log("err", error);
+          throw new Error("Server Error:", error.message)
+
+        })
+      }
+
+    // } catch (error) {
+    //   console.error("Error getting the address details :", error)
+    // }
+  }
+
+
+ 
+  // Address type Based on Effectivestartdate
+
+  selectedValue(e: any) {
+    this.addressType = e.target.value;
+    // alert(this.addressType)
+
+    // alert(e.target.value)
+    if (e.target.value === "PRESENT") {
+      this.modalId1 = "custom-modal-5"
+      // alert("this.modalId1" + this.modalId1)
+    } else if (e.target.value === 'PERMANENT') {
+      this.modalId1 = "custom-modal-6"
+      // alert("this.modalId1" + this.modalId1)
+    }
+  }
+
+
+  openModal(id: any) {
+    // alert(id)
+    console.log("id", id);
+
+    // if (id === "custom-modal-3") {
+    //   alert("ghjk")
+    this.modalId = id
+    this.modalServcie.open(id)
+    // }else{
+    //   this.modalId = id;
+    //   this.modalServcie.open(id)
+    // }
+
+
+
+  }
+  closeModal(id: any) {
+    if (id === "custom-modal-4") {
+      this.addressTypeDate()
+    }
+    this.modalServcie.close(id)
+  }
+
+  closeAndOpen(id4: any, id5: any) {
+    // alert("id4" + id4)
+    // alert("modalId" + this.modalId)
+    // alert("id5" + id5)
+
+    if (this.modalId == id4) {
+      this.modalServcie.close(id4)
+    }
+    this.modalServcie.open(id5)
+  }
 
 
   //..................................................emergency addresss ..................................
 
 
   //........................init....................................
-  // Empemergency() {
-  //   this.emergencybutton = true;
-  //   this.emergencyContact.enable()
+ 
 
-  // }
+
+//------------------------------emergency Form------------------------------------------------------------------
 
   emergencyData() {
     this.emergencybutton = true;
@@ -1153,9 +1322,7 @@ export class EditDetailsComponent implements OnInit {
   emergency() {
     console.log("Emergency data:", this.getEmergencydata);
 
-    // this.emergencyDataGet = this.getEmergencydata ? this.getEmergencydata[0] : {};
-
-    //console.log("emergencyData", this.getEmergencydata[0].FIRST_NAME);
+//console.log("emergencyData", this.getEmergencydata[0].FIRST_NAME);
     if (this.getEmergencydata.length === 1) {
       this.emergencyformButtons=false;
       this.updateEmergencyButton=true;
@@ -1262,7 +1429,7 @@ export class EditDetailsComponent implements OnInit {
           timer: 1500,
           width: 400
         }).then(() => {
-          this.emergencyContact.disable();
+          // this.emergencyContact.disable();
         });
       },
       error => {
@@ -1342,32 +1509,9 @@ export class EditDetailsComponent implements OnInit {
 
   }
 
-  //.................................update.................................................
+ 
+// emergency record search  for previous dates
 
-  // editemergency() {
-
-  //   //alert("edit")
-  //   this.emergencyContact = this.formbuilder.group({
-
-  //     PersonName: [this.employeeList.emergency_address_details[0].PERSON_NAME],
-  //     relation: [this.employeeList.emergency_address_details[0].RELATIONSHIP],
-  //     address: [this.employeeList.emergency_address_details[0].PERSON_ADDRESS],
-  //     contact: [this.employeeList.emergency_address_details[0].EMERGENCY_NO,[Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-  //     dateFrom: [this.employeeList.emergency_address_details[0].DATE_FROM ],
-  //     dateTo: ['4712-12-31'],
-  //     addressType: [this.employeeList.emergency_address_details[0].ADDRESS_TYPE],
-  //     empId: [this.addressForm.value['EmployeeId']]
-
-  //   });
-
-  //   this.emergencyContact.disable();
-  //   // this.loading4 = true
-  // }
-
-
-  // emergencyEnd(event:any){
-  //   this.emergencyEnd=event.target.value
-  // }
 
   emergencysubmitdate() {
     // alert(this.esd)
@@ -1404,253 +1548,6 @@ export class EditDetailsComponent implements OnInit {
 
 
   }
-
-
-
-  //..............resent records search items .....................................
-
-
-  DateChange(event: any) {
-
-    // console.log("date", event.target.value);
-    this.date = event.target.value;
-
-    this.updateform1();
-    // console.log("this.date", this.date);
-    // console.log("this.employee.EMP_ID", this.employee.EMP_ID);
-    // console.log("this.date", this.date);
-  }
-
-  OnChageeffectiveEndDate(event: any) {
-    this.effectiveEndDate = event.target.value;
-    // console.log("this.effectiveEndDate", this.effectiveEndDate);
-  }
-
-
-  
-
-  addressTypeDate() {
-    // alert(this.todaysDate);
-    // alert( this.addressType);
-    let enddate = '4712-12-31'
-    // console.log("ghhg", this.employeeList.employment_details[0].EMP_ID);
-
-    // try {
-    // alert(this.getPresentAddr.length)
-    // alert(this.addressType)
-      if (this.getPresentAddr.length === 0 && this.addressType == "PRESENT") {
-        this.ishideEditPrsentAdd=false;
-        this.ishidePrsentAdd=true;
-        this.addressForm = this.formbuilder.group({
-          // a: alert("check"),
-          EmployeeId: [this.employee.EMP_ID, Validators.required],
-          AddressType: ['PRESENT'],
-          Address: ['', Validators.required],
-          City: ['', Validators.required],
-          State: ['', Validators.required],
-          Country: ['', Validators.required],
-          Pincode: ['', Validators.required],
-          DateForm: ['', Validators.required],
-          Phone1: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-          DateTo: ['4712-12-31'],
-          // selectOption: [''],
-        });
-        this.loading2 = true
-        // if (this.loading2) {
-          this.openModal('custom-modal-5')
-        // }
-      } else {
-        // alert(this.todaysDate)
-        this.employeeService.sendAddresstypeDate(this.employee.EMP_ID, this.addressType, this.todaysDate, enddate).subscribe((res: any) => {
-          console.log("ressdgh", res);
-          // alert(3)
-          this.AddressData = res.data
-
-          console.log("this.AddressData", this.AddressData.STATE);
-
-          if (this.AddressData.ADDRESS_TYPE === "PRESENT") {
-            //  alert("1pre")
-            // alert(1)
-            console.log("this.AddressData", this.AddressData.STATE);
-            // alert("present")
-            this.addressForm = this.formbuilder.group({
-              // a: alert("check 1"),
-
-
-              EmployeeId: [this.AddressData.EMP_ID, Validators.required],
-              AddressType: [this.AddressData.ADDRESS_TYPE],
-              Address: [this.AddressData.ADDRESS, Validators.required],
-              City: [this.AddressData.CITY, Validators.required],
-              State: [this.AddressData.STATE, Validators.required],
-              Country: [this.AddressData.COUNTRY, Validators.required],
-              Pincode: [this.AddressData.PIN_CODE, Validators.required],
-              DateForm: [this.AddressData.DATE_FROM, Validators.required],
-              Phone1: [this.AddressData.PHONE_1, [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-              DateTo: [this.AddressData.DATE_TO],
-              // selectOption: [''],
-
-            });
-
-            this.loading2 = true;
-            this.addressForm.disable()
-            // if (this.loading2) {
-              this.openModal('custom-modal-5')
-
-            // }
-            // setTimeout(() => {
-            //   this.openModal('custom-modal-5')
-            // }, 1000);
-          }
-
-
-        }, error => {
-          // if(error.message === 'data not found'){
-
-          // }
-          console.log("err", error);
-          throw new Error("Server Error:", error.message)
-
-        })
-      }
-
-
-      if (this.addressType === "PERMANENT" && this.getPermanentAddr.length===0) {
-        this.ishideEditButton=false;
-        this.isPresntEnableButtons=true;
-      
-        // alert('1par')
-        this.addressForm1 = this.formbuilder.group({
-          EmployeeId: [this.employee.EMP_ID, Validators.required],
-          PermanentAdressType: ['PERMANENT'],
-          PermanentAddress: ['', Validators.required],
-          PermanentCity: ['', Validators.required],
-          PermanentState: ['', Validators.required],
-          PermanentCountry: ['', Validators.required],
-          PermanentPincode: ['', Validators.required],
-          PermanentDateForm: ['', Validators.required],
-          PermanentDateTo: ['4712-12-31', ],
-          PermanentPhone1: ['',Validators.required],
-        });
-        this.loading3 = true
-        // if (this.loading3) {
-          this.openModal('custom-modal-6')
-        // }
-      } else {
-        // alert(222)
-        
-        this.employeeService.sendAddresstypeDate(this.employee.EMP_ID, this.addressType, this.todaysDate, enddate).subscribe((res: any) => {
-          console.log("ressdgh", res);
-          this.AddressData = res.data
-
-          console.log("this.AddressData", this.AddressData.STATE);
-
-          if (this.AddressData.ADDRESS_TYPE === "PERMANENT") {
-          //  alert(1)
-            // alert(1)
-            console.log("this.AddressData", this.AddressData.STATE);
-            this.addressForm1 = this.formbuilder.group({
-              EmployeeId: [this.AddressData.EMP_ID, Validators.required],
-              PermanentAdressType: [this.AddressData.ADDRESS_TYPE],
-              PermanentAddress: [this.AddressData.ADDRESS, Validators.required],
-              PermanentCity: [this.AddressData.CITY, Validators.required],
-              PermanentState: [this.AddressData.STATE, Validators.required],
-              PermanentCountry: [this.AddressData.COUNTRY, Validators.required],
-              PermanentPincode: [this.AddressData.PIN_CODE, Validators.required],
-              PermanentDateForm: [this.AddressData.DATE_FROM, Validators.required],
-              PermanentDateTo: [this.AddressData.DATE_TO || '4712-12-31', Validators.required],
-              PermanentPhone1: [this.AddressData.PHONE_1,],
-
-            });
-
-            this.loading3 = true
-            this.addressForm1.disable();
-            if (this.loading3) {
-              this.openModal('custom-modal-6')
-
-            }
-            // setTimeout(() => {
-            //   this.openModal('custom-modal-5')
-            // }, 1000);
-          }
-
-
-        }, error => {
-          // if(error.message === 'data not found'){
-
-          // }
-          console.log("err", error);
-          throw new Error("Server Error:", error.message)
-
-        })
-      }
-
-    // } catch (error) {
-    //   console.error("Error getting the address details :", error)
-    // }
-  }
-
-  onChageEffectiveEmpDate(event: any) {
-    this.empEndDate = event.target.value;
-    // console.log("this.empEndDate", this.empEndDate);
-  }
-
-  // openeEmployeeModal(id: any) {
-  //   alert("id" + id)
-  //   this.modalId = id
-  // }
-
-  selectedValue(e: any) {
-    this.addressType = e.target.value;
-    // alert(this.addressType)
-
-    // alert(e.target.value)
-    if (e.target.value === "PRESENT") {
-      this.modalId1 = "custom-modal-5"
-      // alert("this.modalId1" + this.modalId1)
-    } else if (e.target.value === 'PERMANENT') {
-      this.modalId1 = "custom-modal-6"
-      // alert("this.modalId1" + this.modalId1)
-    } else if (e.target.value === 'EmergencyAddress') {
-      this.modalId1 = "custom-modal-7"
-    }
-  }
-
-
-  openModal(id: any) {
-    // alert(id)
-    console.log("id", id);
-
-    // if (id === "custom-modal-3") {
-    //   alert("ghjk")
-    this.modalId = id
-    this.modalServcie.open(id)
-    // }else{
-    //   this.modalId = id;
-    //   this.modalServcie.open(id)
-    // }
-
-
-
-  }
-  closeModal(id: any) {
-    if (id === "custom-modal-4") {
-      this.addressTypeDate()
-    }
-    this.modalServcie.close(id)
-  }
-
-  closeAndOpen(id4: any, id5: any) {
-    // alert("id4" + id4)
-    // alert("modalId" + this.modalId)
-    // alert("id5" + id5)
-
-    if (this.modalId == id4) {
-      this.modalServcie.close(id4)
-    }
-    this.modalServcie.open(id5)
-  }
-
-
 
 }
 

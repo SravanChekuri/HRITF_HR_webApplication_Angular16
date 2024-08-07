@@ -139,9 +139,14 @@ onSubmit() {
       EFFECTIVE_START_DATE: this.employeeForm.value['effectiveStartDate'],
       EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate']
   };
+  console.log("employeeData",employeeData);
+  
  
   // Submit the form
   this.service.addEmployee(employeeData).subscribe((res: any) => {
+    console.log("res",res);
+
+    
       Swal.fire({
           position: 'top',
           showConfirmButton: false,
@@ -157,6 +162,8 @@ onSubmit() {
       });
       this.employeeForm.reset();
   }, error => {
+    console.log("err",error);
+    
       this.msg = error.error?.message || error.error?.error || 'An error occurred';
       Swal.fire({
           position: "top",

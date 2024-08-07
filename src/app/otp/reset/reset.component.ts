@@ -42,12 +42,12 @@ export class ResetComponent implements OnInit {
         // console.log("dfghh",this.userData['username']);
         this.username=this.userData['username'];
         // console.log("username",this.username);
-        // Access the username property
         // console.log("Username:", this.userData.username);
       } else {
-        // console.log("No login data found in localStorage.");
+        this.username = this.route.snapshot.params['username'];
+        // console.log("username:",this.username);  
       }    
-    // this.username = this.route.snapshot.params['username'];
+    
     this.FormIntialization();
   }
 

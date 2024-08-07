@@ -1,20 +1,30 @@
 /* Custom styles to position the modal on the left side */
 
-.modal-left .modal-dialog {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  margin: 2; /* Remove default margins */
-  transform: none; /* Override any default transform */
+.modal-dialog {
+  position: relative;
+  top:12%;
+  left: 67%;
 }
  
-.modal-left .modal-content {
-  margin-top: 40%;
-  left: 320%;
-  border-radius: 0; /* Optional: Removes border-radius */
-  width: 400px; /* Adjust width as needed */
-  height: 50%; /* Optional: Full height */
+.modal-content {
+  width: 400px;
 }
+
+.modal-body img {
+  max-width: 100%; /* Ensure images do not overflow */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.modal-body p {
+  font-size: 1em; /* Adjust font size for readability */
+}
+
+.btn-danger {
+  width: 100%; /* Full-width button on small screens */
+  font-size: 16px; /* Adjust font size for better readability */
+  margin-bottom: 10%;
+}
+
  
 span{
   font-weight: 500;
@@ -37,7 +47,7 @@ span{
 .modal-left .modal-content {
   margin-top: 40%;
   left: 320%;
-  border-radius: 0; /* Optional: Removes border-radius */
+  border-radius: 10px; /* Optional: Removes border-radius */
   width: 400px; /* Adjust width as needed */
   height: 100%; /* Optional: Full height */
 }
@@ -69,6 +79,7 @@ nav ul {
 nav li {
   position: relative;
   margin: 0;
+  cursor: pointer;
 }
  
 nav a {
@@ -262,6 +273,16 @@ i:hover{
     display: block;
     position: relative;
   }
+
+  .modal-left .modal-dialog {
+    width: 90%; /* Make the modal wider on smaller screens */
+    left: 5%; /* Adjust the position to account for new width */
+  }
+
+  .modal-left .modal-content {
+    width: 100%; /* Ensure the content takes full width of the modal */
+    margin-top: 10%; /* Adjust margin-top for smaller screens */
+  }
 }
  
 @media (max-width: 500px) {
@@ -279,6 +300,15 @@ i:hover{
     position: relative;
     top: auto;
     left: auto;
+  }
+  .modal-left .modal-dialog {
+    width: 95%; /* Further adjust width for very small screens */
+    left: 2.5%; /* Fine-tune positioning for very small screens */
+  }
+
+  .modal-left .modal-content {
+    width: 100%; /* Full width on extra-small screens */
+    margin-top: 10%; /* Maintain margin-top consistency */
   }
 }
  

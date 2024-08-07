@@ -12,7 +12,7 @@
  
             <label for="effectiveStartDate">Effective Start Date<span class="required-star">*</span>:</label>
  
-            <input type="date" id="effectiveStartDate" formControlName="effectiveStartDate"  [max]="maxDate1">
+            <input type="date" id="effectiveStartDate" formControlName="effectiveStartDate"  [max]="maxDate1" >
  
             <div *ngIf="employeeForm.get('effectiveStartDate')?.touched && employeeForm.get('effectiveStartDate')?.hasError('required')" class="text-danger ms-3">
               *EffectiveStartDate is required
@@ -62,7 +62,7 @@
  
               <label for="employeeNumber" *ngIf="Employee">Employee Number<span class="required-star">*</span>:</label>
  
-              <input type="text" id="employeeNumber" formControlName="employeeNumber" required>
+              <input type="text" id="employeeNumber" formControlName="employeeNumber" required placeholder="Emp_Num_Must_Start_With_E_OR_C">
  
               <div *ngIf="Candidate">
  

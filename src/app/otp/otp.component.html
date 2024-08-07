@@ -8,7 +8,7 @@
             <form  [formGroup]="otppage" (ngSubmit)="onSubmit()">
                 <div class="d-flex flex-row justify-content-center">
                     <div>
-                        <input [type]="otp1Type" #txt1 maxlength="1" (keyup)="move($event, '', txt1, txt2)" formControlName="otp1" class="form-control" autofocus>
+                        <input [type]="otp1Type" #txt1 maxlength="1" (keyup)="move($event, '', txt1, txt2)" formControlName="otp1" class="form-control" id="myInput" autofocus>
                     </div>
                     <div>
                         <input [type]="otp2Type" #txt2 maxlength="1" (keyup)="move($event, txt1, txt2, txt3)" formControlName="otp2" class="form-control">

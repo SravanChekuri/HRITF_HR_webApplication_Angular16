@@ -31,10 +31,11 @@ export class OtpComponent implements OnInit {
     private services: ForgotPasswordService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.username = this.route.snapshot.params['username'];
     // console.log("username:", this.username)
     this.FormIntalization();
+    
   }
 
   FormIntalization() {
@@ -76,6 +77,8 @@ export class OtpComponent implements OnInit {
       username: this.username,
       otp: this.otpVal
     }
+    // console.log("otppage",otppage);
+    
     this.service.OtpDetails(otppage).subscribe((res) => {
       this.loading2 = false;
       if (res && res.message) {
@@ -90,6 +93,8 @@ export class OtpComponent implements OnInit {
         width: 400,
         timer: 2000,
       }).then(() => {
+        // console.log(this.username);
+        
         this.router.navigate(['/reset', { username: this.username }]);
       });
     },
@@ -145,6 +150,7 @@ export class OtpComponent implements OnInit {
         });
       });
   }
+
 
   
 }

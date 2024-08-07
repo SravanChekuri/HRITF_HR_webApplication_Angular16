@@ -30,7 +30,7 @@
                 <img src="../../../assets/images/userDP.jpg" alt="userimage">
               </div>
               
-              <p style="font-weight: bold;font-size: 1.2em;">Employee No:
+              <p style="font-weight: bold;font-size: 1.2em;">{{ employees.EMPLOYEE_DETAILS.EMP_NO.startsWith('C') ?'Candidate No':'Employee No'}}
                 <span style="color: red;">{{ employees.EMPLOYEE_DETAILS.EMP_NO }}</span>
                 <br>
                 Name: 

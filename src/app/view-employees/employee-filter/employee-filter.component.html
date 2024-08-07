@@ -5,10 +5,10 @@
 
     <div class="card p-3 ">
         <form (ngSubmit)="onSubmit()">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <label for="filter1">Search by Employee Number:<span class="required-star">*</span></label>
-                    <input type="text" id="filter1" [(ngModel)]="filterInput" name="filterInput" class="form-control" placeholder="Search Employee/CandidateNO">
+            <div class="row mb-3 d-flex flex-row">
+                <div class="col-md-4" style="margin-right: 20px;">
+                    <label for="filter1">Search by Number:<span class="required-star">*</span></label>
+                    <input type="text" id="filter1" [(ngModel)]="filterInput" name="filterInput" class="form-control" placeholder="Search Employee/Candidate Number">
                 </div>
 
                 <div class="col-md-4">

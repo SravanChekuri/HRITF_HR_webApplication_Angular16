@@ -39,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
     this.loading = true;
     this.service.ForgotDetails(FgpwPage).subscribe((res:any)=>{
-      this.loading = false;
+            this.loading = false;
       // console.log("fpw",res);
     if (res && res.message) {
       // alert(res.message);

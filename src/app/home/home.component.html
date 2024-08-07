@@ -6,7 +6,7 @@
 
       <li id="ch1">
         <div>
-          <img src="../../assets/images/Home-Img.png" alt="HRIT logo" (click)="backToHome()" class="logo" style="width: 60%;">
+          <img src="../../assets/images/Home-Img.png" alt="HRIT logo" (click)="backToHome()" class="logo" style="width: 60%;cursor: pointer;">
         </div>
       </li>
 
@@ -45,15 +45,10 @@
 </nav>
 
 
-<jw-modal id="custom-modal-8">
-  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModal('custom-modal-8');" style="margin-left: 98%;"></button>
-  <app-profile></app-profile>
-</jw-modal>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%; margin-left: 1%; ">
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 70%; margin-left: 16%; margin-top: 2%;">
-
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm modal-left">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header" style="display: flex; justify-content: flex-end;">
         <button type="button" class="custom-close" (click)="crossIcon()" aria-label="Close" style="border: none; width: 20%;"> &times; </button >

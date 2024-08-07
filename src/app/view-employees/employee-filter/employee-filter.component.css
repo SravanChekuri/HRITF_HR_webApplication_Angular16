@@ -8,8 +8,7 @@
     border-radius: 10px;
     padding: 2px;
     padding-left: 5px;
-    width: 100%;
-    
+    width: 300px;    
 }
 
 #applyFilter,
@@ -48,8 +47,8 @@ label {
 }
 
 .card {
-  margin-left: 19%;
-    width: 65%;
+  margin-left: 10%;
+    width: 80%;
     border: 1px solid white !important;
     border-radius: none !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
