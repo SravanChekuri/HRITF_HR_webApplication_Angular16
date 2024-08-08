@@ -1,6 +1,7 @@
 .emp:hover{
   color: blue;
-  text-decoration: underline;
+  text-decoration: none;
+  cursor: pointer;
 }
  
 .error-message{
@@ -39,8 +40,9 @@
 
 .employee-list-display {
   overflow-y: auto;
+  max-height: 500px;
   flex-grow: 1;
-    margin: 2% 2% 0 2%;
+  margin: 2% 2% 0 2%;
 }
  
 .employee-table {

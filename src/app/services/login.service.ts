@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { environment } from 'src/environments/environment.development';
-import { TokenserviceService } from './tokenservice.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs';
 
@@ -11,13 +9,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoginService {
 
-
   private notificationCountSource = new BehaviorSubject<number>(0);
   
   currentNotificationCount = this.notificationCountSource.asObservable();
 
 
-constructor(private http:HttpClient, private service:TokenserviceService) { }
+constructor(private http:HttpClient) { }
 
 
 //api for login
@@ -60,8 +57,6 @@ mfaAuth(mfaDataSend:any){
 
 notifications(): Observable<any> {
 
-  
- 
   const httpheaders = new HttpHeaders({
 
     Authorization: 'Bearer ' + localStorage.getItem('token'),

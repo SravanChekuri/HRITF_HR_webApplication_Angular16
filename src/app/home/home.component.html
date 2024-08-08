@@ -30,7 +30,7 @@
 
       <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Workflow</a></li>
 
-      <li class="has-submenu1 no-hover-effect" style="margin-top: 1%; cursor: pointer;" routerLink="/notifications">
+      <li class="has-submenu1 no-hover-effect" style="margin-top: 1%; cursor: pointer;" routerLink="/notifications" (click)="onBellIconClick()">
         <i class="fa-regular fa-bell" style="font-weight: bolder; font-size: x-large; position: relative;">
           <span *ngIf="notificationCount > 0" class="badge">{{ notificationCount}}</span>
         </i>

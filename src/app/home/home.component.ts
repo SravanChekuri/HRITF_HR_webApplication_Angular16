@@ -35,6 +35,10 @@ export class HomeComponent implements OnInit {
     this.service.currentNotificationCount.subscribe(count => {
       this.notificationCount = count;
     });
+    this.service.notifications().subscribe(res => {
+      this.notificationCount = res.count || 0;
+      this.service.updateNotificationCount(this.notificationCount);
+    });
   }
 
   backToHome() {
@@ -66,6 +70,12 @@ export class HomeComponent implements OnInit {
     this.buttonClick=false;
     // this.closeModal();
     location.reload();
+  }
+
+
+  onBellIconClick() {
+    this.service.clearNotificationCount();
+    // this.router.navigate(['/notifications']);
   }
 
 }
