@@ -50,7 +50,7 @@ img {
 .employee-card {
   width: calc(22% - 10px);
   margin-right: 1vw; 
-   margin-left: 1vw;
+  margin-left: 1vw;
   margin-bottom: 30px;
   border-radius: 10px;
   overflow: hidden;
@@ -69,7 +69,7 @@ img {
 }
 .employee-details2 {
   background-color: #c5f4fe;
-  height: 14vh;
+  height: 20vh;
 }
  
 .material-symbols-outlined {
@@ -97,7 +97,8 @@ img {
 }
  
 .employee-card {
-  width: calc(22% - 10px);
+  width: calc(30% - 20px);
+  height: 280px;
   margin-right: 1.5vw;
   margin-left: 1.5vw;
   margin-bottom: 40px;
@@ -105,7 +106,6 @@ img {
   overflow: hidden;
   position: relative;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
 }
  
  

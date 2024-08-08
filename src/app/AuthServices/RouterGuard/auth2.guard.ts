@@ -8,22 +8,23 @@ import { AuthService } from '../auth.service';
 })
 export class AuthGuard2 implements CanActivate {
 
-  userData:any; 
+  // userData:any; 
  
   constructor(private authService: AuthService, private router: Router) {
-    const userData1 = localStorage.getItem('loginData');
-      if(userData1){
-      this.userData =  JSON.parse(userData1);
-      }
+    // const userData1 = localStorage.getItem('loginData');
+    //   if(userData1){
+    //   this.userData =  JSON.parse(userData1);
+    //   }
     // console.log("userdata",this.userData);
   }
  
   canActivate(): boolean {
-    if (this.authService.isLoggedIn() && this.userData?.ROLE === "HR") {
-      return false;
+    const userData = this.authService.getUserData();
+    if (this.authService.isLoggedIn() && userData?.ROLE === "HR") {
+      return true;
     } else {
       this.router.navigate(['/login']);
-      return true;
+      return false;
     }
   }
 

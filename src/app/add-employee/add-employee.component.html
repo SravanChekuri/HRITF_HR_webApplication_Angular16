@@ -62,7 +62,7 @@
  
               <label for="employeeNumber" *ngIf="Employee">Employee Number<span class="required-star">*</span>:</label>
  
-              <input type="text" id="employeeNumber" formControlName="employeeNumber" required placeholder="Emp_Num_Must_Start_With_E_OR_C">
+              <input type="text" id="employeeNumber" formControlName="employeeNumber" required placeholder="Number must start with E or C">
  
               <div *ngIf="Candidate">
  
@@ -128,6 +128,11 @@
               <div *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.hasError('required')" class="text-danger ms-3">
                 *Email is required
               </div>
+              <div *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.hasError('email')"
+              class="text-danger">
+           *Invalid email format
+         </div>
+
  
             </div>
  

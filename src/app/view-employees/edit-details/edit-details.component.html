@@ -238,7 +238,7 @@
   
   <!------------------------------------------------ EMPLOYEMENT DETAILS ------------------------------------->
   
-  <button (click)="openModal('custom-modal-3')" class="btn btn-primary animated" style="width: 18%; margin-left: 6%;margin-top: 1%;">
+  <button (click)="openModal('custom-modal-3')" class="btn btn-primary animated" style="width: 270px; margin-left: 6%;margin-top: 1%;">
       <span class="text" *ngIf="updateForm.get('workerType').value === 'Employee'">Employee Employment Details</span>
       <span class="text" *ngIf="updateForm.get('workerType').value !== 'Employee'">Candidate Employment Details</span>
   </button>
@@ -556,7 +556,7 @@
   
                 <div style="width: 35%;margin-top: 2%;">
                   <label for="workerType">AddressType:<span style="color: red;">*</span>:</label>
-                  <select id="workerType" formControlName="workerType" class="form-control" (change)="selectedValue($event)" >
+                  <select id="workerType" formControlName="workerType" class="form-control" (change)="selectedValue($event)" [(ngModel)]="addressType">
                       <option value="" [selected]="selectedValue" disabled >Select an option</option>
                       <option value="PRESENT">PRESENT</option>
                       <option value="PERMANENT">PERMANENT</option>

@@ -60,7 +60,7 @@ export class EmployeeFilterComponent {
   esdDate(event:any){
      //alert(event.target.value)
    
-    this.empstartDate=event.target.value
+    this.empstartDate=event.target.value;
     // alert( this.empstartDate)
     localStorage.setItem('empstartDate', this.empstartDate);
     
@@ -95,5 +95,8 @@ export class EmployeeFilterComponent {
   //   localStorage.setItem("effeStarDate", this.empstartDate);
   // }
 
+onClick(){
+  alert("working");
+}
   
 }

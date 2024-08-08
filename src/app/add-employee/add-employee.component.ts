@@ -144,14 +144,14 @@ onSubmit() {
  
   // Submit the form
   this.service.addEmployee(employeeData).subscribe((res: any) => {
-    console.log("res",res);
+    console.log("res",res.message);
 
     
       Swal.fire({
           position: 'top',
           showConfirmButton: false,
           title: "Success",
-          text: `Candidate submitted successfully ${res.details.EMP_NO}`,
+          text: `Candidate submitted successfully ${res.message}`,
           icon: "success",
           timer: 1500,
           width: 500

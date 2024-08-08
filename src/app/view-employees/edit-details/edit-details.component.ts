@@ -64,7 +64,7 @@ export class EditDetailsComponent implements OnInit {
 
    Probation_Period: any[] = ['3 Months', '6 Months', '12 Months'];
 
-   Notice_Period: any[] = ['1 Months', '2 Months', '3 Months'];
+   Notice_Period: any[] = ['30 Days', '60 Days', '90 Days'];
 
 
 //------------------------------------------------------------------------------------------------------------------
@@ -244,19 +244,13 @@ loading3: any;
       this.employee = JSON.parse(empData);
       // console.log("this.employee",this.employee);
     
-     
-
-
-      console.log("empData", this.employee);
+     console.log("empData", this.employee);
       this.fetchEmpData(this.employee.EMP_NO,  this.filterESD, this.employee.EFFECTIVE_END_DATE);
     
       this.check()
-      
-
-
-    
-    }
+      }
   }
+
   onchange(event: any) {
     const a = event.target.value;
     if (a === 'Employee') {
@@ -289,7 +283,7 @@ loading3: any;
         //  console.log("result1 :", result)
         this.employeeList = result;
         this.employeeData=result.employee_details;
-        this.convertToEmployee()
+        // this.convertToEmployee()
         console.log("this.employeeData", this.employeeData);
         
 
@@ -354,20 +348,12 @@ loading3: any;
 
     if (this.empButtons) {
       this.updateForm.enable();
-      if (this.employeeData[0].WORKER_TYPE==="Employee"){
-      this.updateForm.get('employeeNumber')?.disable();
-      }
-      else{
-        this.updateForm.get('employeeNumber')?.enable();
-
-      }
       
 
     }
 
     else {
       this.updateForm.disable();
-      this.updateForm.get('employeeNumber')?.disable();
 
     }
 
@@ -375,20 +361,20 @@ loading3: any;
 
   }
 
-  convertToEmployee() {
-    alert(this.employeeData[0].WORKER_TYPE)
-    if (this.employeeData[0].WORKER_TYPE==="Employee"){
-      this.isConvertedToEmployee = true;
+  // convertToEmployee() {
+  //   // alert(this.employeeData[0].WORKER_TYPE)
+  //   if (this.employeeData[0].WORKER_TYPE==="Employee"){
+  //     this.isConvertedToEmployee = true;
       
 
 
-    }
-    else{
-      this.updateForm.get('employeeNumber')?.enable();
+  //   }
+  //   else{
+  //     this.updateForm.get('employeeNumber')?.enable();
 
-    }
+  //   }
   
-  }
+  // }
 
 
   //--------------------------------------------------------------------------------------------------------//
@@ -425,7 +411,7 @@ loading3: any;
 
   submitForm() {
 
-    console.log("this.updateForm", this.updateForm.status);
+    // console.log("this.updateForm", this.updateForm.status);
     this.loading = true;
     if (this.updateForm.status === "VALID") {
 
@@ -445,6 +431,8 @@ loading3: any;
         EFFECTIVE_END_DATE: this.updateForm.value['4712-12-31']
 
       }
+      // console.log(sendData);
+      
 
       this.employeeService.updateID(this.employee.EMP_ID, sendData).subscribe(
         (response: any) => {
@@ -468,7 +456,7 @@ loading3: any;
           })
         },
         (error) => {
-          // console.log("error",error);
+           console.log("error",error);
 
           this.loading = false;
 
@@ -501,6 +489,7 @@ loading3: any;
   submitDate() {
  //  alert(this.employeeESd)
   //  alert(this.effectiveEndDate)
+
     this.loading = true;
     this.employeeService.sendDate(this.employeeESd, this.employee.EMP_ID, this.effectiveEndDate).subscribe((res: any) => {
 
@@ -509,6 +498,15 @@ loading3: any;
       console.log("employeesearchbasedonemp&end", res);
 
       this.empDate = res['data']
+      if (this.empDate.WORKER_TYPE==="Candidate"){
+        this.addressButtonsHide=false;
+
+      }
+      else{
+        this.addressButtonsHide=true;
+
+
+      }
       console.log("this.empDate", this.empDate);
       this.updateForm = this.formbuilder.group({
 
@@ -527,6 +525,7 @@ loading3: any;
         effectiveEndDate: [this.empDate.EFFECTIVE_END_DATE]
 
       });
+      this.updateForm.disable();
 
     }, error => {
 
@@ -576,11 +575,15 @@ loading3: any;
 
     if (this.employmentbutton) {
       this.employementForm.enable()
+      
 
     }
 
     else {
       this.employementForm.disable()
+      this.employmentbutton=false;
+      this.isShowEmployementButtons=false;
+
     }
   }
 
@@ -657,7 +660,7 @@ loading3: any;
           timer: 1500
         }).then(() => {
           // this.isToggle2 = !this.isToggle2;
-          // this.employementForm.disable();
+         this.employementForm.disable();
         });
 
       }, error => {
@@ -982,6 +985,7 @@ loading3: any;
 
     this.employeeService.addressData(PermanentAddress, this.employee.EMP_ID).subscribe(
       (res: any) => {
+
         this.loading = false;
         Swal.fire({
           position: "top",
@@ -1089,7 +1093,7 @@ loading3: any;
     let enddate = '4712-12-31'
     // console.log("ghhg", this.employeeList.employment_details[0].EMP_ID);
 
-      if (this.getPresentAddr.length === 0 && this.addressType == "PRESENT") {
+      if (this.getPresentAddr.length === 0 && this.addressType === "PRESENT") {
         this.ishideEditPrsentAdd=false;
         this.ishidePrsentAdd=true;
         this.addressForm = this.formbuilder.group({
@@ -1142,8 +1146,10 @@ loading3: any;
 
             });
 
+
+
             this.loading2 = true;
-            // this.addressForm.disable()
+             this.addressForm.disable()
             // if (this.loading2) {
               this.openModal('custom-modal-5')
 
@@ -1168,6 +1174,7 @@ loading3: any;
       if (this.addressType === "PERMANENT" && this.getPermanentAddr.length===0) {
         this.ishideEditButton=false;
         this.isPresntEnableButtons=true;
+      
       
         // alert('1par')
         this.addressForm1 = this.formbuilder.group({
@@ -1214,7 +1221,7 @@ loading3: any;
             });
 
             this.loading3 = true
-            // this.addressForm1.disable();
+             this.addressForm1.disable();
             if (this.loading3) {
               this.openModal('custom-modal-6')
 
@@ -1276,6 +1283,11 @@ loading3: any;
       this.addressTypeDate()
     }
     this.modalServcie.close(id)
+    this.ishidePrsentAdd=false;
+    this.presentbutton=false;
+    this.isPresntEnableButtons=false;
+    this.permanentbuttons=false;
+
   }
 
   closeAndOpen(id4: any, id5: any) {
@@ -1535,6 +1547,8 @@ loading3: any;
         addressType: ['EMERGENCY_CONTACT', Validators.required],
         empId: [this.getEmergencydata[0].EMP_ID]
       });
+
+      this.emergencyContact.disable()
 
      
 

@@ -17,7 +17,7 @@
  
         <div *ngFor="let employeeGroup of employeeNumber.controls; let i = index" [formGroupName]="i" class="input-group" style="display: flex; flex-direction: column;">
  
-          <label for="employeeNumber">Employee Number*</label>
+          <label for="employeeNumber">Employee/Candidate Number<span style="color: red;font-weight: bold;">*</span>:</label>
  
       <div class="suggestions-container">
  
@@ -39,7 +39,7 @@
  
       <div class="input-group" style="display: flex; flex-direction: column;">
  
-        <label  for="letterTemplate">LetterTemplate</label>
+        <label  for="letterTemplate">LetterTemplate<span style="color: red;font-weight: bold;">*</span>:</label>
  
         <select id="letterType"  class="form-control" formControlName="letterTemplate">
  
@@ -55,7 +55,7 @@
   <div  style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
  
       <div class="button-container">
-        <button type="button" (click)="addEmployeeNumber()" class="btn btn-primary" role="button"><span class="text">Add Another Employee Number</span></button>
+        <button type="button" (click)="addEmployeeNumber()" class="btn btn-primary" role="button"><span class="text">Add another number</span></button>
       </div>
  
  

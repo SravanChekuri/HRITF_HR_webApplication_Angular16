@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   Signout() {
     this.Logout();
-    // window.location.reload();
+    window.location.reload();
   }
 
   Logout(){
