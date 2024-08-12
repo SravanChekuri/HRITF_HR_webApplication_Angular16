@@ -79,7 +79,7 @@
                   style="color: red;">*</span>:</label>
               <input type="date" id="effectiveStartDate" name="effectiveStartDate"
                 class="form-control" formControlName="effectiveStartDate"
-                [max]="maxDate">
+              >
               <div
                 *ngIf="updateForm.get('effectiveStartDate')?.touched && updateForm.get('effectiveStartDate')?.hasError('required')"
                 class="text-danger ms-3">
@@ -315,7 +315,7 @@
                   style="color: red;">*</span>:</label>
               <input type="date" id="Effective_Start_Date"
                 name="Effective_Start_Date" formControlName="Effective_Start_Date"
-                class="form-control" [max]="maxDate">
+                class="form-control" >
               <div
                 *ngIf="employementForm.get('Effective_Start_Date')?.touched && employementForm.get('Effective_Start_Date')?.hasError('required')"
                 class="text-danger ms-3">
@@ -530,7 +530,7 @@
   
           <div class="form-row" style="margin-bottom: 3%;margin-top: 4%; text-align: center;" *ngIf="employmentbutton || isShowEmployementButtons">
   
-            <div class="col">
+            <div class="col" [hidden]="employementForm.disabled">
               <button type="submit" class="btn btn-primary btn2 animated" style="width: 15%;"><span class="text" >Submit</span></button>
               <button class="btn btn-primary btn2 animated" style="width: 15%;"  type="button" (click)="closeModal('custom-modal-3');">
                 <span class="text" >Cancel</span>

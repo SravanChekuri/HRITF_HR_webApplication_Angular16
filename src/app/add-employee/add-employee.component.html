@@ -6,7 +6,7 @@
         <div class="form-row">
           <div class="form-col">
             <label for="effectiveStartDate">Effective Start Date<span class="required-star">*</span>:</label>
-            <input type="date" id="effectiveStartDate" formControlName="effectiveStartDate"  [max]="maxDate1" >
+            <input type="date" id="effectiveStartDate" formControlName="effectiveStartDate"  >
             <div *ngIf="employeeForm.get('effectiveStartDate')?.touched && employeeForm.get('effectiveStartDate')?.hasError('required')" class="text-danger ms-3">
               *EffectiveStartDate is required
             </div>

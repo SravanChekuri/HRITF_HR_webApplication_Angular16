@@ -675,7 +675,13 @@ selectedValue(e: any) {
         }).then(() => {
           this.presentbutton = !this.presentbutton;
           this.addressForm.disable();
+          this.fetchEmpData(
+            this.employee.EMP_NO,
+            this.filterESD,
+            this.employee.EFFECTIVE_END_DATE
+          );
         });
+        this.closeModal('custom-modal-5');
       }, error => {
         this.loading = false;
         if (error.error && error.error.error) {
@@ -746,7 +752,14 @@ selectedValue(e: any) {
         }).then(() => {
           this.permanentbuttons = !this.permanentbuttons;
           this.addressForm1.disable();
+          this.fetchEmpData(
+            this.employee.EMP_NO,
+            this.filterESD,
+            this.employee.EFFECTIVE_END_DATE
+          );
         });
+
+        this.closeModal('custom-modal-6');
       },
       error => {
         this.loading = false;
@@ -911,7 +924,7 @@ selectedValue(e: any) {
         });
       }
       if (this.addressType === "PERMANENT" && this.getPermanentAddr.length===0) {
-        alert("Permenant Address Init");
+        // alert("Permenant Address Init");
         this.ishideEditPermBtn = true;
         this.addressForm1 = this.formbuilder.group({
           EmployeeId: [this.employee.EMP_ID, Validators.required],
@@ -933,7 +946,7 @@ selectedValue(e: any) {
           this.AddressData = res.data;
             // console.log("this.AddressData", this.AddressData.STATE);
           if (this.AddressData.ADDRESS_TYPE === "PERMANENT") {
-            alert("Prmanent Address Update");
+            // alert("Prmanent Address Update");
             this.ishideEditPermBtn = false;
             // console.log("this.AddressData", this.AddressData.STATE);
           this.addressForm1 = this.formbuilder.group({
@@ -1086,7 +1099,14 @@ selectedValue(e: any) {
         }).then(() => {
           this.isHideEmergencyButtons=!this.isHideEmergencyButtons;
           this.emergencyContact.disable();
+          this.fetchEmpData(
+            this.employee.EMP_NO,
+            this.filterESD,
+            this.employee.EFFECTIVE_END_DATE
+          );
         });
+
+        this.closeModal('custom-modal-7');
       },
       error => {
         console.log("error", error);
@@ -1141,7 +1161,13 @@ selectedValue(e: any) {
       }).then(() => {
         this.isHideEmergencyButtons=!this.isHideEmergencyButtons;
         this.emergencyContact.disable();
+        this.fetchEmpData(
+          this.employee.EMP_NO,
+          this.filterESD,
+          this.employee.EFFECTIVE_END_DATE
+        );
       });
+      this.closeModal('custom-modal-7')
     }, error => {
       // console.log("err", error);
       Swal.fire({
