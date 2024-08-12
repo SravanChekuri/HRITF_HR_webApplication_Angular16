@@ -170,6 +170,7 @@ select[disabled],
 textarea[disabled],
 button[disabled] {
 cursor: not-allowed;
+background-color: rgb(239, 239, 239);
 }
  
  
@@ -305,3 +306,9 @@ margin:2% 0 0 2%
 .scrolling{
   overflow-y:hidden;
 }
+
+/* .disabled-select {
+  background-color: #e9ecef; 
+  cursor: not-allowed;
+  pointer-events: none; 
+} */

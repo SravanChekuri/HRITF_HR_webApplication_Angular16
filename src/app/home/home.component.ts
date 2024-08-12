@@ -32,13 +32,26 @@ export class HomeComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.service.currentNotificationCount.subscribe(count => {
-      this.notificationCount = count;
-    });
-    this.service.notifications().subscribe(res => {
-      this.notificationCount = res.count || 0;
-      this.service.updateNotificationCount(this.notificationCount);
-    });
+    // this.service.currentNotificationCount.subscribe(count => {
+    //   this.notificationCount = count;
+    // });
+    // this.service.notifications().subscribe(res => {
+    //   this.notificationCount = res.count || 0;
+    //   this.service.updateNotificationCount(this.notificationCount);
+    // });
+    const justLoggedIn = sessionStorage.getItem('justLoggedIn');
+    const notificationsViewed = sessionStorage.getItem('notificationsViewed');
+    if (justLoggedIn === 'true' && notificationsViewed !== 'true') {
+      this.service.notifications().subscribe((res) => {
+        this.notificationCount = res.count || 0;
+        this.service.updateNotificationCount(this.notificationCount);
+        sessionStorage.setItem('justLoggedIn', 'false'); 
+      });
+    } else {
+      this.service.currentNotificationCount.subscribe((count) => {
+        this.notificationCount = count;
+      });
+    }
   }
 
   backToHome() {
@@ -52,6 +65,8 @@ export class HomeComponent implements OnInit {
 
   Logout(){
     this.Authservices.logout();
+    sessionStorage.removeItem('justLoggedIn');
+    sessionStorage.removeItem('notificationsViewed');
   }
 
   // navigateToProfile(id: any) {
@@ -74,7 +89,9 @@ export class HomeComponent implements OnInit {
 
 
   onBellIconClick() {
+    this.notificationCount = 0;
     this.service.clearNotificationCount();
+    sessionStorage.setItem('notificationsViewed', 'true');
     // this.router.navigate(['/notifications']);
   }
 

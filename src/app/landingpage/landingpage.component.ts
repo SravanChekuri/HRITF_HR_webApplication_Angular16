@@ -71,7 +71,7 @@ export class LandingpageComponent implements OnInit {
       this.currentPage = 1; // Reset to the first page on data fetch
       this.updateDisplayedEmployees();
     }, error => {
-      console.error(error);
+      // console.error(error);
     });
   }
  
@@ -116,4 +116,7 @@ export class LandingpageComponent implements OnInit {
   filterInputData(event: any) {
     this.filterEmployees();
   }
+
+
+  
 }

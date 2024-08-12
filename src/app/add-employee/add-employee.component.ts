@@ -64,7 +64,7 @@ export class AddEmployeeComponent implements OnInit {
       Work_location: ['', Validators.required],
       workerType: ['', Validators.required],
       effectiveStartDate: ['',[Validators.required, this.dateValidator.bind(this)]],
-      effectiveEndDate: ['4712-12-13',],
+      effectiveEndDate: ['4712-12-31',],
       email: ['', [Validators.required, Validators.email]]
  
     });
@@ -144,16 +144,14 @@ onSubmit() {
  
   // Submit the form
   this.service.addEmployee(employeeData).subscribe((res: any) => {
-    console.log("res",res.message);
-
-    
+    // console.log("res",res.message);
       Swal.fire({
           position: 'top',
           showConfirmButton: false,
           title: "Success",
-          text: `Candidate submitted successfully ${res.message}`,
+          text: `${res.message}`,
           icon: "success",
-          timer: 1500,
+          timer: 2000,
           width: 500
       }).then(() => {
           setTimeout(() => {
@@ -162,8 +160,7 @@ onSubmit() {
       });
       this.employeeForm.reset();
   }, error => {
-    console.log("err",error);
-    
+    // console.log("err",error);
       this.msg = error.error?.message || error.error?.error || 'An error occurred';
       Swal.fire({
           position: "top",
@@ -178,7 +175,6 @@ onSubmit() {
  
  
   chageworkerType(event:any){
-   
     const change=event.target.value;
     // console.log("change",change);
     if (change==='Employee'){

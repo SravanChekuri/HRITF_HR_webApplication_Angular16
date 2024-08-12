@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("qrdata",JSON.stringify(this.qrCodeData));
       localStorage.setItem("loginData",  JSON.stringify(this.loginData));
       // console.log(this.loginData.mfaenable);
+      sessionStorage.setItem('justLoggedIn', 'true');
       if (this.loginData.mfaenable===false){
         this.router.navigate(['barcode']);
       }

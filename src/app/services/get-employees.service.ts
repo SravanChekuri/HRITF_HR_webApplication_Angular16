@@ -54,7 +54,7 @@ export class GetEmployeesService {
     });
 
     const permantapi = environment.baseApiKey + '/getAddrDetails/' + id + '/' + type + '/' + esd + '/' + '4712-12-31';
-    console.log("permantapi", permantapi);
+    // console.log("permantapi", permantapi);
 
     return this.http.get(permantapi, { headers: httpheaders });
 
@@ -93,7 +93,7 @@ export class GetEmployeesService {
     });
 
     const emergencyapi = environment.baseApiKey + '/getEmergencyDetails/' + id + '/' + esd + '/' + '4712-12-31';
-    console.log("permantapi", emergencyapi);
+    // console.log("permantapi", emergencyapi);
 
     return this.http.get<any>(emergencyapi, { headers: httpheaders });
 
@@ -113,7 +113,7 @@ export class GetEmployeesService {
     });
 
     const getEmergencyapi = environment.baseApiKey + '//' + id;
-    console.log("permantapi", getEmergencyapi);
+    // console.log("permantapi", getEmergencyapi);
 
     return this.http.get(getEmergencyapi, { headers: httpheaders });
 
@@ -180,8 +180,7 @@ export class GetEmployeesService {
     });
 
     const api = environment.baseApiKey + '/getDetailsByEmpEsdEed/' + id + '/' + startDate + '/' + endDate;
-    console.log("editapi",api);
-    
+    // console.log("editapi",api);
 
     return this.http.get<any>(api, { headers: httpheaders });
 
@@ -339,7 +338,7 @@ export class GetEmployeesService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
 
     });
-  console.log("apiii",environment.baseApiKey + "/getEmployementDetails/" + id + '/' + date + '/' + enddate);
+    // console.log("apiii",environment.baseApiKey + "/getEmployementDetails/" + id + '/' + date + '/' + enddate);
   
     return this.http.get(environment.baseApiKey + "/getEmployementDetails/" + id + '/' + date + '/' + enddate, { headers: httpheaders });
 

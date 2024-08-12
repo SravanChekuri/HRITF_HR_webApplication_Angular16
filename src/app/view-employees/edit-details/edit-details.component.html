@@ -24,6 +24,11 @@
   
     </div>
   
+
+
+
+
+
     <!--------------------------------------------Edit emp/candidate--------------------------------------------------------->
   
    <div class="edit-Container" >
@@ -93,9 +98,10 @@
               <label for="workerType">Worker Type<span
                   style="color: red;">*</span>:</label>
               <select id="workerType" class="form-control"
-                formControlName="workerType" (change)="onchange($event)">
+                formControlName="workerType" (change)="onchange($event)" >
+                <!-- [disabled]="employeeData[0].WORKER_TYPE === 'Employee'" [ngClass]="{'disabled-select':employeeData[0].WORKER_TYPE === 'Employee'}" -->
                 <option
-                  [selected]="updateForm.get('workerType').value === ''">Select...</option>
+                  [selected]="updateForm.get('workerType').value === ''" disabled>Select...</option>
                 <option value="Employee"
                   [selected]="updateForm.get('workerType').value === 'Employee'">Employee</option>
                 <option value="candidate"
@@ -118,7 +124,8 @@
               <label for="employeeNumber" *ngIf="isEmployee">Employee Number<span
                   style="color: red;">*</span>:</label>
               <input type="text" id="employeeNumber" name="employeeNumber"
-                class="form-control" formControlName="employeeNumber">
+                class="form-control disabled-select" formControlName="employeeNumber"  >
+                <!-- [attr.readonly]="employeeData[0].WORKER_TYPE === 'Employee' ? true : null" -->
               <div *ngIf="isEmployee">
                 <div
                   *ngIf="updateForm.get('employeeNumber')?.touched && updateForm.get('employeeNumber')?.hasError('required')"
@@ -140,8 +147,9 @@
             <div class="form-group col-md-4">
               <label for="email">Email Address <span
                   style="color: red;">*</span>:</label>
-              <input type="email" id="email" name="email" class="form-control"
+              <input type="email" id="email" name="email" class="form-control disabled-select"
                 formControlName="email">
+                <!-- [attr.readonly]="employeeData[0].WORKER_TYPE === 'Employee' ? true : null" -->
               <div
                 *ngIf="updateForm.get('email')?.touched && updateForm.get('email')?.hasError('required')"
                 class="text-danger ms-3">
@@ -202,8 +210,17 @@
             <div class="form-group col-md-4">
               <label for="workLocation">Work Location<span
                   style="color: red;">*</span>:</label>
-              <input type="text" id="workLocation" name="workLocation"
-                class="form-control" formControlName="workLocation">
+              <!-- <input type="text" id="workLocation" name="workLocation"
+                class="form-control" formControlName="workLocation"> --> 
+                <select id="Work_location" formControlName="workLocation">
+                  <option value=""selected disabled>Select...</option>
+                  <option value="Hyderabad" selected>Hyderabad</option>
+                  <option value="Bengaluru" selected>Bengaluru</option>
+                  <option value="Chennai" selected>Chennai</option>
+                  <option value="Mumbai" selected>Mumbai</option>
+                  <option value="Pune" selected>Pune</option>
+                </select>
+    
               <div
                 *ngIf="updateForm.get('workLocation')?.touched && updateForm.get('workLocation')?.hasError('required')"
                 class="text-danger ms-3">
@@ -212,16 +229,15 @@
             </div>
   
           </div>
-  
-          <!--for bottom space-->
-  
+    
           <div class="row">
   
             <div class="col" style="margin-bottom: 2%; text-align: center;">
               <button type="submit" class="btn btn-primary animated" style="width: 8%; margin-right: 2%;" role="button"
                  *ngIf="empButtons"><span class="text">Update</span></button>
               <button type="button" class="btn btn-primary m-1 animated"  style="width: 8%; background-color: gray;"
-                routerLink="/viewEmployees" *ngIf="empButtons" role="button"> <span class="text" >Cancel</span></button>
+                 *ngIf="empButtons" (click)="isEmployeeContent()" role="button"> <span class="text" >Cancel</span>
+              </button>
             </div>
   
           </div>
@@ -235,6 +251,11 @@
     </div>
   
   </div>
+
+
+
+
+
   
   <!------------------------------------------------ EMPLOYEMENT DETAILS ------------------------------------->
   
@@ -247,8 +268,8 @@
   <div class="main">
     <div class="container-box">
   
-      <jw-modal id="custom-modal-3" *ngIf="sampleData">
-  
+      <jw-modal id="custom-modal-3" *ngIf="EmployementData">
+
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"  (click)="closeModal('custom-modal-3')"></button>
   
         <hr>
@@ -312,8 +333,9 @@
             <div class="form-group col-md-4">
               <label for="workerType">Worker Type<span
                   style="color: red;">*</span>:</label>
-              <select id="workerType" formControlName="workerType"
+              <select id="workerType" formControlName="workerType" 
                 class="form-control">
+                <!-- [ngClass]="{'disabled-select': employeeList.employment_details[0].WORKER_TYPE === 'Employee'}" -->
                 <option value selected disabled>Select...</option>
                 <option value="Candidate">Candidate</option>
                 <option value="Employee">Employee</option>
@@ -358,7 +380,8 @@
                   style="color: red;">*</span>:</label>
               <input type="date" id="dateOfJoining"
                 formControlName="dateOfJoining"
-                required class="form-control">
+                required class="form-control disabled-select" >
+                <!-- [attr.readonly]="employeeList.employment_details[0].WORKER_TYPE === 'Employee' ? true : null" -->
               <div
                 *ngIf="employementForm.get('dateOfJoining')?.touched && employementForm.get('dateOfJoining')?.hasError('required')"
                 class="text-danger ms-3">
@@ -486,7 +509,6 @@
             <div class="form-group col-md-4">
               <label for="Probation-Period">Probation Period <span
                   style="color: red;">*</span>:</label>
-                  <!-- <input type="text" id="Probation-Period" name="Probation_Period"  formControlName="Probation_Period" class="form-control"/> -->
             <select id="Probation-Period" name="Probation_Period"
                 formControlName="Probation_Period" class="form-control">
                 <option [ngValue]="null" disabled>Choose your
@@ -505,7 +527,6 @@
   
           </div>
   
-           <!--for bottom space-->
   
           <div class="form-row" style="margin-bottom: 3%;margin-top: 4%; text-align: center;" *ngIf="employmentbutton || isShowEmployementButtons">
   
@@ -528,11 +549,18 @@
     </div>
   
   </div>
+
+
+
+
+
+
+
   
   <!--------------------------------------- ADDRESS DETAILS----------------------------------->
   
   
-  <button class="btn btn-primary animated" *ngIf="addressButtonsHide"(click)="openModal('custom-modal-4')" style="margin-left: 6%;width: 270px;"> 
+  <button class="btn btn-primary animated" *ngIf="addressButtonsHide" (click)="openModal('custom-modal-4')" style="margin-left: 6%;width: 270px;"> 
     <span class="text" >Employee Address Details </span>
   </button>
   
@@ -593,12 +621,14 @@
                   <label for>Date To:</label>
                   <input type="date" [(ngModel)]="presentEnd" class="form-control">
                 </div>
-  
                 <button class="btn btn-primary animated" (click)="presentesdAddData()" style="width: 100px;margin-top: 3%;margin-left: -4%;"><span class="text">Search</span></button>
   
           </div>
   
-          <h3 class="btn btn-primary sub-button animated" style="margin-left: 87%;" *ngIf="ishideEditPrsentAdd" (click)="Emppresent()"> 
+<!----------------------------------------------------------------------------------------------------------------->
+
+
+          <h3 class="btn btn-primary sub-button animated" style="margin-left: 87%;"  (click)="Emppresent()" *ngIf="!ishideEditPrsentAdd"> 
             <span style="cursor: pointer;" class="edit-icon text"><i class="fa-solid fa-pen-to-square" ></i><span class="text" >Edit</span></span>
           </h3>
           
@@ -706,7 +736,7 @@
             </div>
   
   
-              <div class="form-group col-md-12" style=" text-align: center; margin-bottom: 2%;" *ngIf="presentbutton || ishidePrsentAdd">
+              <div class="form-group col-md-12" style=" text-align: center; margin-bottom: 2%;" [hidden]="addressForm.disabled">
                 <button type="submit" class="btn btn-primary animated" style="width: 10%;"><span class="text">Submit</span></button>
                 <button class="btn btn-primary btn2 animated"  type="button" (click)="closeModal('custom-modal-5');" style="width: 10%; background-color: gray;"><span class="text">Cancel</span></button>
               </div>
@@ -722,6 +752,8 @@
   </div>
   
   <!------------------------------------- PERMANENT ADDRESS------------------------------------------------ -->
+
+
   <jw-modal id="custom-modal-6">
     <div>
   
@@ -747,7 +779,7 @@
   
         </div>
   
-        <h3 class="btn btn-primary sub-button animated" style="margin-left: 87%; " *ngIf="ishideEditButton" (click)="emppermant()"> 
+        <h3 class="btn btn-primary sub-button animated" style="margin-left: 87%; " *ngIf="!ishideEditPermBtn" (click)="emppermant()"> 
           <span style="cursor: pointer;" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i><span class="text">Edit</span></span>
         </h3>
   
@@ -858,8 +890,8 @@
   
   
             <!-- Buttons -->
-            <div class="form-row" style=" text-align: center;" *ngIf="permanentbuttons || isPresntEnableButtons">
-              <div class="col" >
+            <div class="form-row" style=" text-align: center;">
+              <div class="col" [hidden]="addressForm1.disabled" >
                 <button type="submit" class="btn btn-primary animated" style="width: 15%;"><span class="text">Submit</span></button>
                 <button class="btn btn-primary btn2 animated" style="width: 15%;background-color: gray;" type="button" (click)="closeModal('custom-modal-6')" ><span class="text">Cancel</span></button>
               </div>
@@ -1041,7 +1073,7 @@
               </div>
             </div>
   
-            <div class="form-row" style="justify-content: center;">
+            <div class="form-row" style="justify-content: center;" [hidden]="emergencyContact.disabled">
               <div class="form-group col" style="margin-bottom: 1%; text-align: center; display: flex; flex-direction: row;" >
                 <button type="submit" *ngIf="emergencyformButtons" class="btn btn-primary animated"  style="width: 30%;"><span class="text" >Submit</span></button>
                 <button type="button"  class="btn btn-primary btn2 animated"  style="width: 30%;"   (click)="updateEmergency()" *ngIf="loading4 && updateEmergencyButton && isHideEmergencyButtons"><span class="text" >Update</span></button>
@@ -1051,7 +1083,6 @@
           </form>
         </div>
       </div>
-    <!-- </div> -->
   </jw-modal>
   
   

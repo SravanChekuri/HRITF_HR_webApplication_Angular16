@@ -25,7 +25,7 @@ export class EmployeeFilterComponent {
     // console.log( localStorage.setItem("empstartDate",this.empstartDate));
     this.setTodayDate() 
     //  alert(this.empstartDate)
-    console.log("esd",this.empstartDate);
+    // console.log("esd",this.empstartDate);
   
  
     
@@ -95,8 +95,5 @@ export class EmployeeFilterComponent {
   //   localStorage.setItem("effeStarDate", this.empstartDate);
   // }
 
-onClick(){
-  alert("working");
-}
   
 }

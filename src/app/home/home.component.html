@@ -1,19 +1,14 @@
 <nav class="fixed-top">
-
   <div>
-
     <ul>
-
       <li id="ch1">
         <div>
           <img src="../../assets/images/Home-Img.png" alt="HRIT logo" (click)="backToHome()" class="logo" style="width: 60%;cursor: pointer;">
         </div>
       </li>
-
       <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;">
         <a routerLink="/landing">Home</a>
       </li>
-
       <li class="head has-submenu" style="margin-top: 1%; margin-bottom: 0.5%; display: flex; flex-direction: row;">
         <a routerLink="/landing">Employee</a>
         <ul class="submenu">
@@ -23,31 +18,22 @@
           <li *ngIf="userData.ROLE==='Admin'"><a routerLink="/register">Add User</a></li>
         </ul>
       </li>
-
       <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Payroll</a></li>
-
       <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Leaves</a></li>
-
       <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Workflow</a></li>
-
       <li class="has-submenu1 no-hover-effect" style="margin-top: 1%; cursor: pointer;" routerLink="/notifications" (click)="onBellIconClick()">
         <i class="fa-regular fa-bell" style="font-weight: bolder; font-size: x-large; position: relative;">
           <span *ngIf="notificationCount > 0" class="badge">{{ notificationCount}}</span>
         </i>
       </li>
-
       <li class="has-submenu1 no-hover-effect" style="margin-top: 1%;cursor: pointer;" data-bs-toggle="modal"  data-bs-target="#exampleModal"><i class="fa-solid fa-user" style="font-weight: bolder;font-size: xx-large;"></i></li>
-
     </ul>
-
   </div>
-
 </nav>
 
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="height: 100%; margin-left: 1%; ">
-
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header" style="display: flex; justify-content: flex-end;">
@@ -71,5 +57,8 @@
       </div>
     </div>
   </div>
-
 </div>
+
+
+
+b
