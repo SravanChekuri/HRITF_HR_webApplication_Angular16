@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../../employee';
 import { GetEmployeesService } from '../../services/get-employees.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -50,7 +50,7 @@ export class EditDetailsComponent implements OnInit {
 
 addressButtonsHide: boolean;
 todaysDate: any;
-addressType: any;
+addressType: string=" ";
 modalId1: any;
 
 //-------------------------------------------------------------------------------------------------------
@@ -115,6 +115,9 @@ esd: any;
 loading: boolean = false;
 modalId: any;
 loading3: any;
+
+
+@ViewChild('workerTypeSelect', { static: false }) workerTypeSelect!: ElementRef;
 
 
   constructor(
@@ -209,7 +212,7 @@ loading3: any;
         }       
       });
     } catch (error) {
-      alert("Error fetching the Employeee data");
+      // alert("Error fetching the Employeee data");
       // console.error("Error fetching the Employeee data:", error);
     }
 
@@ -230,13 +233,25 @@ loading3: any;
 
   closeModal(id: any) {
     if (id === "custom-modal-4") {
-      this.addressTypeDate()
+      this.addressTypeDate();
     }
     this.modalServcie.close(id)
     this.presentbutton=false;
     this.permanentbuttons=false;
   }
   
+  cls(id:any){
+    this.resetAddressType();
+    this.AddressData = '';
+    this.modalServcie.close(id);
+  }
+
+  resetAddressType() {
+    this.addressType = ''; 
+    if (this.workerTypeSelect) {
+      (this.workerTypeSelect.nativeElement as HTMLSelectElement).value = '';
+    }
+  }
 
 
   //----------------------------------------------------For model boxes----------------------------------------------------//
@@ -610,7 +625,8 @@ selectedValue(e: any) {
   if (e.target.value === "PRESENT") {
     this.modalId1 = "custom-modal-5"
   } else if (e.target.value === 'PERMANENT') {
-    this.modalId1 = "custom-modal-6"
+    this.modalId1 = "custom-modal-6";
+    this.permanentbuttons = true;
   }
 }
 
@@ -873,6 +889,7 @@ selectedValue(e: any) {
 
 
   addressTypeDate() {
+    // alert("Address type date method called.");
     let enddate = '4712-12-31';
     if (this.getPresentAddr.length === 0 && this.addressType === "PRESENT") {
         // alert(" Present Adress Init");

@@ -569,7 +569,7 @@
       <div class="container-box">
         
         <jw-modal id="custom-modal-4">
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"(click)="closeModal('custom-modal-4');"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"(click)="closeModal('custom-modal-4')"></button>
           <hr>
   
           <h3 >Employee Address Deatils :</h3>
@@ -584,7 +584,7 @@
   
                 <div style="width: 35%;margin-top: 2%;">
                   <label for="workerType">AddressType:<span style="color: red;">*</span>:</label>
-                  <select id="workerType" formControlName="workerType" class="form-control" (change)="selectedValue($event)" [(ngModel)]="addressType">
+                  <select id="workerType" [(ngModel)]="addressType" #workerTypeSelect formControlName="workerType" class="form-control" (change)="selectedValue($event)">
                       <option value="" [selected]="selectedValue" disabled >Select an option</option>
                       <option value="PRESENT">PRESENT</option>
                       <option value="PERMANENT">PERMANENT</option>
@@ -593,7 +593,7 @@
   
                 <div style="display: flex;">
                   <button (click)="closeModal('custom-modal-4')" class="btn btn-primary  esdButtons animated" role="button"><span class="text" >OK</span></button>
-                  <button (click)="closeModal('custom-modal-4');" class="btn btn-primary  esdButtons animated" role="button" style="margin-left: 20px; background-color: gray;"><span class="text" >Cancel</span></button>
+                  <button (click)="cls('custom-modal-4')" class="btn btn-primary  esdButtons animated" role="button" style="margin-left: 20px; background-color: gray;"><span class="text" >Cancel</span></button>
                 </div>
             </div>
   
@@ -606,8 +606,12 @@
   <!--------------------------------------------Present Address Form -------------------------------------------------------------------->
   
         <jw-modal id="custom-modal-5" class="scrolling">
+
+          <span (click)="cls('custom-modal-5')">
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModal('custom-modal-5');"></button>
+
+          </span>
   
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModal('custom-modal-5');"></button>
           <hr>
   
           <div  style="display: flex; flex-direction: row;margin-left: 5%;">
@@ -738,7 +742,9 @@
   
               <div class="form-group col-md-12" style=" text-align: center; margin-bottom: 2%;" [hidden]="addressForm.disabled">
                 <button type="submit" class="btn btn-primary animated" style="width: 10%;"><span class="text">Submit</span></button>
-                <button class="btn btn-primary btn2 animated"  type="button" (click)="closeModal('custom-modal-5');" style="width: 10%; background-color: gray;"><span class="text">Cancel</span></button>
+                <span (click)="cls('custom-modal-5')">
+                  <button class="btn btn-primary btn2 animated"  type="button" (click)="closeModal('custom-modal-5');" style="width: 10%; background-color: gray;"><span class="text">Cancel</span></button>
+                </span>
               </div>
   
   
@@ -758,7 +764,9 @@
     <div>
   
       <div>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"  (click)="closeModal('custom-modal-6')"></button>
+        <span (click)="cls('custom-modal-6')">
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"  (click)="closeModal('custom-modal-6')"></button>
+        </span>
         <hr>
   
           <div  style="display: flex; flex-direction: row; ">
@@ -893,7 +901,9 @@
             <div class="form-row" style=" text-align: center;">
               <div class="col" [hidden]="addressForm1.disabled" >
                 <button type="submit" class="btn btn-primary animated" style="width: 15%;"><span class="text">Submit</span></button>
-                <button class="btn btn-primary btn2 animated" style="width: 15%;background-color: gray;" type="button" (click)="closeModal('custom-modal-6')" ><span class="text">Cancel</span></button>
+                <span (click)="cls('custom-modal-6')"> 
+                  <button class="btn btn-primary btn2 animated" style="width: 15%;background-color: gray;" type="button" (click)="closeModal('custom-modal-6')" ><span class="text">Cancel</span></button>
+                </span>
               </div>
             </div>
   
