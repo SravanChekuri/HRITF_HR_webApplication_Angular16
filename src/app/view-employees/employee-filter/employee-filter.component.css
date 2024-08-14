@@ -1,20 +1,19 @@
 #empheading {
     padding: 2%;
 }
-
+ 
 #filter1,
 #empstartDate {
     border: 2px solid #ccc;
     border-radius: 10px;
     padding: 2px;
     padding-left: 5px;
-    width: 230px; 
+    width: 100%;
+   
 }
-
-
+ 
 #applyFilter,
 #removeFilter {
-    margin: 9% 0 0 10%;
     width: 50px;
     height: 40px;
     text-align: center;
@@ -22,7 +21,7 @@
     font-size: 20px;
     background-color: #77c2ff;
 }
-
+ 
 #errorContainer {
     width: 100%;
     height: 30vh;
@@ -31,27 +30,26 @@
     justify-content: center;
     align-items: center;
 }
-
+ 
 #errorContainer p {
     font-size: 50px;
     color: red;
     font-weight: bold;
 }
-
+ 
 .icon > span {
     margin-top: 30vh;
     font-size: 100px;
 }
-
+ 
 label {
     font-weight: bold;
     margin-bottom: 1%;
-    margin-left: 3%;
 }
-
+ 
 .card {
-  margin-left: 20%;
-    width: 60%;
+  margin-left: 19%;
+    width: 65%;
     border: 1px solid white !important;
     border-radius: none !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -60,28 +58,4 @@ label {
     color: red;
     margin-left: 5px;
 }
-
-
-
-/* Ensure the container is flexbox based */
-.row.d-flex {
-    display: flex;
-    align-items: center; /* Align items vertically centered */
-}
-
-.col-md-4 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 0; /* Remove margin to ensure alignment */
-}
-
-button {
-    flex-shrink: 0; /* Prevent buttons from shrinking */
-}
+ 
