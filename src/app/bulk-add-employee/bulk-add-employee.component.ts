@@ -12,7 +12,6 @@ import { AddEmployeeService } from '../services/addEmployee.service';
 })
 export class BulkAddEmployeeComponent implements OnInit {
 
-  // bulkAddUrl = "http://127.0.0.1:5000/uploadexcel";
   file: any;
   msg: any;
   loading1:boolean=false;
@@ -26,7 +25,6 @@ export class BulkAddEmployeeComponent implements OnInit {
     this.file = event.target.files[0];
     if (this.file) {
       const fileName = this.file.name;
-     
     }
     // console.log(this.file);
   }
@@ -64,23 +62,22 @@ export class BulkAddEmployeeComponent implements OnInit {
     let formData = new FormData();
     formData.append("Excel", this.file);
     const httpheaders = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     this.loading1=true;
-
     this.blukService.sendBulkData(formData).subscribe((res:any)=>{
       // console.log("bulkRes",res);
       // alert(res.message)
       this.loading1=false;
       if(res.message){
           this.msg=res.message;
-          console.log(res.message);   
+          // console.log(res.message);   
       }
       Swal.fire({
               position:'top',
               showConfirmButton: false,
               title: "Success",
-              text: `Submitted successfully👍 ${this.msg}`,
+              text: `${this.msg}`,
               icon: "success",
               timer: 2000,
               width:400
@@ -94,27 +91,29 @@ export class BulkAddEmployeeComponent implements OnInit {
       
     },error=>{
       this.loading1=false;
-      console.log("bulkError",error);
+      // console.log("bulkError",error);
       //alert("bulkError")
       if (error.error && error.error.error) {
               // alert(error.error.error);
               this.msg = error.error.error;
             }
-            if (error.erroe && error.error.message){
+      if (error.erroe && error.error.message){
               this.msg = error.error.message;
             }
-            Swal.fire({
+      Swal.fire({
               position:"top",
               icon: "error",
               title: "Oops...",
               text: `${ this.msg }`
             });
-      
-    }
-  )
-    
+    });   
   }
+
+
   Excelview(){
     this.service.UploadExcel()
   }
+
+
+  
 }

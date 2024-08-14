@@ -43,19 +43,14 @@ export class AddEmployeeComponent implements OnInit {
             ) { }
  
   ngOnInit() {
- 
     this.fromInit();
- 
     const today = new Date
     this.maxDate1 = today.toISOString().split('T')[0]
     this.esd = localStorage.getItem('effeStarDate');
- 
   }
  
   fromInit(){
- 
     this.employeeForm = this.fb.group({
- 
       employeeNumber: ['', Validators.required],
       firstName: ['', Validators.required],
       middleName: ['',],
@@ -66,10 +61,10 @@ export class AddEmployeeComponent implements OnInit {
       effectiveStartDate: ['',[Validators.required, this.dateValidator.bind(this)]],
       effectiveEndDate: ['4712-12-31',],
       email: ['', [Validators.required, Validators.email]]
- 
     });
- 
-    const today = new Date();
+
+    //dob
+    const today = new Date(); //current date and time
     const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
     const minDate = new Date(today.getFullYear() - 60, today.getMonth(), today.getDate());
     this.maxDate = maxDate.toISOString().split('T')[0];
@@ -92,20 +87,18 @@ getHolidaysForYear(year: number): string[] {
  
 }
  
- 
+//holidays and saturdays and sundays 
 dateValidator(control: any) {
- 
   if (!control.value) {
     return null;
   }
- 
   const date = new Date(control.value);
   const day = date.getDay();
   const year = date.getFullYear();
   const formattedDate = date.toISOString().split('T')[0];
   const holidays = this.getHolidaysForYear(year);
  
-  if (day === 6 || day === 0 || holidays.includes(formattedDate) || date > new Date()) {
+  if (day === 6 || day === 0 || holidays.includes(formattedDate)) {
     return { invalidDate: true };
   }
   return null;
@@ -139,7 +132,7 @@ onSubmit() {
       EFFECTIVE_START_DATE: this.employeeForm.value['effectiveStartDate'],
       EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate']
   };
-  console.log("employeeData",employeeData);
+  // console.log("employeeData",employeeData);
   
  
   // Submit the form
