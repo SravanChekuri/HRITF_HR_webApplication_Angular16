@@ -61,10 +61,12 @@ export class LandingpageComponent implements OnInit {
   }
  
   getNotifications() {
-    this.service.notifications().subscribe((res) => {
+    this.service.recentEmployees().subscribe((res) => {
+      // console.log("recent emp:",res);
       this.employees = [];
-      res.newEmployees.forEach((element: any) => {
-        this.employees.push({ ...element.EMPLOYEE, ...element.EMPLOYMENT_DETAILS });
+      res.forEach((element: any) => {
+        this.employees.push({ ...element});
+        // console.log("recent employees", this.employees);
       });
       this.totalEmployeesCount = this.employees.length;
       this.employeeExists = this.employees.length > 0;

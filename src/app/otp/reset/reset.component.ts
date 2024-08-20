@@ -61,9 +61,22 @@ export class ResetComponent implements OnInit {
 
   SAVENEWPASSWORD() {
     // console.log("username",this.username);
-    this.loading = true;
     const newPassword = this.forgotpassword.get('EnterNewPassword')?.value;
     const reEnterPassword = this.forgotpassword.get('ReEnterPassword')?.value;
+
+    if (newPassword !== reEnterPassword) {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Password does not match',
+        text: 'Please make sure that both password fields match.',
+        showConfirmButton: true,
+        width: 400,
+      });
+      return; 
+    }
+
+    this.loading = true;
     const data = {
       "username": this.username,
       "New_password": newPassword

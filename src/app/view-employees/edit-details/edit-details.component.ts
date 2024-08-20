@@ -145,6 +145,7 @@ loading3: any;
 
     if (empData) {
       this.employee = JSON.parse(empData);
+      // console.log("emp id",this.employee);
       // console.log("this.employee",this.employee);
       // console.log("empData:", this.employee);
       this.fetchEmpData(this.employee.EMP_NO,this.filterESD, this.employee.EFFECTIVE_END_DATE);

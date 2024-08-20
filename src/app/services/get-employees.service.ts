@@ -179,7 +179,7 @@ export class GetEmployeesService {
 
     });
 
-    const api = environment.baseApiKey + '/getDetailsByEmpEsdEed/' + id + '/' + startDate + '/' + endDate;
+    const api = environment.baseApiKey + '/getDetailsByEmpEsdEed/' + id + '/' + startDate + '/' + "4712-12-31";
     // console.log("editapi",api);
 
     return this.http.get<any>(api, { headers: httpheaders });
