@@ -77,7 +77,7 @@ import { filter } from 'rxjs/operators';
        
         for (let item of this.confrimEmp){
           let res={...item.data,msg:item.message}
-          console.log("res",res);
+          // console.log("res",res);
           this.oneyearcompletionarr.push(res);
          
         }

@@ -20,7 +20,7 @@ export class SelectTemplateComponent implements OnInit {
  
  suggestionsVisible: boolean = false;
  
-  lettersData: any = [
+lettersData: any = [
    
     // { name:'Appointment Letter',id: 1 },
     // { name:'Offer Letter',id: 2 },
@@ -41,8 +41,6 @@ export class SelectTemplateComponent implements OnInit {
   dropDown = true;
  
   filteredLettersData:any=this.lettersData;
- 
- 
  
   msg:any;
  
