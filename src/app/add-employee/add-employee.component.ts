@@ -53,13 +53,14 @@ export class AddEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       employeeNumber: ['', Validators.required],
       firstName: ['', Validators.required],
-      middleName: ['',],
+      middleName: [''],
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       Work_location: ['', Validators.required],
       workerType: ['', Validators.required],
       effectiveStartDate: ['',[Validators.required, this.dateValidator.bind(this)]],
-      effectiveEndDate: ['4712-12-31',],
+      effectiveEndDate: ['4712-12-31'],
+      dateOfJoinging:['',[Validators.required,this.dateValidator.bind(this)]],
       email: ['', [Validators.required, Validators.email]]
     });
 
@@ -129,10 +130,11 @@ onSubmit() {
       EMAIL_ADDRESS: this.employeeForm.value['email'],
       DATE_OF_BIRTH: this.employeeForm.value['dateOfBirth'],
       WORKER_TYPE: this.employeeForm.value['workerType'],
+      DATE_OF_JOINING:this.employeeForm.value['dateOfJoinging'],
       EFFECTIVE_START_DATE: this.employeeForm.value['effectiveStartDate'],
       EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate']
   };
-  // console.log("employeeData",employeeData);
+  console.log("employeeData",employeeData);
   
  
   // Submit the form
@@ -153,7 +155,7 @@ onSubmit() {
       });
       this.employeeForm.reset();
   }, error => {
-    // console.log("err",error);
+    console.log("err",error);
       this.msg = error.error?.message || error.error?.error || 'An error occurred';
       Swal.fire({
           position: "top",

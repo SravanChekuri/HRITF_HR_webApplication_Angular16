@@ -15,7 +15,7 @@
           <form [formGroup]="mfaotppage" (ngSubmit)="mfc()">
             <div class="d-flex flex-row justify-content-center">
               <div>
-                <input [type]="otpTypes[0]" #txt1 maxlength="1" (keyup)="move($event, '', txt1, txt2, 0)" formControlName="otp1" class="form-control" autofocus>
+                <input [type]="otpTypes[0]" #txt1 maxlength="1" autofocus (keyup)="move($event, '', txt1, txt2, 0)" formControlName="otp1" class="form-control">
               </div>
               <div>
                 <input [type]="otpTypes[1]" #txt2 maxlength="1" (keyup)="move($event, txt1, txt2, txt3, 1)" formControlName="otp2" class="form-control">

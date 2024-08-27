@@ -38,6 +38,7 @@ export class EditDetailsComponent implements OnInit {
   employmentdate: any;
     employmentbutton: any = false;
     isShowEmployementButtons: boolean=false;
+    
 
 //-----------------------drop down ng-container looping for employeement---------------------------//
 
@@ -286,11 +287,12 @@ loading3: any;
       firstName: [this.employeeData[0].FIRST_NAME, Validators.required],
       middleName: [this.employeeData[0].MIDDLE_NAME],
       lastName: [this.employeeData[0].LAST_NAME, Validators.required],
-      email: [this.employeeData[0].EMAIL_ADDRESS, Validators.required],
+      email: [this.employeeData[0].EMAIL_ADDRESS],
       dateOfBirth: [this.employeeData[0].DATE_OF_BIRTH, Validators.required],
       userId: [this.employeeData[0].USER_ID, Validators.required],
       workLocation: [this.employeeData[0].WORK_LOCATION, Validators.required],
       workerType: [this.employeeData[0].WORKER_TYPE, Validators.required],
+      dateOfJoinging:[this.employeeData[0].DATE_OF_JOINING, Validators.required],
       effectiveStartDate: [this.employeeData[0].EFFECTIVE_START_DATE, Validators.required],
       effectiveEndDate: [this.employeeData[0].EFFECTIVE_END_DATE]
     });
@@ -314,6 +316,7 @@ loading3: any;
         WORK_LOCATION: this.updateForm.value['workLocation'],
         USER_ID: this.updateForm.value['userId'],
         EFFECTIVE_START_DATE: this.updateForm.value['effectiveStartDate'],
+        DATE_OF_JOINING:this.updateForm.value['dateOfJoinging'],
         EFFECTIVE_END_DATE: this.updateForm.value['4712-12-31']
       }
       this.employeeService.updateID(this.employee.EMP_ID, sendData).subscribe(
@@ -333,7 +336,7 @@ loading3: any;
           })
         },
         (error) => {
-          //console.log("error",error);
+          console.log("error",error);
           this.loading = false;
           if (error.error.error && error.error.error) {
             Swal.fire(
@@ -381,13 +384,14 @@ loading3: any;
         workLocation: [this.empDate.WORK_LOCATION, Validators.required],
         workerType: [this.empDate.WORKER_TYPE, Validators.required],
         effectiveStartDate: [this.empDate.EFFECTIVE_START_DATE, Validators.required],
+        dateOfJoinging:[this.empDate.DATE_OF_JOINING,Validators.required],
         effectiveEndDate: [this.empDate.EFFECTIVE_END_DATE]
       });
       this.updateForm.disable();
     }, error => {
       this.loading = false;
-      // console.log("error", error);
-      // console.log("error:", error.error.message)
+      console.log("error", error);
+      console.log("error:", error.error.message)
       if (error.error && error.error.message) {
         Swal.fire(
           {
@@ -399,7 +403,7 @@ loading3: any;
           }
         )
       }
-      console.log(error);
+      console.log("error",error);
       if (error.error && error.error.error) {
         // alert("error" + error.error.message)
         Swal.fire(
@@ -446,16 +450,16 @@ loading3: any;
     this.employementForm = this.formbuilder.group({
       employementId1: [this.employee.EMP_ID, Validators.required],
       Organization_Name: ['', Validators.required],
-      Position: ['', Validators.required],
-      Department: ['', Validators.required],
+      Position: [''],
+      Department: [''],
       Annual_Salary: ['', Validators.required],
       Previous_AnnualSalary: ['0'],
       dateOfJoining: ['', Validators.required],
       MobileNo: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
       Status: ['', Validators.required],
       Confirmation_Date: [''],
-      Probation_Period: ['', Validators.required],
-      Notice_Period: ['', Validators.required],
+      Probation_Period: [''],
+      Notice_Period: [''],
       Effective_Start_Date: ['', Validators.required],
       Effective_End_Date: ['4712-12-31'],
       workerType: ['', Validators.required],
@@ -509,7 +513,7 @@ loading3: any;
 
       }, error => {
         this.loading = false;
-        if (error.error && error.error.error) {
+        if (error.error && error.error.error) {          
           Swal.fire({
             position: "top",
             icon: "error",
@@ -542,20 +546,20 @@ loading3: any;
     this.employementForm = this.formbuilder.group({
       employementId1: [this.employeeList.employment_details[0].EMP_ID, Validators.required],
       Organization_Name: [this.employeeList.employment_details[0].ORGANIZATION_NAME, Validators.required],
-      Position: [this.employeeList.employment_details[0].POSITION, Validators.required],
-      Department: [this.employeeList.employment_details[0].DEPARTMENT, Validators.required],
+      Position: [this.employeeList.employment_details[0].POSITION],
+      Department: [this.employeeList.employment_details[0].DEPARTMENT],
       Annual_Salary: [this.employeeList.employment_details[0].ANNUAL_SALARY, Validators.required],
       Previous_AnnualSalary: [this.employeeList.employment_details[0].PREVIOUS_ANNUAL_SALARY],
       dateOfJoining: [this.employeeList.employment_details[0].DATE_OF_JOINING, Validators.required],
       MobileNo: [this.employeeList.employment_details[0].MOBILE_NO, [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-      Status: [this.employeeList.employment_details[0].STATUS, Validators.required],
-      Notice_Period: [this.employeeList.employment_details[0].NOTICE_PERIOD, Validators.required],
+      Status: [this.employeeList.employment_details[0].STATUS],
+      Notice_Period: [this.employeeList.employment_details[0].NOTICE_PERIOD],
       Effective_Start_Date: [this.employeeList.employment_details[0].EFFECTIVE_START_DATE, Validators.required],
       Effective_End_Date: [this.employeeList.employment_details[0].EFFECTIVE_END_DATE],
       PreviousExperiences: [this.employeeList.employment_details[0].PREVIOUS_EXPERIENCE],
       CurrentCompanyExperience: [this.employeeList.employment_details[0].CURRENT_COMP_EXPERIENCE],
       workerType: [this.employeeList.employment_details[0].WORKER_TYPE, Validators.required],
-      Probation_Period: [this.employeeList.employment_details[0].PROBATION_PERIOD, Validators.required],
+      Probation_Period: [this.employeeList.employment_details[0].PROBATION_PERIOD],
     });
     this.employementForm.disable();
     this.EmployementData = true;
@@ -574,16 +578,16 @@ loading3: any;
     this.employementForm = this.formbuilder.group({
         employementId1: [this.employmentdate.EMP_ID, Validators.required],
         Organization_Name: [this.employmentdate.ORGANIZATION_NAME, Validators.required],
-        Position: [this.employmentdate.POSITION, Validators.required],
-        Department: [this.employmentdate.DEPARTMENT, Validators.required],
+        Position: [this.employmentdate.POSITION],
+        Department: [this.employmentdate.DEPARTMENT],
         Annual_Salary: [this.employmentdate.ANNUAL_SALARY, Validators.required],
         Previous_AnnualSalary: [this.employmentdate.PREVIOUS_ANNUAL_SALARY,],
         dateOfJoining: [this.employmentdate.DATE_OF_JOINING, Validators.required],
         MobileNo: [this.employmentdate.MOBILE_NO, [Validators.required, Validators.pattern(/^[0-9]{10}$/), Validators.maxLength(10), Validators.minLength(10)]],
-        Status: [this.employmentdate.STATUS, Validators.required],
+        Status: [this.employmentdate.STATUS],
         Confirmation_Date: [''],
-        Probation_Period: [this.employmentdate.PROBATION_PERIOD, Validators.required],
-        Notice_Period: [this.employmentdate.NOTICE_PERIOD, Validators.required],
+        Probation_Period: [this.employmentdate.PROBATION_PERIOD],
+        Notice_Period: [this.employmentdate.NOTICE_PERIOD],
         Effective_Start_Date: [this.employmentdate.EFFECTIVE_START_DATE, Validators.required],
         workerType: [this.employmentdate.WORKER_TYPE, Validators.required],
         PreviousExperiences: [this.employmentdate.PREVIOUS_EXPERIENCE,],

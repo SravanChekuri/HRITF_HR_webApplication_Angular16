@@ -1,8 +1,13 @@
 
 .main{
-    background-color:#F5F5F5;;
-    height: 89vh;
+    background-color:#F5F5F5;
+    position: absolute;
+    top: 9%;
+    height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 .blink-text {
     animation: blink-animation 2s infinite; 
