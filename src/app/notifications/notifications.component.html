@@ -6,7 +6,7 @@
  
     <div class="d-flex flex-column align-main card">
  
-        <div class="align-sub">
+        <div class="align-sub" [hidden]="newEmpData.length == 0">
  
             <h5 class="mb-4">New Employees added from last 30days :</h5>
  
@@ -35,7 +35,7 @@
  
         </div>
        
-        <div class="align-sub">
+        <div class="align-sub" [hidden]="oneyearcompletionarr.length == 0">
  
             <h5 class="mb-4 mt-4">Upcoming Employee Confirmations :</h5>
  
@@ -66,7 +66,7 @@
  
         </div>
  
-        <div class="align-sub">
+        <div class="align-sub" [hidden]="probationCompletionArr.length == 0">
  
             <h5 class="mb-4 mt-4"> Upcoming Probation Completed Employees :</h5>
  

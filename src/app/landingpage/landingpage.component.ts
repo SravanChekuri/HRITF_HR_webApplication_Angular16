@@ -104,7 +104,7 @@ export class LandingpageComponent implements OnInit {
   selectedEmpNo(emp: any) {
     this.empNo = emp;
     localStorage.setItem('employee', JSON.stringify(this.empNo));
-    this.router.navigate(['./edit']).then(() => {
+    this.router.navigate(['./edit123']).then(() => {
       // window.location.reload();
     });
   }

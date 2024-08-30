@@ -219,7 +219,7 @@ export class AddTemplateComponent implements OnInit {
 
     },error =>{
       this.loading=false;
-      console.log("error delete temp",error);
+      // console.log("error delete temp",error);
       
       Swal.fire({
         position:'top',

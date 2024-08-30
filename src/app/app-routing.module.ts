@@ -39,6 +39,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'profile/:id', component: ProfileComponent,canActivate: [AuthGuard] },
   { path: 'edit', component: EditDetailsComponent,canActivate: [AuthGuard] },
+  { path: 'edit123', component: EditDetailsComponent,canActivate: [AuthGuard] },
   { path: 'SelectTemplate', component: SelectTemplateComponent,canActivate: [AuthGuard] },
   { path: 'searchGenerateLetter', component: SearchGenerateLetterComponent,canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard, AuthGuard1] },

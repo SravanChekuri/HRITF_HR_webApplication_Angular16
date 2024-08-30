@@ -35,7 +35,7 @@ export class GetEmployeesService {
 
     });
     const presentapi = environment.baseApiKey + '/getAddrDetails/' + id + '/' + type + '/' + esd + '/' + '4712-12-31';
-    console.log("presentapi", presentapi);
+    // console.log("presentapi", presentapi);
 
     return this.http.get(presentapi, { headers: httpheaders });
 
@@ -83,7 +83,7 @@ export class GetEmployeesService {
   }
 
 
-  getemergencyAddressData(id: any,  esd: any, end: any):Observable<any> {
+  getemergencyAddressData(id: any, esd: any, end: any): Observable<any> {
     this.service.authLink();
 
     const httpheaders = new HttpHeaders({
@@ -180,7 +180,7 @@ export class GetEmployeesService {
     });
 
     const api = environment.baseApiKey + '/getDetailsByEmpEsdEed/' + id + '/' + startDate + '/' + "4712-12-31";
-    // console.log("editapi",api);
+    console.log("editapi", api);
 
     return this.http.get<any>(api, { headers: httpheaders });
 
@@ -246,7 +246,7 @@ export class GetEmployeesService {
     });
 
     const url1 = `${this.updateEmployee}/${selectedId}`;
-
+    console.log("url1", url1)
     return this.http.put(url1, sendData, { headers: httpheaders });
 
   }
@@ -315,8 +315,8 @@ export class GetEmployeesService {
     const setApi = environment.baseApiKey + '/getEmployeeDetails/' + id + '/' + date + '/' + enddate;
     // const setApi = `${this.api}getEmployeeDetails/${id}/${date}/${enddate}`;
 
-    console.log("api",setApi);
-    
+    console.log("api", setApi);
+
     return this.http.get(setApi, { headers: httpheaders });
 
   }
@@ -339,7 +339,7 @@ export class GetEmployeesService {
 
     });
     // console.log("apiii",environment.baseApiKey + "/getEmployementDetails/" + id + '/' + date + '/' + enddate);
-  
+
     return this.http.get(environment.baseApiKey + "/getEmployementDetails/" + id + '/' + date + '/' + enddate, { headers: httpheaders });
 
   }
@@ -416,8 +416,8 @@ export class GetEmployeesService {
 
   //api for sending emergency data
 
-  sendEmergencyData( emergencyData: any): Observable<any> {
-
+  sendEmergencyData(emergencyData: any): Observable<any> {
+// alert(2)
     this.service.authLink();
 
     const httpheaders = new HttpHeaders({
@@ -426,12 +426,12 @@ export class GetEmployeesService {
 
     });
 
-    return this.http.post(environment.baseApiKey + "/addEmergencyDetails" , emergencyData, { headers: httpheaders });
+    return this.http.post(environment.baseApiKey + "/addEmergencyDetails", emergencyData, { headers: httpheaders });
 
 
   }
 
-  updateEmergencyData(id: any, data: any) {
+  updateEmergencyData(id: any, data: any):Observable<any> {
 
 
     this.service.authLink();
@@ -444,7 +444,7 @@ export class GetEmployeesService {
 
     const updateEmergencyData = environment.baseApiKey + "/updateEmergencyDetails/" + id
 
-    return this.http.put(updateEmergencyData, data, { headers: httpheaders })
+    return this.http.put<any>(updateEmergencyData, data, { headers: httpheaders })
 
 
   }

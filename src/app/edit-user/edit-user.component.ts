@@ -71,7 +71,7 @@ onSubmit(){
     STATUS:this.updateForm.value['STATUS']
  
   }
-console.log("form",this.updateForm.status);
+// console.log("form",this.updateForm.status);
  
   if (this.updateForm.status==="VALID"){
     this.loading=true;
