@@ -5,17 +5,12 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AddEmployeeService } from '../services/addEmployee.service';
 
-
-
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css'],
 })
-
-
 export class AddEmployeeComponent implements OnInit {
-
   employeeForm!: FormGroup;
 
   maxDate1: any;
@@ -34,18 +29,19 @@ export class AddEmployeeComponent implements OnInit {
 
   msg: any;
 
+  empNumber: any;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
     private service: AddEmployeeService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.fromInit();
-    const today = new Date
-    this.maxDate1 = today.toISOString().split('T')[0]
+    const today = new Date();
+    this.maxDate1 = today.toISOString().split('T')[0];
     this.esd = localStorage.getItem('effeStarDate');
   }
 
@@ -58,39 +54,49 @@ export class AddEmployeeComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       Work_location: ['', Validators.required],
       workerType: ['', Validators.required],
-      effectiveStartDate: ['', [Validators.required, this.dateValidator.bind(this)]],
+      effectiveStartDate: [
+        '',
+        [Validators.required, this.dateValidator.bind(this)],
+      ],
       effectiveEndDate: ['4712-12-31'],
-      dateOfJoinging: ['', [Validators.required, this.dateValidator.bind(this)]],
-      email: ['', [Validators.required, Validators.email]]
+      dateOfJoinging: [
+        '',
+        [Validators.required, this.dateValidator.bind(this)],
+      ],
+      email: ['', [Validators.required, Validators.email]],
     });
 
     //dob
     const today = new Date(); //current date and time
-    const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-    const minDate = new Date(today.getFullYear() - 60, today.getMonth(), today.getDate());
+    const maxDate = new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
+    const minDate = new Date(
+      today.getFullYear() - 60,
+      today.getMonth(),
+      today.getDate()
+    );
     // console.log("minDate:", minDate)
     this.maxDate = maxDate.toISOString().split('T')[0];
     // console.log("Tostring date:", this.maxDate)
     this.minDate = minDate.toISOString().split('T')[0];
     this.maximumDate = today.toISOString().split('T')[0];
-
   }
 
   getHolidaysForYear(year: number): string[] {
     return [
-
       `${year}-01-01`, // New Year's Day
       `${year}-01-26`, // Republic Day
       `${year}-08-15`, // Independence Day
       `${year}-10-02`, // Gandhi Jayanti
       `${year}-12-25`, // Christmas Day
       `${year}-05-01`, // may Day
-
     ];
-
   }
 
-  //holidays and saturdays and sundays 
+  //holidays and saturdays and sundays
   dateValidator(control: any) {
     if (!control.value) {
       return null;
@@ -107,10 +113,9 @@ export class AddEmployeeComponent implements OnInit {
     return null;
   }
 
-
   onSubmit() {
     // Mark all controls as touched
-    Object.keys(this.employeeForm.controls).forEach(field => {
+    Object.keys(this.employeeForm.controls).forEach((field) => {
       const control = this.employeeForm.get(field);
       if (control) {
         control.markAsTouched({ onlySelf: true });
@@ -134,42 +139,44 @@ export class AddEmployeeComponent implements OnInit {
       WORKER_TYPE: this.employeeForm.value['workerType'],
       DATE_OF_JOINING: this.employeeForm.value['dateOfJoinging'],
       EFFECTIVE_START_DATE: this.employeeForm.value['effectiveStartDate'],
-      EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate']
+      EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate'],
     };
-    console.log("employeeData", employeeData);
-
+    // console.log('employeeData', employeeData);
 
     // Submit the form
-    this.service.addEmployee(employeeData).subscribe((res: any) => {
-      // console.log("res",res.message);
-      Swal.fire({
-        position: 'top',
-        showConfirmButton: false,
-        title: "Success",
-        text: `${res.message}`,
-        icon: "success",
-        timer: 2000,
-        width: 500
-      }).then(() => {
-        setTimeout(() => {
-          this.router.navigate(['/viewEmployees']);
-        }, 500);
-      });
-      this.employeeForm.reset();
-    }, error => {
-      // console.log("err", error);
-      this.msg = error.error?.message || error.error?.error || 'An error occurred';
-      Swal.fire({
-        position: "top",
-        icon: "error",
-        title: "Oops...",
-        text: `${this.msg}`,
-        width: 500,
-        showConfirmButton: true,
-      });
-    });
+    this.service.addEmployee(employeeData).subscribe(
+      (res: any) => {
+        // console.log("res",res.message);
+        Swal.fire({
+          position: 'top',
+          showConfirmButton: false,
+          title: 'Success',
+          text: `${res.message}`,
+          icon: 'success',
+          timer: 2000,
+          width: 500,
+        }).then(() => {
+          setTimeout(() => {
+            this.router.navigate(['/viewEmployees']);
+          }, 500);
+        });
+        this.employeeForm.reset();
+      },
+      (error) => {
+        // console.log("err", error);
+        this.msg =
+          error.error?.message || error.error?.error || 'An error occurred';
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Oops...',
+          text: `${this.msg}`,
+          width: 500,
+          showConfirmButton: true,
+        });
+      }
+    );
   }
-
 
   chageworkerType(event: any) {
     const change = event.target.value;
@@ -177,20 +184,26 @@ export class AddEmployeeComponent implements OnInit {
     if (change === 'Employee') {
       this.Employee = true;
       this.Candidate = false;
-    }
-    else {
+      this.sendWorkerType();
+    } else {
       this.Candidate = true;
       this.Employee = false;
+      this.sendWorkerType();
     }
-
   }
 
-
-
-
-
-
+  sendWorkerType() {
+    const workertype = {
+      WORKER_TYPE: this.employeeForm.value['workerType'],
+    };
+    this.service.getEmpNumber(workertype).subscribe(
+      (res: any) => {
+        // console.log('res ---->>>>', res);
+        this.empNumber = res.new_emp_no;
+      },
+      (error) => {
+        // console.log('error---->>>>', error);
+      }
+    );
+  }
 }
-
-
-

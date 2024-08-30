@@ -6,11 +6,14 @@ import { AddEmployeeService } from './addEmployee.service';
 describe('Service: AddEmployee', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AddEmployeeService]
+      providers: [AddEmployeeService],
     });
   });
 
-  it('should ...', inject([AddEmployeeService], (service: AddEmployeeService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [AddEmployeeService],
+    (service: AddEmployeeService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });
