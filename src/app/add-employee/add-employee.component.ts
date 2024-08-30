@@ -29,7 +29,6 @@ export class AddEmployeeComponent implements OnInit {
 
   msg: any;
 
-  empNumber: any;
 
   constructor(
     private fb: FormBuilder,
@@ -199,7 +198,11 @@ export class AddEmployeeComponent implements OnInit {
     this.service.getEmpNumber(workertype).subscribe(
       (res: any) => {
         // console.log('res ---->>>>', res);
-        this.empNumber = res.new_emp_no;
+        const employeeNumberControl = this.employeeForm.get('employeeNumber');
+        if (employeeNumberControl) {
+          employeeNumberControl.setValue(res.new_emp_no);
+        }
+ 
       },
       (error) => {
         // console.log('error---->>>>', error);
