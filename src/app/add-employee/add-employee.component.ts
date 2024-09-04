@@ -29,7 +29,6 @@ export class AddEmployeeComponent implements OnInit {
 
   msg: any;
 
-
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -106,7 +105,7 @@ export class AddEmployeeComponent implements OnInit {
     const formattedDate = date.toISOString().split('T')[0];
     const holidays = this.getHolidaysForYear(year);
 
-    if (day === 6 || day === 0 || holidays.includes(formattedDate)) {
+    if (day === 6 || day === 0) {
       return { invalidDate: true };
     }
     return null;
@@ -202,7 +201,6 @@ export class AddEmployeeComponent implements OnInit {
         if (employeeNumberControl) {
           employeeNumberControl.setValue(res.new_emp_no);
         }
- 
       },
       (error) => {
         // console.log('error---->>>>', error);
