@@ -193,7 +193,7 @@ export class EditDetailsComponent implements OnInit {
         this.employeementEsd = this.filterESD;
         this.employeementEsd = this.filterESD;
       }
-      this.dateOfJoining = this.employee.DATE_OF_JOINING;
+      // this.dateOfJoining = this.employee.DATE_OF_JOINING;
 
       // setTimeout(() => {
       this.fetchEmpData(
@@ -240,8 +240,13 @@ export class EditDetailsComponent implements OnInit {
           this.employeeData = result.employee_details;
           // console.log("employeeData", this.employeeData);
           this.dateOfJoining = this.employeeData[0].DATE_OF_JOINING;
+          console.log('dateOfJoining-------->>', this.dateOfJoining);
           this.searchDOJ = this.employeeData[0].DATE_OF_JOINING;
+          console.log('searchDOJ-------->>', this.searchDOJ);
+
           this.dateOfJoining2 = this.dateOfJoining;
+          console.log('dateOfJoining2-------->>', this.dateOfJoining2);
+
           this.getEmergencydata = result.emergency_address_details;
           // console.log("getEmergencydata",this.getEmergencydata);
           this.getPermanentAddr = result.home_address_details;
@@ -449,7 +454,7 @@ export class EditDetailsComponent implements OnInit {
   submitDate() {
     this.loading = true;
     this.employeeService
-      .sendDate(this.employeeESd, this.employee.EMP_NO, this.effectiveEndDate)
+      .sendDate(this.employeeESd, this.employee.EMP_ID, this.effectiveEndDate)
       .subscribe(
         (res: any) => {
           this.loading = false;
@@ -1431,7 +1436,7 @@ export class EditDetailsComponent implements OnInit {
               res.data.EFFECTIVE_END_DATE
             );
           });
-          this.openModal('custom-modal-3');
+          this.openModal('custom-modal-2');
         },
         (error) => {
           // console.log("err", error);

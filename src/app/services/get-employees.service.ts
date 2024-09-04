@@ -163,7 +163,7 @@ export class GetEmployeesService {
       startDate +
       '/' +
       '4712-12-31';
-    console.log('editapi', api);
+    // console.log('editapi', api);
 
     return this.http.get<any>(api, { headers: httpheaders });
   }
@@ -212,7 +212,7 @@ export class GetEmployeesService {
     });
 
     const url1 = `${this.updateEmployee}/${selectedId}`;
-    console.log('url1', url1);
+    // console.log('url1', url1);
     return this.http.put(url1, sendData, { headers: httpheaders });
   }
 

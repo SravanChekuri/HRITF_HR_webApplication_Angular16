@@ -123,7 +123,7 @@ button[type="reset"]:hover {
 
 
  
-@media (max-width: 768px) {
+@media (max-width: 500px) {
   .form-row {
       flex-direction: column;
   }
