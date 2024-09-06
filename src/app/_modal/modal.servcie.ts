@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
+
 export class ModalService {
+
     private modals: any[] = [];
 
     add(modal: any) {
@@ -15,11 +17,8 @@ export class ModalService {
     }
 
     open(id: string) {
-        // alert(345)
         // open modal specified by id
         const modal = this.modals.find(x => x.id === id);
-        // console.log("id",id)
-        // console.log('modal',modal)
         modal.open();
     }
 

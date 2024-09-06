@@ -1,8 +1,85 @@
 <div class="main">
+      
+        <div class="d-flex flex-row">
+          <div style="margin: 40px 20px 10px 6%;font-weight: bold;"><p>Prepare Letters by clicking on Prepare Letters button</p></div>
+          <button type="button" class="btn btn-primary mt-5" routerLink="/SelectTemplate" role="button" ><span class="text">Prepare letters</span></button>
+          <button type="button" class="btn btn-primary mt-5" routerLink="/edit123" role="button"style="background-color:gray;" ><span class="text">back</span></button>  
+        </div>
 
-    <h5 id="empheading">Search generated letters :</h5>
+        <hr>
+        <h5 style="margin: 10px 0 10px 6%;"> Letters related to  {{ employeeData[0].WORKER_TYPE === "Employee" ? "Employee" : "Candidate" }} <span style="color: red;">{{employeeData[0].EMP_NO}}</span> :</h5>
+        <div class="employee-list-display">
+          <table class="employee-table" style="width: 100%; border-collapse: collapse;" *ngIf="lettersData.length > 0">
+            <thead>
+              <tr class="heading">
+                <th style="text-align: center; color: #000; width: 7%;">S.no</th>
+                <th style="text-align: center; color: #000; width: 20%;">Letter Name</th>
+                <th style="text-align: center; color: #000; width: 12%;">Created Date</th>
+                <th style="text-align: center; color: #000; width: 10%;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of lettersData">
+                <td style="text-align: center;">{{ lettersData.indexOf(data)+1}}</td>
+                <td style="text-align: center;">{{ data?.LETTER_TYPE }}</td>
+                <td style="text-align: center;">{{ data?. CREATED_AT| date }}</td>
+                <td style="text-align: center;"><button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="view(data.EMP_NO, data.TEMPLATE_ID, data.LETTER_TYPE)">
+                  <i class="fa-solid fa-download"></i>
+                </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="deleteLetter(data.EMP_ID, data.TEMPLATE_ID)">
+                  <i class="fa-solid fa-trash"></i>
+                </button></td>
+              </tr>
+            </tbody>
+          </table>
 
-    <div class="search-bar">
+          <div *ngIf="lettersData.length === 0">
+            <p class="paragraph">No letters data found for this Employee.</p>
+          </div>
+   
+        </div>
+
+        <div *ngIf="loading" class="loading-spinner-container">
+          <div class="loading-spinner"></div>
+        </div>
+
+
+</div>
+
+
+        <!-- <h4 style="margin: 20px 0 20px 1%;"> Letters related to  {{ updateForm.get("workerType").value === "Employee" ? "Employee" : "Candidate" }} <span style="color: red;">{{employeeData[0].EMP_NO}}</span> :</h4>
+
+        <div class="employee-list-display">
+        
+            <div class="card-container" *ngIf="lettersData.length > 0">
+                <div class="card" *ngFor="let data of lettersData">
+                  <div class="card-body">
+                    <h5 class="card-title">{{data.LETTER_TYPE}}</h5>
+                    <small style="font-size: x-small;font-weight: 500;">Created date</small>
+                    <p class="card-text">{{data.CREATED_AT | date}}</p>
+                    <div class="card-actions">
+                      <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;" (click)="view(data.EMP_NO, data.TEMPLATE_ID, data.LETTER_TYPE)">
+                        <i class="fa-solid fa-download"></i>
+                      </button>&nbsp;&nbsp;
+                      <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;" (click)="deleteLetter(data.EMP_ID, data.TEMPLATE_ID)">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="lettersData.length === 0">
+                <p class="paragraph">No letters data found for this Employee.</p>
+              </div>
+        </div> -->
+
+
+
+
+<!-- <div>
+      <h5 id="empheading">Search generated letters :</h5>
+
+      <div class="search-bar">
 
         <input type="text" id="filterInput" name="filterInput" placeholder="Search by Employee Number" [(ngModel)]="searchElement" (input)="filer($event)">
 
@@ -16,47 +93,33 @@
 
     </div>
 
-    <hr style="width: 100%; border: 2px solid #948d8d;">
+  <hr style="width: 100%; border: 2px solid #948d8d;">
 
-    <h6 style="margin: 10px 0 10px 5%;">Note: Search letters by Employee number / Candidate number and results will appear below :</h6>
+  <h6 style="margin: 10px 0 10px 5%;">Note: Search letters by Employee number / Candidate number and results will appear below :</h6>
 
-    <div class="employee-list-display" *ngIf="isSearched">
+  <div class="employee-list-display" *ngIf="isSearched">
 
-        <h5 style="margin: 1% 0 2% 6%;">Results :</h5>
+      <h5 style="margin: 1% 0 2% 6%;">Results :</h5>
 
-        <div class="card-container" *ngIf="displayedLetters.length > 0">
-            <div class="card" *ngFor="let data of displayedLetters">
-              <div class="card-body">
-                <h5 class="card-title">{{data.LETTER_TYPE}}</h5>
-                <p class="card-text">{{data.EMP_NO}}</p>
-                <div class="card-actions">
-                  <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;" (click)="view(data.EMP_NO, data.TEMPLATE_ID, data.LETTER_TYPE)">
-                    <i class="fa-solid fa-download"></i>
-                  </button>&nbsp;&nbsp;
-                  <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;"  (click)="deleteLetter(data.EMP_ID, data.TEMPLATE_ID)">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
+      <div class="card-container" *ngIf="displayedLetters.length > 0">
+          <div class="card" *ngFor="let data of displayedLetters">
+            <div class="card-body">
+              <h5 class="card-title">{{data.LETTER_TYPE}}</h5>
+              <p class="card-text">{{data.EMP_NO}}</p>
+              <div class="card-actions">
+                <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;" (click)="view(data.EMP_NO, data.TEMPLATE_ID, data.LETTER_TYPE)">
+                  <i class="fa-solid fa-download"></i>
+                </button>&nbsp;&nbsp;
+                <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;"  (click)="deleteLetter(data.EMP_ID, data.TEMPLATE_ID)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
               </div>
             </div>
           </div>
-          <div *ngIf="displayedLetters.length === 0">
-            <p class="paragraph">No letters data found in the database. Please click on Prepare Letter.</p>
-          </div>
+        </div>
+        <div *ngIf="displayedLetters.length === 0">
+          <p class="paragraph">No letters data found in the database. Please click on Prepare Letter.</p>
+        </div>
+  </div>
 
-    </div>
-
-
-    <!-- <div>
-        <h5 style="margin: 1% 0 2% 4%;">Recently Generated letters:</h5>
-
-
-    </div> -->
-
-    
-    <div *ngIf="loading" class="loading-spinner-container">
-        <div class="loading-spinner"></div>
-    </div>
-
-
-</div>
+</div> -->

@@ -15,38 +15,23 @@ export class LettertemplateService {
   //api for generating letter
 
   sendTemplateDetails(LetterData: any) {
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       'Content-Type': 'application/json',
-
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-
     });
-
     return this.http.post(environment.baseApiKey+"/generateEmployeeLetters", LetterData, { responseType: 'blob',headers:httpheaders });
-
   }
-
-
 
 
 //api for getting tempalte name in select letter template  
 
   getLetterId(LetterData: any): Observable<any> {
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-
     });
-
     return this.http.get<any>(environment.baseApiKey+"/letter-templatesname/" + LetterData,{headers:httpheaders});
-    
   }
 
 
@@ -55,44 +40,26 @@ export class LettertemplateService {
 //Api for getting all the generated letters
 
   viewTemplateDetails(){
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-
     });
-
     return this.http.get<any>(environment.baseApiKey+"/getEmployeeLetters",{headers:httpheaders});
-
   }
-
-  
-
 
 
 //api for download letters in search generate letters
   
   viewLetter(emp_no:any,tempId:any,name:any){
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       Authorization: 'Bearer ' + localStorage.getItem('token')
-
     });
-
     this.http.get(`${environment.baseApiKey}/employeeLetterDownload/${emp_no}/${tempId}`, {
-
       headers: httpheaders,
       responseType: 'blob'  
-
     }).subscribe(response => {
-
       this.saveFile(response,"HRITF "+ name+" "+emp_no+'.rtf');
-
     });
   }
 
@@ -110,31 +77,19 @@ export class LettertemplateService {
     document.body.removeChild(a);
   }
 
-
-
-
-
 //sample file download api
 
   UploadExcel(){
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
-
     this.http.get(`${environment.baseApiKey}/sampleExcelForBulkRegister`, {
-
       headers: httpheaders,
       responseType: 'blob'  
-
     }).subscribe(response => {
-
       this.saveFile1(response, 'sample.xlsx');  
-
     });
-
   }
 
   //for sample file download
@@ -151,66 +106,48 @@ export class LettertemplateService {
     document.body.removeChild(a);
   }
 
-
-
-
-
-
   // api for delete generated letter
   
-  deleteLetter(EMP_NO:any,TEMPLATE_ID:any){
-
+  deleteLetter(EMP_ID:any,TEMPLATE_ID:any){
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-
     });
-
-    return this.http.delete(environment.baseApiKey+"/delEmployeeLetterById/"+TEMPLATE_ID+'/'+EMP_NO,{headers:httpheaders});
-    
+    return this.http.delete(environment.baseApiKey+"/delEmployeeLetterById/"+TEMPLATE_ID+'/'+EMP_ID,{headers:httpheaders});
   }
 
 
   //api for delete letter template
 
   deleteTemplate(TEMPLATE_ID:any){
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-
     });
-
     return this.http.delete(environment.baseApiKey+"/deltempById/"+TEMPLATE_ID,{headers:httpheaders});
-
-
   }
 
+
+  // api for employee letters names with employee numbers
 
   empNumsLetternames(emp_no:any){
-
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
-
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-
-    });
-
-    console.log("emp no from api:",emp_no);
-    
-
+    });  
     return this.http.get<any>(environment.baseApiKey+"/getEmployeeLetterNamesWithEmpno/"+emp_no,{headers:httpheaders});
-
   }
 
 
+  // api for worker type for letters
 
-
+  getEmpLetters(emp_id:any,workerType:any){
+    this.service.authLink();
+    const httpheaders = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    });
+    return this.http.get<any>(environment.baseApiKey+ '/getEmployeeLetters/'+emp_id+ '/'+workerType,{headers:httpheaders});
+  }
 
 }
 

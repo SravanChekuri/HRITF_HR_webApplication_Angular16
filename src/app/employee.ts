@@ -3,7 +3,6 @@ export interface Employee {
   EFFECTIVE_END_DATE:Date;
   EMP_ID: number;
   EMP_NO: string;
-
   FIRST_NAME: string;
   MIDDLE_NAME: string;
   LAST_NAME: string;

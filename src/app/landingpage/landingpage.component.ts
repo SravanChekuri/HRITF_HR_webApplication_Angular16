@@ -52,12 +52,10 @@ export class LandingpageComponent implements OnInit {
         this.employeeExists = this.employees.length > 0;
         this.currentPage = 1;
         this.updateDisplayedEmployees();
-      },
-      (error) => {
+      },(error) => {
         this.loading = false;
         this.employeeExists = false;
-      }
-    );
+      });
   }
  
   getNotifications() {
@@ -105,7 +103,6 @@ export class LandingpageComponent implements OnInit {
     this.empNo = emp;
     localStorage.setItem('employee', JSON.stringify(this.empNo));
     this.router.navigate(['./edit123']).then(() => {
-      // window.location.reload();
     });
   }
  

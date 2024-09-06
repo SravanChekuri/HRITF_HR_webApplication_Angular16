@@ -106,16 +106,7 @@ input[type="file"] {
   cursor: pointer;
   margin-right: 10%;
 }
- 
-/* input[type="file"]:hover {
-  background-color: rgb(132, 234, 132);
-  transition: 0s ease-in-out;
-}
- 
-input[type="file"]:active {
-  background-color: #aabed0;
-} */
- 
+  
 .loading-spinner-container {
   display: flex;
   justify-content: center;

@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'edit', component: EditDetailsComponent,canActivate: [AuthGuard] },
   { path: 'edit123', component: EditDetailsComponent,canActivate: [AuthGuard] },
   { path: 'SelectTemplate', component: SelectTemplateComponent,canActivate: [AuthGuard] },
-  { path: 'searchGenerateLetter', component: SearchGenerateLetterComponent,canActivate: [AuthGuard] },
+  { path: 'employeeLetters', component: SearchGenerateLetterComponent,canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard, AuthGuard1] },
   { path: 'viewUsers', component: ViewUsersComponent, canActivate: [AuthGuard, AuthGuard1] },
   { path: "editUser", component: EditUserComponent, canActivate: [AuthGuard, AuthGuard1] },

@@ -97,8 +97,7 @@ export class OtpComponent implements OnInit {
         
         this.router.navigate(['/reset', { username: this.username }]);
       });
-    },
-      error => {
+    },error => {
         this.loading2 = false;
         if (error.error && error.error.error) {
           this.msg = error.error.error;
@@ -134,8 +133,7 @@ export class OtpComponent implements OnInit {
         width: 400,
         timer: 2000,
       })
-    },
-      error => {
+    },error => {
         this.loading = false;
         if (error.error && error.error.message) {
           this.msg = error.error.message;

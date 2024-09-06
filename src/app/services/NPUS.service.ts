@@ -14,17 +14,11 @@ constructor(private http:HttpClient) { }
 // api for pw change
 
  resetDetails(NpusData:any){
-  
   const httpheaders = new HttpHeaders({
-
     'Content-Type': 'application/json',
-
     Authorization: 'Bearer ' + localStorage.getItem('token'),
-
   });
-
   return this.http.put(environment.baseApiKey+"/changePassword",NpusData,{headers:httpheaders});
-
 }
 
 

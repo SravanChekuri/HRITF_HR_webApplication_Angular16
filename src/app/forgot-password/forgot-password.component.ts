@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 
 export class ForgotPasswordComponent implements OnInit {
 
-
   FgpwPage: any = new FormGroup({});
   loading: boolean = false;
   msg: any;
@@ -40,9 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.loading = true;
     this.service.ForgotDetails(FgpwPage).subscribe((res:any)=>{
             this.loading = false;
-      // console.log("fpw",res);
     if (res && res.message) {
-      // alert(res.message);
       this.msg = res.message;
     }
     Swal.fire({
@@ -54,17 +51,11 @@ export class ForgotPasswordComponent implements OnInit {
       width:400,
       timer: 2000,
     }).then(()=>{
-      // this.isEditable1 = !this.isEditable1;
       this.router.navigate(['/OTPPage',{username:FgpwPage.username}]);
     });
-  },
-   error=>{
-    // console.log(error); 
-    // alert("fail")
+  },error=>{
     this.loading = false;
     if (error.error && error.error.message) {
-      // console.log(error);
-      // this.updateFailMsg = true;
       this.msg = error.error.message;
   }
   Swal.fire({
@@ -74,11 +65,9 @@ export class ForgotPasswordComponent implements OnInit {
     text: `${this.msg}`,
     showConfirmButton: true,
     width:400,
-  });      
-});
-}
-
-
+   });      
+  });
+ }
 
 
   

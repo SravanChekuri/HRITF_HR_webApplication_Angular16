@@ -1,43 +1,50 @@
 <div class="fullScreen">
-    <div class="container d-flex flex-column flex-lg-row justify-content-between">
-        <div>
-            <img class="mt-4 logo-img" src="../../assets/HRIT logo 5.png" alt="logo">
-        </div>
-        <div class="card">
-            <h3>Enter OTP</h3>
-            <form  [formGroup]="otppage" (ngSubmit)="onSubmit()">
-                <div class="d-flex flex-row justify-content-center">
-                    <div>
-                        <input [type]="otp1Type" #txt1 maxlength="1" (keyup)="move($event, '', txt1, txt2)" formControlName="otp1" class="form-control" id="myInput" autofocus>
+
+        <div class="container d-flex flex-column flex-lg-row justify-content-between">
+
+            <div><img class="mt-4 logo-img" src="../../assets/HRIT logo 5.png" alt="logo"></div>
+
+            <div class="card">
+
+                <h3>Enter OTP</h3>
+
+                <form  [formGroup]="otppage" (ngSubmit)="onSubmit()">
+
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <input [type]="otp1Type" #txt1 maxlength="1" (keyup)="move($event, '', txt1, txt2)" formControlName="otp1" class="form-control" id="myInput" autofocus>
+                        </div>
+                        <div>
+                            <input [type]="otp2Type" #txt2 maxlength="1" (keyup)="move($event, txt1, txt2, txt3)" formControlName="otp2" class="form-control">
+                        </div>
+                        <div>
+                            <input [type]="otp3Type" #txt3 maxlength="1" (keyup)="move($event, txt2, txt3, txt4)" formControlName="otp3" class="form-control">
+                        </div>
+                        <div>
+                            <input [type]="otp4Type" #txt4 maxlength="1" (keyup)="move($event, txt3, txt4, '')" formControlName="otp4" class="form-control">
+                        </div>
                     </div>
+
                     <div>
-                        <input [type]="otp2Type" #txt2 maxlength="1" (keyup)="move($event, txt1, txt2, txt3)" formControlName="otp2" class="form-control">
+                        <button class="btn btn-primary mt-4" role="button" type="submit"><span class="text">Verify</span></button>
+                        <div *ngIf="loading2" class="spinner"></div>
                     </div>
-                    <div>
-                        <input [type]="otp3Type" #txt3 maxlength="1" (keyup)="move($event, txt2, txt3, txt4)" formControlName="otp3" class="form-control">
-                    </div>
-                    <div>
-                        <input [type]="otp4Type" #txt4 maxlength="1" (keyup)="move($event, txt3, txt4, '')" formControlName="otp4" class="form-control">
-                    </div>
+
+                </form>
+
+                <div class="mt-3">
+                    <a (click)="resendOTP()" class="resend" [class.disabled]="loading" [ngClass]="{'disabled-link': loading}" [attr.tabindex]="loading ? -1 : null" [style.pointer-events]="loading ? 'not-allowed' : 'auto'">Resend OTP</a>
                 </div>
-                <div>
-                    <button class="btn btn-primary mt-4" role="button" type="submit"><span class="text">Verify</span></button>
-                    <div *ngIf="loading2" class="spinner"></div>
+                
+                <div class="mt-4">
+                    <ul>
+                        <li>An OTP is sent to your registered email address and contact number.</li>
+                        <li>If you haven't received the OTP or if it times out, click on Resend OTP.</li>
+                    </ul>
                 </div>
-            </form>
-            <div class="mt-3">
-                <a (click)="resendOTP()" class="resend"
-                   [class.disabled]="loading"
-                   [ngClass]="{'disabled-link': loading}"
-                   [attr.tabindex]="loading ? -1 : null"
-                   [style.pointer-events]="loading ? 'not-allowed' : 'auto'">Resend OTP</a>
+
             </div>
-            <div class="mt-4">
-                <ul>
-                    <li>An OTP is sent to your registered email address and contact number.</li>
-                    <li>If you haven't received the OTP or if it times out, click on Resend OTP.</li>
-                </ul>
-            </div>
+
         </div>
-    </div>
+
 </div>

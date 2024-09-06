@@ -13,38 +13,27 @@ export class AddEmployeeService {
 
   addEmployee(data: any) {
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
-
-    return this.http.post(environment.baseApiKey + '/registeremployee', data, {
-      headers: httpheaders,
-    });
+    return this.http.post(environment.baseApiKey + '/registeremployee', data, {headers: httpheaders,});
   }
 
   //bulk upload api
 
   sendBulkData(formData: any) {
     this.service.authLink();
-
-    const httpheaders = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
-    });
-
-    return this.http.post(environment.baseApiKey + '/bulkRegister', formData, {
-      headers: httpheaders,
-    });
+    const httpheaders = new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('token'),});
+    return this.http.post(environment.baseApiKey + '/bulkRegister', formData, { headers: httpheaders,});
   }
 
   getEmpNumber(data: any) {
     this.service.authLink();
-
     const httpheaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
-    return this.http.post(environment.baseApiKey + '/getLatestempno', data, {
-      headers: httpheaders,
-    });
+    return this.http.post(environment.baseApiKey + '/getLatestempno', data, {headers: httpheaders,});
   }
+
+  
 }

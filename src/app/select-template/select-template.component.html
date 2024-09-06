@@ -1,71 +1,56 @@
+<div *ngIf="userData.ROLE==='Admin'" class="d-flex flex-row" style="margin-left: 3%;" >
+  <div style="font-weight: bold; margin-top: 10px;"><p>Click on Add template for add/update/delete letter templates</p></div>
+  <div><button class="btn btn-primary " type="submit" role="button" routerLink="/addTemplate" style="width: 200px !important;"><b><span class="text">Add Template</span></b></button></div>
+</div>
+
 <div class="main-container">
  
   <div class="sub-container white-container">
- 
     <h4>Generate Letters for Candidates/Employees:</h4>
- 
     <p class="sub-heading">Select the type of the letter you want to prepare and enter candidate/employee number(s) and click generate letter. The letter will generate.</p>
- 
   </div>
- 
  
   <div>
     <form [formGroup]="TemplateForm" (ngSubmit)="letterData()" class="form-container">
  
- 
       <div class="form-group" formArrayName="employeeNumber">
- 
         <div *ngFor="let employeeGroup of employeeNumber.controls; let i = index" [formGroupName]="i" class="input-group" style="display: flex; flex-direction: column;">
- 
           <label for="employeeNumber">Employee/Candidate Number<span style="color: red;font-weight: bold;">*</span>:</label>
  
       <div class="suggestions-container">
- 
           <input type="text" formControlName="employeeNumber" class="form-control" (input)="onEmployeeNumberChange($event, i)" placeholder="E.g.,C0001/E0001...">
- 
           <ul *ngIf="suggestionsVisible" class="suggestions-list">
             <li *ngFor="let suggestion of suggestedEmployeeNumbers" (click)="selectSuggestion(suggestion, i)">
               {{ suggestion }}
             </li>
           </ul>
- 
       </div>
- 
           <button type="button" (click)="removeEmployeeNumber(i)" *ngIf="employeeNumber.length > 1" class="btn btn-secondary mt-2" role="button"><span class="text">Remove</span></button>
- 
         </div>
- 
       </div>
  
       <div class="input-group" style="display: flex; flex-direction: column;">
- 
         <label  for="letterTemplate">LetterTemplate<span style="color: red;font-weight: bold;">*</span>:</label>
- 
         <select id="letterType"  class="form-control" formControlName="letterTemplate">
- 
           <option value="" selected disabled>select....</option>
- 
           <ng-container *ngFor="let data of letterarray">
             <option [value]="data">{{data}} <br/></option>
           </ng-container>
-         
         </select>
       </div>
  
   <div  style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
- 
       <div class="button-container">
         <button type="button" (click)="addEmployeeNumber()" class="btn btn-primary" role="button"><span class="text">Add another number</span></button>
       </div>
- 
- 
+      
     <div  style=" margin-top: 4%; margin-left: 13%;">
       <button type="submit" class="btn btn-danger"><span class="text">Generate Letter</span></button>
     </div>
  
-    <div style=" margin-top: 4%; margin-left: 13%;">
-      <button type="button" class="btn btn-secondary" routerLink="/searchGenerateLetter"><span class="text">Back</span></button>
-    </div>
+    <!-- <div style=" margin-top: 4%; margin-left: 13%;">
+      <button type="button" class="btn btn-secondary" routerLink="/SelectTemplate"><span class="text">Back</span></button>
+    </div> -->
  
   </div>
  

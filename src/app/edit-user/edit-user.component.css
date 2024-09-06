@@ -41,6 +41,7 @@
  
 .btn-primary:hover {
   color: #000;
+  border: 1px solid black;
 }
  
  
@@ -93,7 +94,6 @@
  
   .label-container > label{
     font-weight:bold;
-    /* color: #8C1428; */
     margin-bottom: 2%;
   }
  

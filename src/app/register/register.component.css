@@ -41,12 +41,8 @@
  
 .btn-primary:hover {
   color: #000;
+  border: 1px solid black;
 }
- 
- 
- 
- 
- 
  
 .main-container{
   background-color:#F5F5F5;

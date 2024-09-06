@@ -11,13 +11,9 @@ import Swal from 'sweetalert2';
 export class ViewEmployeesComponent implements OnInit {
 
   employeeCount: number = 0;
-
   employees: Employee[] = [];
-
   filterInput: string = '';
-
   employeeExistsChange: boolean = false;
-
   msg: any;
 
   constructor(private employeeService: GetEmployeesService) { }
@@ -59,8 +55,6 @@ export class ViewEmployeesComponent implements OnInit {
           //alert('no')
           // console.log("error", error);
           if (error.error && error.error.error) {
- 
- 
             // alert(error.error.error)
             this.msg = error.error.error;
           }
@@ -72,13 +66,10 @@ export class ViewEmployeesComponent implements OnInit {
             title: "Oops...",
             text: `${this.msg}`
           });
- 
-        }
-      );
+        });
     } else {
       this.employeeExistsChange = false;
     }
- 
   }
  
  

@@ -26,9 +26,6 @@ export class EmployeeFilterComponent {
     this.setTodayDate() 
     //  alert(this.empstartDate)
     // console.log("esd",this.empstartDate);
-  
- 
-    
     // if (this.empstartDate) {
     //   localStorage.setItem('empstartDate', this.empstartDate);
     //   console.log('Date stored in local storage:', this.empstartDate);
@@ -59,19 +56,15 @@ export class EmployeeFilterComponent {
 
   esdDate(event:any){
      //alert(event.target.value)
-   
     this.empstartDate=event.target.value;
     // alert( this.empstartDate)
     localStorage.setItem('empstartDate', this.empstartDate);
-    
-
   }
 
   onSubmit() {
     if (!this.filterInput.trim()) {
       return;
     }
-    
     const param1 = this.filterInput.trim();
     const param2 = this.empstartDate;
     this.filterApplied.emit({ param1, param2 });
@@ -90,10 +83,6 @@ export class EmployeeFilterComponent {
     this.filterApplied.emit({ param1, param2 });
   }
 
-  // Date(event: any) {
-  //   this.empstartDate = event.target.value;
-  //   localStorage.setItem("effeStarDate", this.empstartDate);
-  // }
 
   
 }

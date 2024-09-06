@@ -4,8 +4,6 @@ import { LoginService } from '../services/login.service';
 import { AuthService } from '../AuthServices/auth.service';
 import { ModalService } from '../_modal';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -32,13 +30,6 @@ export class HomeComponent implements OnInit {
               }
 
   ngOnInit() {
-    // this.service.currentNotificationCount.subscribe(count => {
-    //   this.notificationCount = count;
-    // });
-    // this.service.notifications().subscribe(res => {
-    //   this.notificationCount = res.count || 0;
-    //   this.service.updateNotificationCount(this.notificationCount);
-    // });
     const justLoggedIn = sessionStorage.getItem('justLoggedIn');
     const notificationsViewed = sessionStorage.getItem('notificationsViewed');
     if (justLoggedIn === 'true' && notificationsViewed !== 'true') {
@@ -69,30 +60,19 @@ export class HomeComponent implements OnInit {
     sessionStorage.removeItem('notificationsViewed');
   }
 
-  // navigateToProfile(id: any) {
-  //   this.router.navigate(['/profile', id])
-  // }
-
-  // openModal(id: any) {
-  //   this.modal.open(id);
-  // }
-
   closeModal(id: any) {
     this.modal.close(id);
   }
 
   crossIcon(){
     this.buttonClick=false;
-    // this.closeModal();
     location.reload();
   }
-
 
   onBellIconClick() {
     this.notificationCount = 0;
     this.service.clearNotificationCount();
     sessionStorage.setItem('notificationsViewed', 'true');
-    // this.router.navigate(['/notifications']);
   }
 
 }

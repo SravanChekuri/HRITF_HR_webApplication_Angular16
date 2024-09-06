@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'LoginFormofNFCS'`, () => {
+  it(`should have as title 'LoginFormofHRITF'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('LoginFormofNFCS');
+    expect(app.title).toEqual('LoginFormofHRITF');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('LoginFormofNFCS app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('LoginFormofHRITF app is running!');
   });
 });

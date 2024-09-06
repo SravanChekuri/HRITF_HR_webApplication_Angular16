@@ -11,33 +11,26 @@ import Swal from 'sweetalert2';
 export class EditUserComponent implements OnInit{
  
 adminData:any;
- 
 updateForm:any= new FormGroup({});
- 
 loading:boolean=false;
- 
 msg: any;
- 
 submitted: boolean = false;
- 
-constructor(private formbuilder: FormBuilder, private service:SignInService){}
+
+constructor(
+            private formbuilder: FormBuilder, 
+            private service:SignInService
+          ){}
  
 ngOnInit(): void {
   const admindata = localStorage.getItem("edituser")
-  // console.log("admindata",admindata);
- 
   if (admindata){
     this.adminData=JSON.parse(admindata);
-    // console.log("edituser",this.adminData);
     this.updateUser();
-   
   }
 }
  
 updateUser(){
- 
   this.updateForm = this.formbuilder.group({
- 
     USERID: [this.adminData.USER_ID, Validators.required],
     USERNAME: [this.adminData.USER_NAME, Validators.required],
     FIRSTNAME: [this.adminData.FIRST_NAME, Validators.required],
@@ -47,19 +40,12 @@ updateUser(){
     MOBILENUMBER:  [this.adminData.MOBILE_NO,[Validators. required, Validators. pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
     USERTYPE: [this.adminData.ROLE, Validators.required],
     STATUS:[this.adminData.STATUS,Validators.required]
- 
   });
- 
 }
  
 onSubmit(){
- 
   this.submitted=true;
- 
- 
- 
   const signIndata={
- 
     USER_ID:this.updateForm.value['USERID'],
     USER_NAME:this.updateForm.value['USERNAME'],
     FIRST_NAME:this.updateForm.value['FIRSTNAME'],
@@ -69,19 +55,13 @@ onSubmit(){
     MOBILE_NO:this.updateForm.value['MOBILENUMBER'],
     ROLE:this.updateForm.value['USERTYPE'],
     STATUS:this.updateForm.value['STATUS']
- 
   }
-// console.log("form",this.updateForm.status);
  
   if (this.updateForm.status==="VALID"){
     this.loading=true;
- 
-  this.service.updateUser(signIndata,this.adminData.USER_ID).subscribe((res)=>{
- 
+    this.service.updateUser(signIndata,this.adminData.USER_ID).subscribe((res)=>{
     this.submitted=true;
- 
     this.loading=false;
- 
     Swal.fire({
       position:'top',
       title: "Success!",
@@ -90,17 +70,11 @@ onSubmit(){
       timer: 1500,
       showConfirmButton:false,
   });
-  },
-    ( error: { error: { error: any; }; })=>{
- 
+  },( error: { error: { error: any; }; })=>{
       this.loading=false;
- 
   if (error.error && error.error.error) {
- 
     this.msg=error.error.error
- 
   }
- 
      Swal.fire({
       position:'top',
       title: "ERROR",
@@ -109,9 +83,8 @@ onSubmit(){
       width: 400,
       showConfirmButton:true,
    });
-   
   });
-}
+ }
 }
  
  

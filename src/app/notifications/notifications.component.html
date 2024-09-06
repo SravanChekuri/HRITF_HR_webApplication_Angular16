@@ -1,19 +1,13 @@
 <div class="main">
    
-    <div>
-        <h4>Notifications :</h4>
-    </div>
+    <div><h4>Notifications :</h4></div>
  
     <div class="d-flex flex-column align-main card">
- 
+
         <div class="align-sub" [hidden]="newEmpData.length == 0">
- 
             <h5 class="mb-4">New Employees added from last 30days :</h5>
- 
             <div>
-               
                 <table>
- 
                     <tr>
                         <th style="width: 15%;">Employee Number</th>
                         <th style="width: 25%;">Name</th>
@@ -21,82 +15,59 @@
                         <th>Work Location</th>
                         <th>Created By</th>
                     </tr>
- 
                     <tr *ngFor="let empData of newEmpData">
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.EMP_NO }}</td>
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 25%;">{{ empData.EMPLOYEE.FIRST_NAME }} {{ empData.EMPLOYEE.LAST_NAME }}</td>
                         <td *ngIf="empData && empData.EMPLOYMENT_DETAILS" style="width: 15%;">{{ empData.EMPLOYMENT_DETAILS.DATE_OF_JOINING }}</td>
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.WORK_LOCATION }}</td>
-                        <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.CREATED_BY }}</td>                    </tr>
- 
+                        <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.CREATED_BY }}</td>                    
+                    </tr>
                 </table>
- 
             </div>
- 
         </div>
        
         <div class="align-sub" [hidden]="oneyearcompletionarr.length == 0">
  
             <h5 class="mb-4 mt-4">Upcoming Employee Confirmations :</h5>
- 
             <div>
-               
                 <table>
- 
                     <tr>
                         <th style="width: 15%;">Employee Number</th>
                         <th style="width: 25%;">Name</th>
                         <th style="width: 20%;">Date of Confirmation</th>
                         <th>Message</th>
                     </tr>
- 
                     <tr *ngFor="let empData of oneyearcompletionarr">
- 
                         <td>{{empData.EMP_NO}}</td>
                         <td>{{empData.FIRST_NAME}}</td>
                         <td>{{empData.conformationdate | date}}</td>
                         <td>{{empData.msg}}</td>
-
                     </tr>
- 
                 </table>
- 
             </div>
- 
- 
+
         </div>
  
         <div class="align-sub" [hidden]="probationCompletionArr.length == 0">
  
             <h5 class="mb-4 mt-4"> Upcoming Probation Completed Employees :</h5>
- 
-            <div>
-               
+            <div> 
                 <table>
- 
                     <tr>
                         <th style="width: 15%;">Employee Number</th>
                         <th style="width: 25%;">Name</th>
                         <th style="width: 15%;">Date of Completion</th>
                         <th>Message</th>
                     </tr>
- 
                     <tr *ngFor="let empData of probationCompletionArr">
  
                        <td>{{empData.EMP_NO}}</td>
                        <td>{{empData.FIRST_NAME}}</td>
                        <td>{{empData.CONFIRMATION_DATE | date}}</td>
                        <td>{{empData.msg}}</td>
- 
- 
- 
- 
                     </tr>
- 
                 </table>
- 
             </div>
- 
  
         </div>
  

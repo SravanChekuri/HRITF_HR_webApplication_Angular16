@@ -36,12 +36,10 @@ input[type="email"],
 select {
   width: calc(100% - 0px); /* Adjust width to include border and margin */
   padding: 8px;
-  /* border: 1px solid #ccc; */
   background-color: #dceaf7;
   border: 0px solid black;
   font-weight:500;
   border-radius: 5px;
-  /* margin-bottom: 2px; */
 }
  
 select {
@@ -49,7 +47,6 @@ select {
 }
  
 .button-container {
-  /* margin-top: -1rem; */
   text-align: right;
   margin-right: 2%;
 }
@@ -122,7 +119,6 @@ button[type="reset"]:hover {
 }
 
 
- 
 @media (max-width: 500px) {
   .form-row {
       flex-direction: column;

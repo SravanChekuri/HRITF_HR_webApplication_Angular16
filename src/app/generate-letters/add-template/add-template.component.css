@@ -9,7 +9,6 @@
   overflow-y: auto;
 }
 
-
 .header {
   margin: 2% 0 1.5% 3%;
 }
@@ -30,23 +29,6 @@
   margin: 0 2%;
 }
 
-/* .btns{
-  margin-top: 1.5%;
-} */
-
-/* .btn {
-  width: 100px;
-  font-weight: bold;
-} */
-
-/* button[type='submit']{
-  background-color:#46a3f5 ;
-} */
-
-/* button[type='submit']:hover{
-  background-color:rgb(30, 156, 30) ;
-  opacity: 0.7;
-} */
 
 select.form-control {
   appearance: none; 
@@ -118,13 +100,6 @@ label{
   font-size: 14px;
 }
 
-/* .btn-primary{
-  background-color: #46a3f5;
-}
-
-.btn-primary:hover{
-  background-color: #99d0ff;
-} */
 
 .loading-spinner-overlay {
   position: fixed;

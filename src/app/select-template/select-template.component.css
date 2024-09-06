@@ -34,8 +34,6 @@ body, html {
  
 /* Main container */
 .main-container {
-  /* background-color: #ffeaea; */
-  /* min-height: 100vh;  */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,23 +43,14 @@ body, html {
  
 /* Sub container */
 .sub-container {
-  /* background-color: #99D0FF; */
   width: 100%;
   max-width: 100%; /* Adjust maximum width */
-  /* border: none !important; */
-  /* border-top-left-radius: 20px;
-  border-top-right-radius: 20px; */
-  /* padding: 20px; */
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
  
 /* White container inside sub container */
 .white-container {
   background-color: white;
   padding: 20px;
-  /* border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  margin-top: 20px;  */
 }
  
 /* Button container */
@@ -70,7 +59,6 @@ body, html {
   justify-content: center;
   margin-top: 20px;
   width: 100%;
- 
 }
  
 /* Form inputs and selects */

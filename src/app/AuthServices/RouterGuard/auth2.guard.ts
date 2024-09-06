@@ -7,15 +7,9 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class AuthGuard2 implements CanActivate {
-
-  // userData:any; 
  
   constructor(private authService: AuthService, private router: Router) {
-    // const userData1 = localStorage.getItem('loginData');
-    //   if(userData1){
-    //   this.userData =  JSON.parse(userData1);
-    //   }
-    // console.log("userdata",this.userData);
+    
   }
  
   canActivate(): boolean {

@@ -11,27 +11,19 @@ import { AddEmployeeService } from '../services/addEmployee.service';
   styleUrls: ['./add-employee.component.css'],
 })
 export class AddEmployeeComponent implements OnInit {
+
   employeeForm!: FormGroup;
-
   maxDate1: any;
-
   esd: any;
-
   maxDate: string | undefined;
-
   minDate: string | undefined;
-
   maximumDate: any;
-
   Employee: boolean = false;
-
   Candidate: boolean = true;
-
   msg: any;
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     private service: AddEmployeeService
   ) {}
@@ -52,25 +44,15 @@ export class AddEmployeeComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       Work_location: ['', Validators.required],
       workerType: ['', Validators.required],
-      effectiveStartDate: [
-        '',
-        [Validators.required, this.dateValidator.bind(this)],
-      ],
+      effectiveStartDate: ['',[Validators.required, this.dateValidator.bind(this)],],
       effectiveEndDate: ['4712-12-31'],
-      dateOfJoinging: [
-        '',
-        [Validators.required, this.dateValidator.bind(this)],
-      ],
+      dateOfJoinging: ['',[Validators.required, this.dateValidator.bind(this)],],
       email: ['', [Validators.required, Validators.email]],
     });
 
     //dob
     const today = new Date(); //current date and time
-    const maxDate = new Date(
-      today.getFullYear() - 18,
-      today.getMonth(),
-      today.getDate()
-    );
+    const maxDate = new Date(today.getFullYear() - 18,today.getMonth(),today.getDate());
     const minDate = new Date(
       today.getFullYear() - 60,
       today.getMonth(),
@@ -102,8 +84,8 @@ export class AddEmployeeComponent implements OnInit {
     const date = new Date(control.value);
     const day = date.getDay();
     const year = date.getFullYear();
-    const formattedDate = date.toISOString().split('T')[0];
-    const holidays = this.getHolidaysForYear(year);
+    // const formattedDate = date.toISOString().split('T')[0];
+    // const holidays = this.getHolidaysForYear(year);
 
     if (day === 6 || day === 0) {
       return { invalidDate: true };
@@ -142,8 +124,7 @@ export class AddEmployeeComponent implements OnInit {
     // console.log('employeeData', employeeData);
 
     // Submit the form
-    this.service.addEmployee(employeeData).subscribe(
-      (res: any) => {
+    this.service.addEmployee(employeeData).subscribe((res: any) => {
         // console.log("res",res.message);
         Swal.fire({
           position: 'top',
@@ -172,8 +153,7 @@ export class AddEmployeeComponent implements OnInit {
           width: 500,
           showConfirmButton: true,
         });
-      }
-    );
+      });
   }
 
   chageworkerType(event: any) {
@@ -194,8 +174,7 @@ export class AddEmployeeComponent implements OnInit {
     const workertype = {
       WORKER_TYPE: this.employeeForm.value['workerType'],
     };
-    this.service.getEmpNumber(workertype).subscribe(
-      (res: any) => {
+    this.service.getEmpNumber(workertype).subscribe((res: any) => {
         // console.log('res ---->>>>', res);
         const employeeNumberControl = this.employeeForm.get('employeeNumber');
         if (employeeNumberControl) {
@@ -207,4 +186,7 @@ export class AddEmployeeComponent implements OnInit {
       }
     );
   }
+
+
+  
 }

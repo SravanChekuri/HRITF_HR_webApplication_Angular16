@@ -1,281 +1,149 @@
 <div class="main">
-  <div><h5 class="form-heading">Add Candidate/Employee Details :</h5></div>
 
-  <div class="form-body">
-    <form
-      [formGroup]="employeeForm"
-      (ngSubmit)="onSubmit()"
-      class="form-container"
-    >
-      <div class="form-row">
-        <div class="form-col">
-          <label for="effectiveStartDate"
-            >Effective Start Date<span class="required-star">*</span>:</label
-          >
-          <input
-            type="date"
-            id="effectiveStartDate"
-            formControlName="effectiveStartDate"
-          />
-          <div
-            *ngIf="
-              employeeForm.get('effectiveStartDate')?.touched &&
-              employeeForm.get('effectiveStartDate')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *EffectiveStartDate is required
-          </div>
-          <div
-            *ngIf="
-              employeeForm.controls['effectiveStartDate'].hasError(
-                'invalidDate'
-              )
-            "
-            class="text-danger ms-3"
-          >
-            *Invalid Date (No Saturdays, Sundays)
-          </div>
-        </div>
+    <div><h5 class="form-heading">Add Candidate/Employee Details :</h5></div>
 
-        <div class="form-col">
-          <label for="effectiveEndDate">Effective End Date:</label>
-          <input
-            type="date"
-            id="effectiveEndDate"
-            formControlName="effectiveEndDate"
-          />
-        </div>
+    <div class="form-body">
 
-        <div class="form-col">
-          <label for="workerType"
-            >Worker Type<span class="required-star">*</span>:</label
-          >
-          <select
-            id="workerType"
-            formControlName="workerType"
-            required
-            (change)="chageworkerType($event)"
-          >
-            <option value="" selected disabled>Select...</option>
-            <option value="Employee" selected>Employee</option>
-            <option value="Candidate" selected>Candidate</option>
-          </select>
-          <div
-            *ngIf="
-              employeeForm.get('workerType')?.touched &&
-              employeeForm.get('workerType')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *Worker Type is required
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-col">
-          <label for="employeeNumber" *ngIf="Candidate"
-            >Candidate Number<span class="required-star">*</span>:</label
-          >
-          <label for="employeeNumber" *ngIf="Employee"
-            >Employee Number<span class="required-star">*</span>:</label
-          >
-          <input
-            type="text"
-            id="employeeNumber"
-            formControlName="employeeNumber"
-            required
-            placeholder="Number must start with E or C"
-          />
-          <div *ngIf="Candidate">
-            <div
-              *ngIf="
-                employeeForm.get('employeeNumber')?.touched &&
-                employeeForm.get('employeeNumber')?.hasError('required')
-              "
-              class="text-danger ms-3"
-            >
-              *Candidate Number is required
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-container">
+
+        <div class="form-row">
+
+          <div class="form-col">
+            <label for="effectiveStartDate">Effective Start Date<span class="required-star">*</span>:</label>
+            <input type="date" id="effectiveStartDate" formControlName="effectiveStartDate" />
+            <div *ngIf=" employeeForm.get('effectiveStartDate')?.touched && employeeForm.get('effectiveStartDate')?.hasError('required')" class="text-danger ms-3" >
+              *EffectiveStartDate is required
+            </div>
+            <div *ngIf="employeeForm.controls['effectiveStartDate'].hasError('invalidDate')" class="text-danger ms-3">
+              *Invalid Date (No Saturdays, Sundays)
             </div>
           </div>
-          <div *ngIf="Employee">
-            <div
-              *ngIf="
-                employeeForm.get('employeeNumber')?.touched &&
-                employeeForm.get('employeeNumber')?.hasError('required')
-              "
-              class="text-danger ms-3"
-            >
-              *Employee Number is required
+
+          <div class="form-col">
+            <label for="effectiveEndDate">Effective End Date:</label>
+            <input type="date" id="effectiveEndDate" formControlName="effectiveEndDate"/>
+          </div>
+
+          <div class="form-col">
+            <label for="workerType">Worker Type<span class="required-star">*</span>:</label>
+            <select id="workerType" formControlName="workerType" required (change)="chageworkerType($event)">
+              <option value="" selected disabled>Select...</option>
+              <option value="Employee" selected>Employee</option>
+              <option value="Candidate" selected>Candidate</option>
+            </select>
+            <div *ngIf=" employeeForm.get('workerType')?.touched && employeeForm.get('workerType')?.hasError('required')" class="text-danger ms-3">
+              *Worker Type is required
             </div>
           </div>
+
         </div>
 
-        <div class="form-col">
-          <label for="doj"
-            >Date of Joining<span class="required-star">*</span>:</label
-          >
-          <input type="date" id="doj" formControlName="dateOfJoinging" />
-          <div
-            *ngIf="
-              employeeForm.get('dateOfJoinging')?.touched &&
-              employeeForm.get('dateOfJoinging')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *Date of Joining is required
+        <div class="form-row">
+
+          <div class="form-col">
+            <label for="employeeNumber" *ngIf="Candidate">Candidate Number<span class="required-star">*</span>:</label>
+            <label for="employeeNumber" *ngIf="Employee">Employee Number<span class="required-star">*</span>:</label>
+            <input type="text" id="employeeNumber" formControlName="employeeNumber" required placeholder="Number must start with E or C" />
+            <div *ngIf="Candidate">
+              <div *ngIf=" employeeForm.get('employeeNumber')?.touched && employeeForm.get('employeeNumber')?.hasError('required')" class="text-danger ms-3">
+                *Candidate Number is required
+              </div>
+            </div>
+            <div *ngIf="Employee">
+              <div *ngIf=" employeeForm.get('employeeNumber')?.touched && employeeForm.get('employeeNumber')?.hasError('required')" class="text-danger ms-3">
+                *Employee Number is required
+              </div>
+            </div>
           </div>
-          <div
-            *ngIf="
-              employeeForm.controls['dateOfJoinging'].hasError('invalidDate')
-            "
-            class="text-danger ms-3"
-          >
-            *Invalid Date (No Saturdays, Sundays, Holidays)
+
+          <div class="form-col">
+            <label for="doj">Date of Joining<span class="required-star">*</span>:</label>
+            <input type="date" id="doj" formControlName="dateOfJoinging" />
+            <div *ngIf="employeeForm.get('dateOfJoinging')?.touched && employeeForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
+              *Date of Joining is required
+            </div>
+            <div *ngIf="employeeForm.controls['dateOfJoinging'].hasError('invalidDate')" class="text-danger ms-3">
+              *Invalid Date (No Saturdays, Sundays, Holidays)
+            </div>
           </div>
+
+          <div class="form-col">
+            <label for="firstName">First Name<span class="required-star">*</span>:</label>
+            <input type="text" id="firstName" formControlName="firstName" required />
+            <div *ngIf=" employeeForm.get('firstName')?.touched && employeeForm.get('firstName')?.hasError('required')" class="text-danger ms-3">
+              *firstName is required
+            </div>
+          </div>
+
         </div>
 
-        <div class="form-col">
-          <label for="firstName"
-            >First Name<span class="required-star">*</span>:</label
-          >
-          <input
-            type="text"
-            id="firstName"
-            formControlName="firstName"
-            required
-          />
-          <div
-            *ngIf="
-              employeeForm.get('firstName')?.touched &&
-              employeeForm.get('firstName')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *firstName is required
+        <div class="form-row">
+
+          <div class="form-col">
+            <label for="middleName">Middle Name:</label>
+            <input type="text" id="middleName" formControlName="middleName" />
           </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-col">
-          <label for="middleName">Middle Name:</label>
-          <input type="text" id="middleName" formControlName="middleName" />
+
+          <div class="form-col">
+            <label for="lastName">Last Name<span class="required-star">*</span>:</label>
+            <input type="text" id="lastName" formControlName="lastName" required/>
+            <div *ngIf=" employeeForm.get('lastName')?.touched && employeeForm.get('lastName')?.hasError('required')" class="text-danger ms-3">
+              *Last Name is required
+            </div>
+          </div>
+
+          <div class="form-col">
+            <label for="email">Email<span class="required-star">*</span>:</label>
+            <input type="email" id="email" formControlName="email" required />
+            <div *ngIf=" employeeForm.get('email')?.touched && employeeForm.get('email')?.hasError('required')" class="text-danger ms-3">
+              *Email is required
+            </div>
+            <div *ngIf=" employeeForm.get('email')?.touched && employeeForm.get('email')?.hasError('email')" class="text-danger">
+              *Invalid email format
+            </div>
+          </div>
+
         </div>
 
-        <div class="form-col">
-          <label for="lastName"
-            >Last Name<span class="required-star">*</span>:</label
-          >
-          <input
-            type="text"
-            id="lastName"
-            formControlName="lastName"
-            required
-          />
-          <div
-            *ngIf="
-              employeeForm.get('lastName')?.touched &&
-              employeeForm.get('lastName')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *Last Name is required
+        <div class="form-row">
+
+          <div class="form-col">
+            <label for="dateOfBirth">Date of Birth<span class="required-star">*</span>:</label>
+            <input type="date" id="dateOfBirth" formControlName="dateOfBirth" [max]="maxDate" [min]="minDate" required/>
+            <div *ngIf="employeeForm.get('dateOfBirth')?.touched &&employeeForm.get('dateOfBirth')?.hasError('required')" class="text-danger ms-3">
+              *DateOfBirth is required
+            </div>
           </div>
+
+          <div class="form-col">
+            <label for="Work_location">Work Location<span class="required-star">*</span>:</label>
+            <select id="Work_location" formControlName="Work_location">
+              <option value="" selected disabled>Select...</option>
+              <option value="Hyderabad" selected>Hyderabad</option>
+              <option value="Bengaluru" selected>Bengaluru</option>
+              <option value="Chennai" selected>Chennai</option>
+              <option value="Mumbai" selected>Mumbai</option>
+              <option value="Pune" selected>Pune</option>
+            </select>
+            <div *ngIf="employeeForm.get('Work_location')?.touched && employeeForm.get('Work_location')?.hasError('required') " class="text-danger ms-3">
+              *Work location is required
+            </div>
+          </div>
+
+          <div class="form-col"></div></div>
+
+        <div class="button-container">
+          <button type="submit" class="btn btn-primary" role="button" style="left: 30%">
+            <span class="text">Save</span>
+          </button>
+            &nbsp;
+          <button type="reset" class="btn btn-primary" style="margin: 5px" routerLink="/landing" role="button" style="background-color: grey" >
+            <span class="text">Cancel</span>
+          </button>
         </div>
 
-        <div class="form-col">
-          <label for="email">Email<span class="required-star">*</span>:</label>
-          <input type="email" id="email" formControlName="email" required />
-          <div
-            *ngIf="
-              employeeForm.get('email')?.touched &&
-              employeeForm.get('email')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *Email is required
-          </div>
-          <div
-            *ngIf="
-              employeeForm.get('email')?.touched &&
-              employeeForm.get('email')?.hasError('email')
-            "
-            class="text-danger"
-          >
-            *Invalid email format
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-col">
-          <label for="dateOfBirth"
-            >Date of Birth<span class="required-star">*</span>:</label
-          >
-          <input
-            type="date"
-            id="dateOfBirth"
-            formControlName="dateOfBirth"
-            [max]="maxDate"
-            [min]="minDate"
-            required
-          />
-          <div
-            *ngIf="
-              employeeForm.get('dateOfBirth')?.touched &&
-              employeeForm.get('dateOfBirth')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *DateOfBirth is required
-          </div>
-        </div>
+      </form>
+      
+    </div>
 
-        <div class="form-col">
-          <label for="Work_location"
-            >Work Location<span class="required-star">*</span>:</label
-          >
-          <select id="Work_location" formControlName="Work_location">
-            <option value="" selected disabled>Select...</option>
-            <option value="Hyderabad" selected>Hyderabad</option>
-            <option value="Bengaluru" selected>Bengaluru</option>
-            <option value="Chennai" selected>Chennai</option>
-            <option value="Mumbai" selected>Mumbai</option>
-            <option value="Pune" selected>Pune</option>
-          </select>
-          <div
-            *ngIf="
-              employeeForm.get('Work_location')?.touched &&
-              employeeForm.get('Work_location')?.hasError('required')
-            "
-            class="text-danger ms-3"
-          >
-            *Work location is required
-          </div>
-        </div>
-
-        <div class="form-col"></div>
-      </div>
-
-      <div class="button-container">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          role="button"
-          style="left: 30%"
-        >
-          <span class="text">Save</span></button
-        >&nbsp;
-        <button
-          type="reset"
-          class="btn btn-primary"
-          style="margin: 5px"
-          routerLink="/landing"
-          role="button"
-          style="background-color: grey"
-        >
-          <span class="text">Cancel</span>
-        </button>
-      </div>
-    </form>
-  </div>
 </div>

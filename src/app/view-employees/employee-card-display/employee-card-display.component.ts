@@ -10,35 +10,20 @@ import { Router } from '@angular/router';
 export class EmployeeCardDisplayComponent implements OnInit {
 
   @Input() employees: any ;
-
   @Input() employeeCount: number = 0;
-
   empList :any[]=[];
-
   constructor(private router: Router) { }
  
- 
   ngOnInit(): void {
-   
     //alert(1)
     this.empList.push(this.employees.EMPLOYEE_DETAILS);
-   
     // console.log("Emapdata by card:", this.empList)
   }
  
  
-  // handlePlusClick(employee: Employee) {
-  //   this.router.navigate(['./plus', { employee: JSON.stringify(employee) }]);
-  //   console.log(employee);
- 
-  // }
- 
   handleEditClick(employee: Employee) {
-
     localStorage.setItem('employee',JSON.stringify(employee));
-
     this.router.navigate(['./edit']);
-
   }
 
 

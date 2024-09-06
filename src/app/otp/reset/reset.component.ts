@@ -11,9 +11,9 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./reset.component.css']
 })
 export class ResetComponent implements OnInit {
+
   @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
   @ViewChild('reEnterPasswordInput') reEnterPasswordInput!: ElementRef<HTMLInputElement>;
-
   forgotpassword: FormGroup;
   submitted: any;
   username: any;
@@ -46,8 +46,7 @@ export class ResetComponent implements OnInit {
       } else {
         this.username = this.route.snapshot.params['username'];
         // console.log("username:",this.username);  
-      }    
-    
+      }     
     this.FormIntialization();
   }
 

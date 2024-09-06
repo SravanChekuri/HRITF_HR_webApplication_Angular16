@@ -14,17 +14,11 @@ constructor(private http:HttpClient, private service:TokenserviceService) { }
 //New user registration api
 
 Signdetails(signIndata:any){
-
   this.service.authLink();
-
   const httpheaders = new HttpHeaders({
-
     Authorization: 'Bearer ' + localStorage.getItem('token'),
-
   });
-
   return this.http.post(environment.baseApiKey+"/userRegister",signIndata,{headers:httpheaders});
-
 }
 
 
@@ -32,17 +26,11 @@ Signdetails(signIndata:any){
 //api for updating user data
 
 updateUser(signIndata:any,id:any){
-
   this.service.authLink();
-
   const httpheaders = new HttpHeaders({
-
     Authorization: 'Bearer ' + localStorage.getItem('token'),
-
   });
-
   return this.http.put(environment.baseApiKey+"/updateUserById/"+id,signIndata,{headers:httpheaders});
-  
 }
 
 
@@ -51,17 +39,11 @@ updateUser(signIndata:any,id:any){
 // api for getting all the user data
 
 getadmin(){
-
   this.service.authLink();
-
   const httpheaders = new HttpHeaders({
-
     Authorization: 'Bearer ' + localStorage.getItem('token'),
-
   });
-
   return this.http.get(environment.baseApiKey+"/getAllUserDetails",{headers:httpheaders});
-  
 }
 
 

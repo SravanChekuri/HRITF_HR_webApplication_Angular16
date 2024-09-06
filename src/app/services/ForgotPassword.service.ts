@@ -13,16 +13,10 @@ constructor( private http:HttpClient) { }
 // api for forgot pw
 
 ForgotDetails(FgpwPage:any){
-
   const httpheaders = new HttpHeaders({
-
     Authorization: 'Bearer ' + localStorage.getItem('token'),
-
   });
-
   return this.http.post(environment.baseApiKey+"/generateOtp",FgpwPage,{headers:httpheaders});
-  
-}
-
+  }
 
 }

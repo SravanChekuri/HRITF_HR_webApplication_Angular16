@@ -17,21 +17,26 @@ export class BulkAddEmployeeComponent implements OnInit {
   loading1:boolean=false;
   fileError:any;
 
-  constructor(private _http: HttpClient,private service:LettertemplateService,private route:Router,private blukService:AddEmployeeService) {}
+  constructor(
+              private _http: HttpClient,
+              private service:LettertemplateService,
+              private route:Router,
+              private blukService:AddEmployeeService
+            ){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   selectFile(event: any) {
     this.file = event.target.files[0];
     if (this.file) {
       const fileName = this.file.name;
     }
-    // console.log(this.file);
   }
 
   uploadFile() {
     if (!this.file) {
-      // alert("Please select a file.");
       Swal.fire({
         position:'top',
         icon: "error",
@@ -43,35 +48,25 @@ export class BulkAddEmployeeComponent implements OnInit {
     }
     const allowedTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
     if (!allowedTypes.includes(this.file.type)) {
-     // Swal.fire("Only Excel files are allowed.");
-      //alert("Only Excel files are allowed.");
-
       Swal.fire({
         position:'top',
         icon: 'error',
-        // padding: 50,
-        // showConfirmButton: false,
-        // timer: 2500,
         text: 'Only Excel files are allowed.',
         width:400
       });
       return;
     }
-    // console.log(localStorage.getItem('token'));
   
     let formData = new FormData();
     formData.append("Excel", this.file);
     const httpheaders = new HttpHeaders({
-    Authorization: 'Bearer ' + localStorage.getItem('token'),
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     this.loading1=true;
     this.blukService.sendBulkData(formData).subscribe((res:any)=>{
-      // console.log("bulkRes",res);
-      // alert(res.message)
       this.loading1=false;
       if(res.message){
           this.msg=res.message;
-          // console.log(res.message);   
       }
       Swal.fire({
               position:'top',
@@ -85,16 +80,10 @@ export class BulkAddEmployeeComponent implements OnInit {
               setTimeout(() => {
                 this.route.navigate(['/viewEmployees']);
               }, 500); 
-            })
-     
-     // alert("Bulk success")
-      
+            })      
     },error=>{
       this.loading1=false;
-      // console.log("bulkError",error);
-      //alert("bulkError")
       if (error.error && error.error.error) {
-              // alert(error.error.error);
               this.msg = error.error.error;
             }
       if (error.erroe && error.error.message){
