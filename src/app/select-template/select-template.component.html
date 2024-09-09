@@ -19,8 +19,8 @@
  
       <div class="suggestions-container">
           <input type="text" formControlName="employeeNumber" class="form-control" (input)="onEmployeeNumberChange($event, i)" placeholder="E.g.,C0001/E0001...">
-          <ul *ngIf="suggestionsVisible" class="suggestions-list">
-            <li *ngFor="let suggestion of suggestedEmployeeNumbers" (click)="selectSuggestion(suggestion, i)">
+          <ul *ngIf="suggestionsVisible[i]" class="suggestions-list">
+            <li *ngFor="let suggestion of suggestedEmployeeNumbers[i]" (click)="selectSuggestion(suggestion, i)">
               {{ suggestion }}
             </li>
           </ul>
@@ -31,7 +31,7 @@
  
       <div class="input-group" style="display: flex; flex-direction: column;">
         <label  for="letterTemplate">LetterTemplate<span style="color: red;font-weight: bold;">*</span>:</label>
-        <select id="letterType"  class="form-control" formControlName="letterTemplate">
+        <select id="letterType"  class="form-control" formControlName="letterTemplate" (change)="letterTemplateName($event)">
           <option value="" selected disabled>select....</option>
           <ng-container *ngFor="let data of letterarray">
             <option [value]="data">{{data}} <br/></option>
@@ -40,7 +40,7 @@
       </div>
  
   <div  style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <div class="button-container">
+      <div class="button-container" *ngIf="buttonHide">
         <button type="button" (click)="addEmployeeNumber()" class="btn btn-primary" role="button"><span class="text">Add another number</span></button>
       </div>
       
@@ -61,9 +61,6 @@
     </div>
  
   </div>  
- 
- 
- 
  
 </div>
  

@@ -68,5 +68,24 @@ recentEmployees(): Observable<any> {
   return this.http.get(environment.baseApiKey+"/recent_Employees",{headers:httpheaders});
 }
 
+getCountires(): Observable<any> {
+  const httpheaders = new HttpHeaders({
+    'X-CSCAPI-KEY': 'MGZMRlZLbkZ0SmNiOGkxQzBlREFLYjBKdlZZU1BnRmlRbGI3N2lvVg=='
+  })
+  return this.http.get<any>("https://api.countrystatecity.in/v1/countries", { headers: httpheaders })
+}
+getAllstates(countryId: any): Observable<any> {
+  const httpheaders = new HttpHeaders({
+    'X-CSCAPI-KEY': 'MGZMRlZLbkZ0SmNiOGkxQzBlREFLYjBKdlZZU1BnRmlRbGI3N2lvVg=='
+  });
+  return this.http.get<any>(`https://api.countrystatecity.in/v1/countries/${countryId}/states`,{headers:httpheaders})
+}
+
+getAllcities(countryId:any, stateId:any):Observable<any>{
+  const httpheaders=new HttpHeaders({
+    'X-CSCAPI-KEY': 'MGZMRlZLbkZ0SmNiOGkxQzBlREFLYjBKdlZZU1BnRmlRbGI3N2lvVg=='
+  });
+  return this.http.get<any>(`https://api.countrystatecity.in/v1/countries/${countryId}/states/${stateId}/cities`,{headers:httpheaders});
+}
 
 }

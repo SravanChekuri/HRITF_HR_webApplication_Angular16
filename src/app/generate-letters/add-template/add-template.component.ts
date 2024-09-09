@@ -63,7 +63,6 @@ export class AddTemplateComponent implements OnInit {
       });
       return;
     }
-
     const allowedTypes = ['application/rtf', 'text/rtf'];
     if (!allowedTypes.includes(this.file.type) && !this.file.name.endsWith('.rtf')) {
       Swal.fire({
@@ -101,6 +100,18 @@ export class AddTemplateComponent implements OnInit {
         });
         // Refresh the template list
         this.displayTemplates();
+        this.letterType = '';
+        this.file = null;
+          // Clear the file input field
+          const fileInput = <HTMLInputElement>document.getElementById('rtfFile');
+          if (fileInput) {
+              fileInput.value = '';
+          }
+          // Reset the letter type dropdown
+          const letterTypeSelect = <HTMLSelectElement>document.getElementById('letterType');
+          if (letterTypeSelect) {
+              letterTypeSelect.selectedIndex = 0; // Reset the dropdown to default
+          }
       },(error) => {
         this.loading=false;
         if(error.error && error.error.message){

@@ -11,17 +11,17 @@ import Swal from 'sweetalert2';
  
 export class SelectTemplateComponent implements OnInit {
  
- letterType: any;
+//  letterType: any;
  letterarray:string[]=[];
- suggestedEmployeeNumbers: string[] = [];
- suggestionsVisible: boolean = false;
+ suggestedEmployeeNumbers: string[][] = [];
+ suggestionsVisible: boolean[] = [];
  lettersData: any = [
     // { name:'Appointment Letter',id: 1 },
     // { name:'Offer Letter',id: 2 },
     // { name:'Confirmation Letter',id: 3 },
     // { name:'Revision Letter',id: 4 },
     // { name:'Termination Letter',id: 5 },
-    // { name:'Verification Letter',id: 6 },
+    // { name:'Employement Letter',id: 6 },
     // { name:'Relieving Letter',id: 7 }
   ];
   TemplateForm: FormGroup = new FormGroup({});
@@ -31,6 +31,7 @@ export class SelectTemplateComponent implements OnInit {
   filteredLettersData:any=this.lettersData;
   msg:any;
   userData: any;
+  buttonHide:boolean = true;
 
  
   constructor(
@@ -48,10 +49,14 @@ export class SelectTemplateComponent implements OnInit {
     this.FormInitialization();
   }
  
+  letterTemplateName(event: any) {
+    const selectedTemplate = event.target.value;
+    this.buttonHide = selectedTemplate !== "Employement Letter";
+  }
+
  
   FormInitialization() {
     this.TemplateForm = this.formbuilder.group({
-      // TemplateId: ['', Validators.required],
       employeeNumber: this.formbuilder.array([this.createEmployeeNumberFormGroup()]),
       letterTemplate: ['', Validators.required]
     });
@@ -68,13 +73,40 @@ export class SelectTemplateComponent implements OnInit {
  
   addEmployeeNumber(): void {
     this.employeeNumber.push(this.createEmployeeNumberFormGroup());
+    this.suggestionsVisible.push(false);
+    this.suggestedEmployeeNumbers.push([]);
   }
  
   removeEmployeeNumber(index: number): void {
     this.employeeNumber.removeAt(index);
+    this.suggestionsVisible.splice(index, 1);
+    this.suggestedEmployeeNumbers.splice(index, 1);
   }
  
- 
+  private saveFile1(data: Blob, filename: string) {
+    const blob = new Blob([data], { type: 'application/rtf' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
+
+  private saveFile2(data: Blob, filename: string) {
+    const blob = new Blob([data], { type: 'application/zip' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
+
   letterData() {
     this.loading = true;
      // Convert employee numbers to uppercase
@@ -109,7 +141,7 @@ export class SelectTemplateComponent implements OnInit {
      });
     //  console.log('data1',data1);
     this.services.sendTemplateDetails(data1).subscribe((res:any) => {
-        // console.log(res);
+        console.log(res);
         this.loading = false;
         Swal.fire({
           position:'top',
@@ -119,11 +151,15 @@ export class SelectTemplateComponent implements OnInit {
           timer:1500,
           showConfirmButton: false,
           width:400
-        }).then(() => {
-          const fileURL = URL.createObjectURL(res);
-          // console.log("url", fileURL);
-          // window.open(fileURL, '_blank');
         });
+
+        if(res.type == 'application/rtf'){
+          this.saveFile1(res, 'HRIT Factory'+ res +' '+  +'.rtf');
+        }
+        else{
+          this.saveFile2(res, 'HRIT Factory Letters.zip');
+        }
+        this.TemplateForm.reset();
       },(error) => {
         this.loading = false;
         if (error.error instanceof Blob) {
@@ -173,42 +209,34 @@ export class SelectTemplateComponent implements OnInit {
   onEmployeeNumberChange(event: Event,index: number): void {
     const input = (event.target as HTMLInputElement).value;
     // console.log("input",input);
-    this.getEmpNumLetterNames(input)
+    this.getEmpNumLetterNames(input,index)
   }
  
-  getEmpNumLetterNames(input:any){
-    if (input!=""){
-    this.services.empNumsLetternames(input).subscribe((res:any)=>{
+  getEmpNumLetterNames(input:any,index:number){
+    if (input != "") {
+      this.services.empNumsLetternames(input).subscribe((res: any) => {
+        this.letterarray = [];
+        this.suggestedEmployeeNumbers[index] = res.map((item: { EMP_NO: string }) => item.EMP_NO);
+        this.suggestionsVisible[index] = this.suggestedEmployeeNumbers[index].length > 0;
+        if (res.length > 0) {
+          this.letterarray = res[0].LetterNames;
+        }
+      }, error => {
+        this.suggestedEmployeeNumbers[index] = [];
+        this.suggestionsVisible[index] = false;
+      });
+    } else {
       this.letterarray = [];
-      this.suggestedEmployeeNumbers = [];
-      // this.empNumLetterName=res;
-     //  console.log("res",res);
-     this.suggestedEmployeeNumbers = res.map((item: { EMP_NO: string }) => item.EMP_NO);
-    //  console.log("hbdkbkawd:",this.suggestedEmployeeNumbers);
-     for (let i of res){
-      // console.log(i);
-      this.letterarray=i.LetterNames;
-      break;
-     }
-    // console.log(this.letterarray);
-    this.suggestionsVisible = this.suggestedEmployeeNumbers.length > 0;    
-    },error=>{
-      // console.error("Error:", error);
-      this.suggestedEmployeeNumbers = [];
-      this.suggestionsVisible = false;
-    })
+      this.suggestedEmployeeNumbers[index] = [];
+      this.suggestionsVisible[index] = false;
+    }
   }
-  else{
-    this.letterarray=[];
-    this.suggestedEmployeeNumbers = [];
-    this.suggestionsVisible = false;  
+
+  selectSuggestion(suggestion: string, index: number): void {
+    this.employeeNumber.at(index).patchValue({ employeeNumber: suggestion });
+    this.suggestionsVisible[index] = false;
   }
-}
- 
-selectSuggestion(suggestion: string, index: number): void {
-  this.employeeNumber.at(index).patchValue({ employeeNumber: suggestion });
-  this.suggestionsVisible = false;
-}
+
  
 getRoleClass(role: string): string {
   return this.userData.ROLE === 'Admin' ? 'align-btn2' : 'align-btn1';

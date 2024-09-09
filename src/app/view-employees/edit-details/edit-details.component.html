@@ -70,185 +70,91 @@
                       <div class="form-group col-md-4" style="margin-bottom: 20px">
                         <label for="workerType">Worker Type<span style="color: red">*</span>:</label >
                         <select id="workerType" class="form-control" formControlName="workerType" (change)="onchange($event)" >
-                          <!-- [disabled]="employeeData[0].WORKER_TYPE === 'Employee'" [ngClass]="{'disabled-select':employeeData[0].WORKER_TYPE === 'Employee'}" -->
                           <option [selected]="updateForm.get('workerType').value === ''" disabled > Select... </option>
                           <option value="Employee" [selected]="updateForm.get('workerType').value === 'Employee'"> Employee </option>
                           <option value="Candidate"  [selected]="updateForm.get('workerType').value === 'Candidate'"> Candidate </option>
                         </select>
-                        <div
-                          *ngIf="
-                            updateForm.get('workerType')?.touched &&
-                            updateForm.get('workerType')?.hasError('required')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <div *ngIf="updateForm.get('workerType')?.touched && updateForm.get('workerType')?.hasError('required')" class="text-danger ms-3">
                           *Worker Type is required
                         </div>
                       </div>
+
                     </div>
 
                     <div class="form-row">
+
                       <div class="form-group col-md-4">
-                        <label for="employeeNumber" *ngIf="isCandidate"
-                          >Candidate Number<span style="color: red">*</span></label
-                        >
-                        <label for="employeeNumber" *ngIf="isEmployee"
-                          >Employee Number<span style="color: red">*</span>:</label
-                        >
-                        <input
-                          type="text"
-                          id="employeeNumber"
-                          name="employeeNumber"
-                          class="form-control disabled-select"
-                          formControlName="employeeNumber"
-                        />
-                        <!-- [attr.readonly]="employeeData[0].WORKER_TYPE === 'Employee' ? true : null" -->
+                        <label for="employeeNumber" *ngIf="isCandidate">Candidate Number<span style="color: red">*</span></label>
+                        <label for="employeeNumber" *ngIf="isEmployee">Employee Number<span style="color: red">*</span>:</label>
+                        <input type="text" id="employeeNumber" name="employeeNumber" class="form-control disabled-select" formControlName="employeeNumber"/>
                         <div *ngIf="isEmployee">
-                          <div
-                            *ngIf="
-                              updateForm.get('employeeNumber')?.touched &&
-                              updateForm.get('employeeNumber')?.hasError('required')
-                            "
-                            class="text-danger ms-3"
-                          >
+                          <div *ngIf="updateForm.get('employeeNumber')?.touched &&updateForm.get('employeeNumber')?.hasError('required')" class="text-danger ms-3">
                             *Employee Number is required
                           </div>
                         </div>
                         <div *ngIf="isCandidate">
-                          <div
-                            *ngIf="
-                              updateForm.get('employeeNumber')?.touched &&
-                              updateForm.get('employeeNumber')?.hasError('required')
-                            "
-                            class="text-danger ms-3"
-                          >
+                          <div *ngIf="updateForm.get('employeeNumber')?.touched &&updateForm.get('employeeNumber')?.hasError('required')" class="text-danger ms-3">
                             *Candidate Number is required
                           </div>
                         </div>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="doj"
-                          >Date of Joining<span class="required-star">*</span>:</label
-                        >
+                        <label for="doj">Date of Joining<span class="required-star">*</span>:</label>
                         <input type="date" id="doj" formControlName="dateOfJoinging" />
-                        <div
-                          *ngIf="
-                            updateForm.get('dateOfJoinging')?.touched &&
-                            updateForm.get('dateOfJoinging')?.hasError('required')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <div *ngIf="updateForm.get('dateOfJoinging')?.touched &&updateForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
                           *Date of Joining is required
                         </div>
-                        <div
-                          *ngIf="
-                            updateForm.controls['dateOfJoinging'].hasError('invalidDate')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <div *ngIf="updateForm.controls['dateOfJoinging'].hasError('invalidDate')" class="text-danger ms-3">
                           *Invalid Date (No Saturdays, Sundays, Holidays)
                         </div>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="firstName"
-                          >First Name <span style="color: red">*</span>:</label
-                        >
-                        <input
-                          type="text"
-                          id="firstName"
-                          name="firstName"
-                          class="form-control"
-                          formControlName="firstName"
-                        />
-                        <div
-                          *ngIf="
-                            updateForm.get('firstName')?.touched &&
-                            updateForm.get('firstName')?.hasError('required')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <label for="firstName">First Name <span style="color: red">*</span>:</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" formControlName="firstName"/>
+                        <div *ngIf="updateForm.get('firstName')?.touched && updateForm.get('firstName')?.hasError('required')" class="text-danger ms-3">
                           *First Name is required
                         </div>
                       </div>
+
                     </div>
+
                     <div class="form-row">
+
                       <div class="form-group col-md-4">
                         <label for="middleName">Middle Name:</label>
-                        <input
-                          type="text"
-                          id="middleName"
-                          name="middleName"
-                          class="form-control"
-                          formControlName="middleName"
-                        />
+                        <input type="text" id="middleName" name="middleName" class="form-control" formControlName="middleName"/>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="lastName"
-                          >Last Name<span style="color: red">*</span>:</label
-                        >
-                        <input
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          class="form-control"
-                          formControlName="lastName"
-                        />
-                        <div
-                          *ngIf="
-                            updateForm.get('lastName')?.touched &&
-                            updateForm.get('lastName')?.hasError('required')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <label for="lastName">Last Name<span style="color: red">*</span>:</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control" formControlName="lastName"/>
+                        <div *ngIf="updateForm.get('lastName')?.touched && updateForm.get('lastName')?.hasError('required')" class="text-danger ms-3">
                           *Last Name is required
                         </div>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <!-- <label for="email">Email Address <span style="color: red;">*</span>:</label> -->
                         <label for="email" *ngIf="isCandidate">Candidate Email :</label>
                         <label for="email" *ngIf="isEmployee">Employee Email :</label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          class="form-control disabled-select"
-                          formControlName="email"
-                        />
-                        <!-- [attr.readonly]="employeeData[0].WORKER_TYPE === 'Employee' ? true : null" -->
-                        <!-- <div *ngIf="updateForm.get('email')?.touched && updateForm.get('email')?.hasError('required')" class="text-danger ms-3">*Email is required</div> -->
+                        <input type="email" id="email" name="email" class="form-control disabled-select" formControlName="email"/>
                       </div>
+
                     </div>
+
                     <div class="form-row">
+
                       <div class="form-group col-md-4">
-                        <label for="dateOfBirth"
-                          >Date of Birth<span style="color: red">*</span>:</label
-                        >
-                        <input
-                          type="date"
-                          id="dateOfBirth"
-                          name="dateOfBirth"
-                          class="form-control"
-                          formControlName="dateOfBirth"
-                        />
-                        <div
-                          *ngIf="
-                            updateForm.get('dateOfBirth')?.touched &&
-                            updateForm.get('dateOfBirth')?.hasError('required')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <label for="dateOfBirth">Date of Birth<span style="color: red">*</span>:</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control" formControlName="dateOfBirth"/>
+                        <div *ngIf="updateForm.get('dateOfBirth')?.touched && updateForm.get('dateOfBirth')?.hasError('required')" class="text-danger ms-3">
                           *DOB Date is required
                         </div>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="workLocation"
-                          >Work Location<span style="color: red">*</span>:</label
-                        >
+                        <label for="workLocation">Work Location<span style="color: red">*</span>:</label>
                         <select id="Work_location" formControlName="workLocation">
                           <option value selected disabled>Select...</option>
                           <option value="Hyderabad" selected>Hyderabad</option>
@@ -257,43 +163,27 @@
                           <option value="Mumbai" selected>Mumbai</option>
                           <option value="Pune" selected>Pune</option>
                         </select>
-                        <div
-                          *ngIf="
-                            updateForm.get('workLocation')?.touched &&
-                            updateForm.get('workLocation')?.hasError('required')
-                          "
-                          class="text-danger ms-3"
-                        >
+                        <div *ngIf="updateForm.get('workLocation')?.touched && updateForm.get('workLocation')?.hasError('required')" class="text-danger ms-3">
                           *Work Location is required
                         </div>
                       </div>
 
                       <div class="form-group col-md-4"></div>
+
                     </div>
 
                     <div class="row">
+
                       <div class="col" style="margin-bottom: 2%; text-align: center">
-                        <button
-                          type="submit"
-                          class="btn btn-primary animated"
-                          style="width: 8%; margin-right: 2%"
-                          role="button"
-                          *ngIf="empButtons"
-                        >
+                        <button type="submit" class="btn btn-primary animated" style="width: 8%; margin-right: 2%" role="button" *ngIf="empButtons">
                           <span class="text">Update</span>
                         </button>
 
-                        <button
-                          type="button"
-                          class="btn btn-primary m-1 animated"
-                          style="width: 8%; background-color: gray"
-                          *ngIf="empButtons"
-                          (click)="isEmployeeContent()"
-                          role="button"
-                        >
+                        <button type="button" class="btn btn-primary m-1 animated" style="width: 8%; background-color: gray" *ngIf="empButtons"(click)="isEmployeeContent()" role="button">
                           <span class="text">Cancel</span>
                         </button>
                       </div>
+
                     </div>
 
               </form>   
@@ -305,19 +195,19 @@
 
               <div class="d-flex flex-row">
 
-                <button (click)="openModal('custom-modal-3')" class="btn btn-primary animated" style="width: 270px; margin-left: 8%; margin-bottom: 3%">
+                <button (click)="openModal('custom-modal-1')" class="btn btn-primary animated" style="width: 270px; margin-left: 8%; margin-bottom: 3%">
                   <span class="text" *ngIf="updateForm.get('workerType').value === 'Employee'">Employment Details</span>
                   <span class="text" *ngIf="updateForm.get('workerType').value !== 'Employee'" >Employment Details</span >
                 </button>
 
                 <span *ngIf="updateForm.get('workerType').value === 'Employee'">
-                  <button  class="btn btn-primary animated" style="margin-left: 6%; width: 270px" (click)="openModal('custom-modal-4')">
+                  <button  class="btn btn-primary animated" style="margin-left: 6%; width: 270px" (click)="openModal('custom-modal-2')">
                     <span class="text">Address Details</span>
                   </button>
                 </span>
 
                 <div *ngIf="updateForm.get('workerType').value === 'Employee'" style="margin-top: 2%">
-                  <span (click)="openModal('custom-modal-7');">
+                  <span (click)="openModal('custom-modal-5');">
                     <button class="btn btn-primary animated" (click)="emergency()" style="margin-left: 15%; width: 270px; bottom: 50%;">
                       <span class="text">Emergency Details</span>
                     </button>
@@ -338,452 +228,248 @@
 
     </div><!--Div for candidate/employee details end-->
 
+
     <!------------------------------------------------ EMPLOYEMENT DETAILS ------------------------------------->
 
+    <div class="main"><!-- Employement Details main div-->
 
-    <div class="main">
-      <div class="container-box">
-        <jw-modal id="custom-modal-3" *ngIf="EmployementData">
-          <button
-            type="button"
-            class="btn-close"
-            data-dismiss="modal"
-            aria-label="Close"
-            (click)="closeModal('custom-modal-3')"
-          ></button>
+        <div class="container-box"  >
 
-          <hr />
+          <jw-modal id="custom-modal-1" *ngIf="EmployementData">
 
-          <div style="display: flex; flex-direction: row">
-            <div class="d-flex flex-column" style="margin-left: 10%">
-              <label>Effective Start Date :</label>
-              <input
-                type="date"
-                class="input"
-                [(ngModel)]="employeementEsd"
-                class="form-control"
-                style="width: 150%"
-              />
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModal('custom-modal-1')"></button>
+
+            <hr />
+
+            <div style="display: flex; flex-direction: row">
+
+              <div class="d-flex flex-column" style="margin-left: 10%">
+                <label>Effective Start Date :</label>
+                <input type="date" class="input" [(ngModel)]="employeementEsd" class="form-control" style="width: 150%"/>
+              </div>
+
+              <div class="d-flex flex-column" style="margin-left: 10%">
+                <label>Effective End Date :</label>
+                <input type="date" class="form-control" style="width: 150%" />
+              </div>
+
+              <button class="btn btn-primary animated" style="width: 10%; height: 10%; left: 10%; margin-top: 3%" (click)="empsubmitdate()">
+                <span class="text">Search</span>
+              </button>
+
             </div>
 
-            <div class="d-flex flex-column" style="margin-left: 10%">
-              <label>Effective End Date :</label>
-              <input type="date" class="form-control" style="width: 150%" />
-            </div>
+            <h3 class="btn btn-primary animated" style="width: 10%; height: 8%; left: 90%" (click)="employeementUpdate()" *ngIf="isHideEditEmployementButton">
+              <span style="cursor: pointer" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i>Edit</span>
+            </h3>
 
-            <button
-              class="btn btn-primary animated"
-              style="width: 10%; height: 10%; left: 10%; margin-top: 3%"
-              (click)="empsubmitdate()"
-            >
-              <span class="text">Search</span>
-            </button>
-          </div>
+            <br />
 
-          <h3
-            class="btn btn-primary animated"
-            style="width: 10%; height: 8%; left: 90%"
-            (click)="employeementUpdate()"
-            *ngIf="isHideEditEmployementButton"
-          >
-            <span style="cursor: pointer" class="edit-icon"
-              ><i class="fa-solid fa-pen-to-square"></i>Edit</span
-            >
-          </h3>
+            <h3 style="margin-left: 5%">Employement Details :</h3>
 
-          <br />
+            <!-------------------------------------------------------------- Form start  --------------------------------------------------->
 
-          <h3 style="margin-left: 5%">Employement Details :</h3>
+            <form [formGroup]="employementForm" (ngSubmit)="employmentSubmit()" style="margin-left: 4%">
 
-          <form
-            [formGroup]="employementForm"
-            (ngSubmit)="employmentSubmit()"
-            style="margin-left: 4%"
-          >
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="Effective_Start_Date"
-                  >Effective Start Date<span style="color: red">*</span>:</label
-                >
-                <input
-                  type="date"
-                  id="Effective_Start_Date"
-                  name="Effective_Start_Date"
-                  formControlName="Effective_Start_Date"
-                  class="form-control"
-                />
-                <div
-                  *ngIf="
-                    employementForm.get('Effective_Start_Date')?.touched &&
-                    employementForm
-                      .get('Effective_Start_Date')
-                      ?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Effective Start Date is required
+              <div class="form-row">
+
+                <div class="form-group col-md-4">
+                  <label for="Effective_Start_Date" >Effective Start Date<span style="color: red">*</span>:</label>
+                  <input type="date" id="Effective_Start_Date" name="Effective_Start_Date" formControlName="Effective_Start_Date" class="form-control"/>
+                  <div *ngIf=" employementForm.get('Effective_Start_Date')?.touched && employementForm.get('Effective_Start_Date')?.hasError('required')" class="text-danger ms-3">
+                    *Effective Start Date is required
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group col-md-4">
-                <label for="Effective_End_Date">Effective End Date:</label>
-                <input
-                  type="date"
-                  id="Effective_End_Date"
-                  name="Effective_End_Date"
-                  value="4712-12-31"
-                  class="form-control"
-                  formControlName="Effective_End_Date"
-                />
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="workerType"
-                  >Worker Type<span style="color: red">*</span>:</label
-                >
-                <select
-                  id="workerType"
-                  formControlName="workerType"
-                  class="form-control"
-                >
-                  <!-- [ngClass]="{'disabled-select': employeeList.employment_details[0].WORKER_TYPE === 'Employee'}" -->
-                  <option value selected disabled>Select...</option>
-                  <option value="Candidate">Candidate</option>
-                  <option value="Employee">Employee</option>
-                </select>
-                <div
-                  *ngIf="
-                    employementForm.get('workerType')?.touched &&
-                    employementForm.get('workerType')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Worker Type is required
+                <div class="form-group col-md-4">
+                  <label for="Effective_End_Date">Effective End Date:</label>
+                  <input type="date" id="Effective_End_Date" name="Effective_End_Date" value="4712-12-31" class="form-control" formControlName="Effective_End_Date" />
                 </div>
-              </div>
-            </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="MOBILE_NO"
-                  >Mobile No<span style="color: red">*</span>:</label
-                >
-                <input
-                  type="tel"
-                  id="MOBILE_NO"
-                  name="MOBILE_NO"
-                  formControlName="MobileNo"
-                  class="form-control"
-                  style="width: 80%; padding: 10px; border-radius: 10px"
-                />
-                <div
-                  *ngIf="
-                    employementForm.get('MobileNo')?.touched &&
-                    employementForm.get('MobileNo')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Mobile No is required
+                <div class="form-group col-md-4">
+                  <label for="workerType">Worker Type<span style="color: red">*</span>:</label>
+                  <select id="workerType" formControlName="workerType" class="form-control">
+                    <option value selected disabled>Select...</option>
+                    <option value="Candidate">Candidate</option>
+                    <option value="Employee">Employee</option>
+                  </select>
+                  <div *ngIf=" employementForm.get('workerType')?.touched && employementForm.get('workerType')?.hasError('required')" class="text-danger ms-3" >
+                    *Worker Type is required
+                  </div>
                 </div>
-                <div
-                  *ngIf="employementForm.get('MobileNo').errors?.['pattern']"
-                  class="text-danger"
-                >
-                  *Mobile Number must contain only numbers
+
+              </div>
+
+              <div class="form-row">
+
+                <div class="form-group col-md-4">
+                  <label for="MOBILE_NO" >Mobile No<span style="color: red">*</span>:</label>
+                  <input type="tel" id="MOBILE_NO" name="MOBILE_NO" formControlName="MobileNo" class="form-control" style="width: 80%; padding: 10px; border-radius: 10px"/>
+                  <div *ngIf="employementForm.get('MobileNo')?.touched && employementForm.get('MobileNo')?.hasError('required')"class="text-danger ms-3">
+                    *Mobile No is required
+                  </div>
+                  <div *ngIf="employementForm.get('MobileNo').errors?.['pattern']" class="text-danger">
+                    *Mobile Number must contain only numbers
+                  </div>
+                  <div *ngIf="employementForm.get('MobileNo').errors?.['maxlength']"class="text-danger">
+                    *Mobile Number must be 10 digits long
+                  </div>
+                  <div *ngIf="employementForm.get('MobileNo').errors?.['minlength']" class="text-danger">
+                    *Mobile Number must be 10 digits long
+                  </div>
                 </div>
-                <div
-                  *ngIf="employementForm.get('MobileNo').errors?.['maxlength']"
-                  class="text-danger"
-                >
-                  *Mobile Number must be 10 digits long
+
+                <div class="form-group col-md-4" style="margin-bottom: 2%">
+                  <label for="dateOfJoining">Date of Joining <span style="color: red">*</span>:</label>
+                  <input type="date" id="dateOfJoining" formControlName="dateOfJoining" required class="form-control disabled-select" readonly/>
+                  <div *ngIf="employementForm.get('dateOfJoining')?.touched && employementForm.get('dateOfJoining')?.hasError('required')" class="text-danger ms-3">
+                    *Date of Joining is required
+                  </div>
                 </div>
-                <div
-                  *ngIf="employementForm.get('MobileNo').errors?.['minlength']"
-                  class="text-danger"
-                >
-                  *Mobile Number must be 10 digits long
+
+                <div class="form-group col-md-4">
+                  <label for="Status">Status<span style="color: red">*</span>:</label>
+                  <select id="Status" formControlName="Status" class="form-control">
+                    <option value disabled>Select...</option>
+                    <option value="ACTIVE" selected>Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                  <div *ngIf="employementForm.get('Status')?.touched && employementForm.get('Status')?.hasError('required')" class="text-danger ms-3">
+                    *Status is required
+                  </div>
                 </div>
+
               </div>
 
-              <div class="form-group col-md-4" style="margin-bottom: 2%">
-                <label for="dateOfJoining"
-                  >Date of Joining <span style="color: red">*</span>:</label
-                >
-                <input
-                  type="date"
-                  id="dateOfJoining"
-                  formControlName="dateOfJoining"
-                  required
-                  class="form-control disabled-select"
-                  readonly
-                
-                />
-                <!-- [attr.readonly]="employeeList.employment_details[0].WORKER_TYPE === 'Employee' ? true : null" -->
-                <div
-                  *ngIf="
-                    employementForm.get('dateOfJoining')?.touched &&
-                    employementForm.get('dateOfJoining')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Date of Joining is required
+              <div class="form-row">
+
+                <div class="form-group col-md-4">
+                  <label for="Organization_Name">Organization Name <span style="color: red">*</span>:</label>
+                  <input type="text" id="Organization_Name" name="Organization_Name" formControlName="Organization_Name" class="form-control"/>
+                  <div *ngIf="employementForm.get('Organization_Name')?.touched && employementForm.get('Organization_Name')?.hasError('required')" class="text-danger ms-3">
+                    *Organization name is required
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group col-md-4">
-                <label for="Status"
-                  >Status<span style="color: red">*</span>:</label
-                >
-                <select id="Status" formControlName="Status" class="form-control">
-                  <option value disabled>Select...</option>
-                  <option value="ACTIVE" selected>Active</option>
-                  <option value="Inactive">Inactive</option>
-                </select>
-                <div
-                  *ngIf="
-                    employementForm.get('Status')?.touched &&
-                    employementForm.get('Status')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Status is required
+                <div class="form-group col-md-4">
+                  <label for="Department">Department:</label>
+                  <input type="text" id="Department" name="Department" formControlName="Department" class="form-control"/>
                 </div>
-              </div>
-            </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="Organization-Name"
-                  >Organization Name <span style="color: red">*</span>:</label
-                >
-                <input
-                  type="text"
-                  id="Organization_Name"
-                  name="OrganizationName"
-                  formControlName="Organization_Name"
-                  class="form-control"
-                />
-                <div
-                  *ngIf="
-                    employementForm.get('Organization_Name')?.touched &&
-                    employementForm.get('Organization_Name')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Organization name is required
+                <div class="form-group col-md-4">
+                  <label for="Position-Name">Position:</label>
+                  <input type="text" id="Position" name="Position" formControlName="Position" class="form-control" />
                 </div>
+
               </div>
 
-              <div class="form-group col-md-4">
-                <label for="Department">Department:</label>
-                <input
-                  type="text"
-                  id="Department"
-                  name="Department"
-                  formControlName="Department"
-                  class="form-control"
-                />
-                <!-- <div *ngIf="employementForm.get('Department')?.touched && employementForm.get('Department')?.hasError('required')" class="text-danger ms-3"> *Department is required</div> -->
-              </div>
+              <div class="form-row">
 
-              <div class="form-group col-md-4">
-                <label for="Position-Name">Position:</label>
-                <input
-                  type="text"
-                  id="Position"
-                  name="Position"
-                  formControlName="Position"
-                  class="form-control"
-                />
-                <!-- <div *ngIf="employementForm.get('Position')?.touched && employementForm.get('Position')?.hasError('required')" class="text-danger ms-3"> *Position is required </div> -->
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="Annual-Salary"
-                  >Annual Salary <span style="color: red">*</span>:</label
-                >
-                <input
-                  type="text"
-                  id="Annual_Salary"
-                  name="Annual_Salary"
-                  formControlName="Annual_Salary"
-                  class="form-control"
-                  value="0"
-                />
-                <div
-                  *ngIf="
-                    employementForm.get('Annual_Salary')?.touched &&
-                    employementForm.get('Annual_Salary')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Annual Salary is required
+                <div class="form-group col-md-4">
+                  <label for="Annual_Salary">Annual Salary <span style="color: red">*</span>:</label>
+                  <input type="text" id="Annual_Salary" name="Annual_Salary" formControlName="Annual_Salary" class="form-control" value="0" />
+                  <div *ngIf=" employementForm.get('Annual_Salary')?.touched && employementForm.get('Annual_Salary')?.hasError('required')"class="text-danger ms-3">
+                    *Annual Salary is required
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group col-md-4">
-                <label for="Previous-AnnualSalary">Previous Annual Salary:</label>
-                <input
-                  type="text"
-                  id="Previous_AnnualSalary"
-                  name="Previous_AnnualSalary"
-                  formControlName="Previous_AnnualSalary"
-                  class="form-control"
-                  value="0"
-                />
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="CurrentCompanyExperience"
-                  >Current Company Experience:</label
-                >
-                <input
-                  type="text"
-                  id="CurrentCompanyExperience"
-                  name="CurrentCompanyExperience"
-                  formControlName="CurrentCompanyExperience"
-                  class="form-control"
-                  value="0"
-                  readonly
-                />
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="PreviousExperiences">Previous Experiences:</label>
-                <input
-                  type="text"
-                  id="PreviousExperiences"
-                  name="PreviousExperiences"
-                  formControlName="PreviousExperiences"
-                  class="form-control"
-                />
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="Notice_Period">Notice Period:</label>
-                <select
-                  id="Notice_Period"
-                  name="Notice_Period"
-                  formControlName="Notice_Period"
-                  class="form-control"
-                >
-                  <option [ngValue]="null" disabled selected>Select...</option>
-                  <option *ngFor="let prf of Notice_Period" [ngValue]="prf">
-                    {{ prf }}
-                  </option>
-                </select>
-                <!-- <div *ngIf="employementForm.get('Notice_Period')?.touched && employementForm.get('Notice_Period')?.hasError('required')" class="text-danger ms-3"> *Notice Period is required</div> -->
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="Probation-Period">Probation Period:</label>
-                <select
-                  id="Probation-Period"
-                  name="Probation_Period"
-                  formControlName="Probation_Period"
-                  class="form-control"
-                >
-                  <option [ngValue]="null" disabled selected>Select...</option>
-                  <option *ngFor="let prf of Probation_Period" [ngValue]="prf">
-                    {{ prf }}
-                  </option>
-                </select>
-                <div
-                  *ngIf="
-                    employementForm.get('Probation_Period')?.touched &&
-                    employementForm.get('Probation_Period')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *Probation Period is required
+                <div class="form-group col-md-4">
+                  <label for="Previous-AnnualSalary">Previous Annual Salary:</label>
+                  <input type="text" id="Previous_AnnualSalary" name="Previous_AnnualSalary" formControlName="Previous_AnnualSalary" class="form-control" value="0"/>
                 </div>
+
+                <div class="form-group col-md-4">
+                  <label for="CurrentCompanyExperience">Current Company Experience:</label>
+                  <input type="text" id="CurrentCompanyExperience" name="CurrentCompanyExperience" formControlName="CurrentCompanyExperience" class="form-control" value="0" readonly/>
+                </div>
+
               </div>
-            </div>
 
-            <div
-              class="form-row"
-              style="margin-bottom: 3%; margin-top: 4%; text-align: center"
-              *ngIf="employmentbutton || isShowEmployementButtons"
-            >
-              <div class="col" [hidden]="employementForm.disabled">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn2 animated"
-                  style="width: 15%"
-                >
-                  <span class="text">Submit</span>
-                </button>
-                <button
-                  class="btn btn-primary btn2 animated"
-                  style="width: 15%; background-color: gray"
-                  type="button"
-                  (click)="employeementUpdate()"
-                >
-                  <span class="text">Cancel</span>
-                </button>
+              <div class="form-row">
+
+                <div class="form-group col-md-4">
+                  <label for="PreviousExperiences">Previous Experiences:</label>
+                  <input type="text" id="PreviousExperiences" name="PreviousExperiences" formControlName="PreviousExperiences" class="form-control"/>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="Notice_Period">Notice Period:</label>
+                  <select id="Notice_Period" name="Notice_Period" formControlName="Notice_Period" class="form-control">
+                    <option [ngValue]="null" disabled selected>Select...</option>
+                    <option *ngFor="let prf of Notice_Period" [ngValue]="prf">
+                      {{ prf }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="Probation-Period">Probation Period:</label>
+                  <select id="Probation-Period" name="Probation_Period" formControlName="Probation_Period" class="form-control">
+                    <option [ngValue]="null" disabled selected>Select...</option>
+                    <option *ngFor="let prf of Probation_Period" [ngValue]="prf">
+                      {{ prf }}
+                    </option>
+                  </select>
+                  <div *ngIf="employementForm.get('Probation_Period')?.touched && employementForm.get('Probation_Period')?.hasError('required')"class="text-danger ms-3">
+                    *Probation Period is required
+                  </div>
+                </div>
+
               </div>
-            </div>
-          </form>
-        </jw-modal>
 
-        <!-------------------------------------------Form end-------------------------------------------------->
-      </div>
-    </div>
+              <div class="form-row" style="margin-bottom: 3%; margin-top: 4%; text-align: center" *ngIf="employmentbutton || isShowEmployementButtons">
 
-    <!--------------------------------------- ADDRESS DETAILS----------------------------------->
+                <div class="col" [hidden]="employementForm.disabled">
+                  <button type="submit" class="btn btn-primary btn2 animated" style="width: 15%">
+                    <span class="text">Submit</span>
+                  </button>
 
-    <!-- <button class="btn btn-primary animated" *ngIf="addressButtonsHide" (click)="openModal('custom-modal-4')" style="margin-left: 6%;width: 270px;"> 
-      <span class="text" >Employee Address Details </span>
-    </button> -->
+                  <button class="btn btn-primary btn2 animated" style="width: 15%; background-color: gray" type="button" (click)="employeementUpdate()">
+                    <span class="text">Cancel</span>
+                  </button>
+                </div>
 
-    <div>
-      <div class="main">
+              </div>
+
+            </form>
+
+          </jw-modal>
+
+          <!-------------------------------------------Form end-------------------------------------------------->
+
+        </div>
+
+    </div><!-- Employement Details main div-->
+
+    <!---------------------------------------------------------- ADDRESS DETAILS---------------------------------------------------------->
+
+    <div> 
+
+      <div class="main"> 
+
         <div class="container-box">
-          <jw-modal id="custom-modal-4">
-            <button
-              type="button"
-              class="btn-close"
-              data-dismiss="modal"
-              aria-label="Close"
-              (click)="closeModal1('custom-modal-4')"
-            ></button>
+
+          <jw-modal id="custom-modal-2">
+
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModal1('custom-modal-2')"></button>
+
             <hr />
 
             <h3>Employee Address Deatils :</h3>
 
-            <div class="modal-body" style="margin-bottom: 5%">
+            <div class="modal-body" style="margin-bottom: 5%"> <!--Address type selection div-->
+
               <div style="display: flex; flex-direction: row">
+                
                 <div style="width: 35%; margin: 2% 0 0 2%">
                   <label>Date Form: </label>
-                  <!-- <input type="date"  class="input" [(ngModel)]="todaysDate" class="form-control"> -->
-                  <input
-                    type="date"
-                    class="input"
-                    class="form-control"
-                    [(ngModel)]="dateOfJoining2"
-                  
-                  />
+                  <input type="date" class="input" class="form-control" [(ngModel)]="dateOfJoining2"/>
                 </div>
 
                 <div style="width: 35%; margin-top: 2%">
-                  <label for="workerType"
-                    >AddressType:<span style="color: red">*</span>:</label
-                  >
-                  <select
-                    id="workerType"
-                    [(ngModel)]="addressType"
-                    #workerTypeSelect
-                    formControlName="workerType"
-                    class="form-control"
-                    (change)="selectedValue($event)"
-                  >
-                    <option value [selected]="selectedValue" disabled>
-                      Select an option
-                    </option>
+                  <label for="workerType">AddressType:<span style="color: red">*</span>:</label>
+                  <select id="workerType" [(ngModel)]="addressType" #workerTypeSelect formControlName="workerType" class="form-control" (change)="selectedValue($event)">
+                    <option value [selected]="selectedValue" disabled>Select an option</option>
                     <option value="PRESENT">PRESENT</option>
                     <option value="PERMANENT">PERMANENT</option>
                   </select>
@@ -793,40 +479,35 @@
                 </div>
 
                 <div style="display: flex">
-                  <button
-                    (click)="closeModal('custom-modal-4')"
-                    class="btn btn-primary esdButtons animated"
-                    role="button"
-                  >
+                  <button (click)="closeModal('custom-modal-2')" class="btn btn-primary esdButtons animated" role="button">
                     <span class="text">OK</span>
                   </button>
 
-                  <div (click)="cls('custom-modal-4')">
-                    <button
-                      (click)="openModal('custom-modal-2')"
-                      class="btn btn-primary esdButtons animated"
-                      role="button"
-                      style="margin-left: 20px; background-color: gray"
-                    >
+                  <div>
+                    <button (click)="cls('custom-modal-2')" class="btn btn-primary esdButtons animated" role="button"style="margin-left: 20px; background-color: gray">
                       <span class="text">Cancel</span>
                     </button>
                   </div>
                 </div>
+
               </div>
+
             </div>
+
           </jw-modal>
 
           <!--------------------------------------------Present Address Form -------------------------------------------------------------------->
 
-          <jw-modal id="custom-modal-5" class="scrolling">
-            <span (click)="cls('custom-modal-5')">
-              <span (click)="closeModal('custom-modal-5')"
+          <jw-modal id="custom-modal-3" class="scrolling"><!-- present address pop up -->
+
+            <span (click)="cls('custom-modal-3')">
+              <span (click)="closeModal('custom-modal-3')"
                 ><button
                   type="button"
                   class="btn-close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  (click)="openModal('custom-modal-4')"
+                  (click)="openModal('custom-modal-2')"
                 ></button
               ></span>
             </span>
@@ -881,187 +562,138 @@
 
             <h3 style="margin-left: 4%">Employee Present Address :</h3>
 
-            <form
-              [formGroup]="addressForm"
-              (ngSubmit)="submitAddress()"
-              *ngIf="loading2"
-              style="margin-left: 4%"
-            >
+             
+            <form [formGroup]="addressForm" (ngSubmit)="submitAddress()"
+              *ngIf="loading2" class="container" style="margin-left: 4%">
               <div class="form-row">
+                <!-- Date From -->
                 <div class="form-group col-md-4">
-                  <label for="DateForm"
-                    >Date From: <span style="color: red">*</span>:</label
-                  >
-                  <input
-                    type="date"
-                    id="DateForm"
-                    name="DateForm"
-                    formControlName="DateForm"
-                
-                  />
+                  <label for="DateForm">Date From: <span
+                      style="color: red">*</span></label>
+                  <input type="date" id="DateForm" name="DateForm"
+                    formControlName="DateForm" class="form-control" />
                   <div
-                    *ngIf="
-                      addressForm.get('DateForm')?.touched &&
-                      addressForm.get('DateForm')?.hasError('required')
-                    "
-                    class="text-danger ms-3"
-                  >
-                    *Date From is required
-                  </div>
+                    *ngIf="addressForm.get('DateForm')?.touched && addressForm.get('DateForm')?.hasError('required')"
+                    class="text-danger">
+                    *Date From is required </div>
                 </div>
-
+ 
+                <!-- Date To -->
                 <div class="form-group col-md-4">
                   <label for="DateTo">Date To:</label>
-                  <input
-                    type="date"
-                    id="DateTo"
-                    name="DateTo"
-                    formControlName="DateTo"
-                  />
+                  <input type="date" id="DateTo" name="DateTo"
+                    formControlName="DateTo" class="form-control" />
                 </div>
-
+ 
+                <!-- Mobile No -->
+                <div class="form-group col-md-4">
+                  <label for="Phone1">Mobile No:</label>
+                  <input type="tel" style="width: 80%;" id="Phone1"
+                    name="Phone1" formControlName="Phone1" class="form-control"
+                    maxlength="10" />
+                  <div *ngIf="addressForm.get('Phone1').errors?.['pattern']"
+                    class="text-danger">
+                    *Mobile Number must contain only numbers</div>
+                  <div
+                    *ngIf=" addressForm.get('Phone1').errors?.['maxlength'] || addressForm.get('Phone1').errors?.['minlength']"
+                    class="text-danger">
+                    *Mobile Number must be 10 digits long </div>
+                </div>
+              </div>
+ 
+              <div class="form-row">
+                <!-- Address -->
                 <div class="form-group col-md-4">
                   <label for="Address">Address:</label>
-                  <input
-                    type="text"
-                    id="Address"
-                    name="Address"
-                    formControlName="Address"
-                  />
-                  <!-- <div
-                    *ngIf="addressForm.get('Address')?.touched && addressForm.get('Address')?.hasError('required')"
-                    class="text-danger ms-3"> *Address is required </div> -->
+                  <input type="text" id="Address" name="Address"
+                    formControlName="Address" class="form-control" />
                 </div>
-              </div>
-
-              <div class="form-row">
+ 
+                <!-- Pincode -->
                 <div class="form-group col-md-4">
-                  <label for="City">City:</label>
-                  <input
-                    type="text"
-                    id="City"
-                    name="City"
-                    formControlName="City"
-                  />
-                  <!-- <div
-                    *ngIf="addressForm.get('City')?.touched && addressForm.get('City')?.hasError('required')"
-                    class="text-danger ms-3"> *City is required</div> -->
+ 
+                  <label for="Country">Country:</label>
+                  <!-- <input type="text" id="Country" formControlName="Country" class="form-control"/> -->
+                  <select formControlName="Country" id="Country"
+                    class="form-control" (change)="onCountryChange($event)">
+                    <option *ngFor="let country of countries"
+                      [value]="country.lable">{{ country.lable }}</option>
+                  </select>
+ 
                 </div>
-
+ 
+                <!-- City -->
                 <div class="form-group col-md-4">
                   <label for="State">State:</label>
-                  <input
-                    type="text"
-                    formControlName="State"
-                    id="State"
-                    class="form-control"
-                  />
-                  <!-- <div
-                    *ngIf="addressForm.get('State')?.touched && addressForm.get('State')?.hasError('required')"
-                    class="text-danger ms-3"> *State is required</div> -->
-                </div>
-
-                <div class="form-group col-md-4">
-                  <label for="Country">Country:</label>
-                  <input
-                    type="text"
-                    formControlName="Country"
-                    id="Country"
-                    class="form-control"
-                  />
-                  <!-- <div
-                    *ngIf="addressForm.get('Country')?.touched && addressForm.get('Country')?.hasError('required')"
-                    class="text-danger ms-3">*Country is required</div> -->
+                  <select formControlName="State" id="State"
+                    class="form-control" (change)="onStateChange($event)">
+                    <option *ngFor="let state of states"
+                      [value]="state.lable">{{ state.lable }}</option>
+                  </select>
+ 
                 </div>
               </div>
-
+ 
               <div class="form-row">
+                <!-- State -->
+                <div class="form-group col-md-4">
+                  <label for="City">City:</label>
+                  <select formControlName="City" id="City" class="form-control">
+                    <option *ngFor="let city of cities" [value]="city.label">{{
+                      city.label }}</option>
+                  </select>
+ 
+                  <!-- <input type="text" id="City" name="City" formControlName="City" class="form-control" /> -->
+                </div>
+ 
+                <!-- Country -->
                 <div class="form-group col-md-4">
                   <label for="Pincode">Pincode:</label>
-                  <input
-                    type="text"
-                    id="Pincode"
-                    name="Pincode"
-                    formControlName="Pincode"
-                  />
-                  <!-- <div
-                    *ngIf="addressForm.get('Pincode')?.touched && addressForm.get('Pincode')?.hasError('required')"
-                    class="text-danger ms-3"> Pincode is required</div> -->
+                  <input type="text" id="Pincode" name="Pincode"
+                    formControlName="Pincode" class="form-control" />
                 </div>
-
-                <div class="form-group col-md-4" style="margin-right: 34%">
-                  <label for="Phone1">Mobile No :</label>
-                  <input
-                    type="tel"
-                    style="width: 80%"
-                    id="Phone1"
-                    name="Phone1"
-                    formControlName="Phone1"
-                    class="form-control"
-                  />
-                  <!-- <div
-                    *ngIf="addressForm.get('Phone1')?.touched && addressForm.get('Phone1')?.hasError('required')"
-                    class="text-danger ms-3"> *Phone NO is required</div> -->
-                  <div
-                    *ngIf="addressForm.get('Phone1').errors?.['pattern']"
-                    class="text-danger"
-                  >
-                    *Mobile Number must contain only numbers
-                  </div>
-                  <div
-                    *ngIf="addressForm.get('Phone1').errors?.['maxlength']"
-                    class="text-danger"
-                  >
-                    *Mobile Number must be 10 digits long
-                  </div>
-                  <div
-                    *ngIf="addressForm.get('Phone1').errors?.['minlength']"
-                    class="text-danger"
-                  >
-                    *Mobile Number must be 10 digits long
-                  </div>
+                <div class="form-group col-md-4"></div>
+ 
+              </div>
+ 
+              <div class="row justify-content-center  form-group col-md-12"
+                [hidden]="addressForm.disabled" style="margin-top: 5%;">
+                <!-- Submit Button -->
+                <div class="form-group d-flex flex-row">
+                  <button type="submit" class="btn btn-primary animated"
+                    style="width: 50%">
+                    <span class="text">Submit</span>
+                  </button>
+                  <button class="btn btn-primary btn2 animated" type="button"
+                    (click)="Emppresent()"
+                    style="width: 50%; background-color: gray;">
+                    <span class="text">Cancel</span>
+                  </button>
                 </div>
               </div>
-
-              <div
-                class="form-group col-md-12"
-                style="text-align: center; margin-bottom: 2%"
-                [hidden]="addressForm.disabled"
-              >
-                <button
-                  type="submit"
-                  class="btn btn-primary animated"
-                  style="width: 10%"
-                >
-                  <span class="text">Submit</span>
-                </button>
-                <button
-                  class="btn btn-primary btn2 animated"
-                  type="button"
-                  (click)="Emppresent()"
-                  style="width: 10%; background-color: gray"
-                >
-                  <span class="text">Cancel</span>
-                </button>
-              </div>
+ 
             </form>
+ 
+
           </jw-modal>
+
         </div>
       </div>
+      
     </div>
 
     <!------------------------------------- PERMANENT ADDRESS------------------------------------------------ -->
 
-    <jw-modal id="custom-modal-6">
+    <jw-modal id="custom-modal-4">
       <div>
         <div>
-          <span (click)="cls('custom-modal-6')">
+          <span (click)="cls('custom-modal-4')">
             <button
               type="button"
               class="btn-close"
               data-dismiss="modal"
               aria-label="Close"
-              (click)="openModal('custom-modal-4')"
+              (click)="openModal('custom-modal-2')"
             ></button>
           </span>
           <hr />
@@ -1112,172 +744,120 @@
 
           <h3 style="margin-left: 4%">Employee Permanent Address :</h3>
 
-          <form
-            [formGroup]="addressForm1"
-            (ngSubmit)="submitPermanenetAdd()"
-            *ngIf="loading3"
-            style="margin-left: 5%"
-          >
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="PermanentDateForm"
-                  >Date From:<span style="color: red">*</span>:</label
-                >
-                <input
-                  type="date"
-                  id="PermanentDateForm"
-                  name="PermanentDateForm"
-                  formControlName="PermanentDateForm"
-      
-                />
-                <div
-                  *ngIf="
-                    addressForm1.get('PermanentDateForm')?.touched &&
-                    addressForm1.get('PermanentDateForm')?.hasError('required')
-                  "
-                  class="text-danger ms-3"
-                >
-                  *PermanentDateForm is required
-                </div>
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="PermanentDateTo">Date To:</label>
-                <input
-                  type="date"
-                  id="PermanentDateTo"
-                  name="PermanentDateTo"
-                  formControlName="PermanentDateTo"
-                  value="4712-12-31"
-                />
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="Address">Address:</label>
-                <input
-                  type="text"
-                  id="Address"
-                  name="Address"
-                  formControlName="PermanentAddress"
-                />
-                <!-- <div
-                  *ngIf="addressForm1.get('PermanentAddress')?.touched && addressForm1.get('PermanentAddress')?.hasError('required')"
-                  class="text-danger ms-3"> *Address is required</div> -->
-              </div>
+          <form [formGroup]="addressForm1"
+          (ngSubmit)="submitPermanenetAdd()" *ngIf="loading3"
+          style="margin-left: 5%">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="PermanentDateForm">Date From:<span
+                  style="color: red">*</span></label>
+              <input type="date" id="PermanentDateForm"
+                name="PermanentDateForm"
+                formControlName="PermanentDateForm"
+                class="form-control" />
+              <div
+                *ngIf=" addressForm1.get('PermanentDateForm')?.touched && addressForm1.get('PermanentDateForm')?.hasError('required')"
+                class="text-danger ms-3">
+                *PermanentDateForm is required </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="PermanentCity">City :</label>
-                <input
-                  type="text"
-                  id="PermanentCity"
-                  name="PermanentCity"
-                  formControlName="PermanentCity"
-                />
-                <!-- <div
-                  *ngIf="addressForm1.get('PermanentCity')?.touched && addressForm1.get('PermanentCity')?.hasError('required')"
-                  class="text-danger ms-3"> PermanentCity is required</div> -->
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="PermanentState">State:</label>
-                <input
-                  type="text"
-                  formControlName="PermanentState"
-                  id="PermanentState"
-                />
-                <!-- <div
-                  *ngIf="addressForm1.get('PermanentState')?.touched && addressForm1.get('PermanentState')?.hasError('required')"
-                  class="text-danger ms-3"> PermanentState is required</div> -->
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for="PermanentCountry">Country:</label>
-                <input
-                  type="text"
-                  formControlName="PermanentCountry"
-                  class="form-control"
-                  id="PermanentCountry"
-                />
-                <!-- <div
-                  *ngIf="addressForm1.get('PermanentCountry')?.touched && addressForm1.get('PermanentCountry')?.hasError('required')"
-                  class="text-danger ms-3"> PermanentCountry is required</div> -->
-              </div>
+            <div class="form-group col-md-4">
+              <label for="PermanentDateTo">Date To:</label>
+              <input type="date" id="PermanentDateTo"
+                name="PermanentDateTo"
+                formControlName="PermanentDateTo" value="4712-12-31"
+                class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="PermanentPhone1">Mobile No:</label>
+              <input type="tel" style="width: 80%;"
+                id="PermanentPhone1" name="PermanentPhone1"
+                formControlName="PermanentPhone1"
+                class="form-control" />
+              <div
+                *ngIf="addressForm1.get('PermanentPhone1').errors?.['pattern']"
+                class="text-danger">
+                *Mobile Number must contain only numbers </div>
+              <div
+                *ngIf="addressForm1.get('PermanentPhone1').errors?.['maxlength']"
+                class="text-danger">
+                *Mobile Number must be 10 digits long </div>
+              <div
+                *ngIf="addressForm1.get('PermanentPhone1').errors?.['minlength']"
+                class="text-danger">
+                *Mobile Number must be 10 digits long </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="Address">Address:</label>
+              <input type="text" id="Address" name="Address"
+                formControlName="PermanentAddress"
+                class="form-control" />
             </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="PermanentPincode">Pincode :</label>
-                <input
-                  type="text"
-                  id="PermanentPincode"
-                  name="PermanentPincode"
-                  class="form-control"
-                  formControlName="PermanentPincode"
-                />
-                <!-- <div
-                  *ngIf="addressForm1.get('PermanentPincode')?.touched && addressForm1.get('PermanentPincode')?.hasError('required')"
-                  class="text-danger ms-3"> PermanentPincode is required</div> -->
-              </div>
+            <div class="form-group col-md-4">
+              <label for="PermanentCountry">Country:</label>
+              <!-- <input type="text"formControlName="PermanentCountry" class="form-control" id="PermanentCountry" /> -->
+              <select formControlName="PermanentCountry"
+                id="PermanentCountry" class="form-control"
+                (change)="onCountryChange($event)">
+                <option *ngFor="let country of countries"
+                  [value]="country.lable">{{ country.lable }}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="PermanentState">State:</label>
+              <select formControlName="PermanentState"
+                id="PermanentState" class="form-control"
+                (change)="onStateChange($event)">
+                <option *ngFor="let state of states"
+                  [value]="state.lable">{{ state.lable }}</option>
+              </select>
+            </div>
+          </div>
 
-              <div class="form-group col-md-4">
-                <label for="PermanentPhone1">Mobile No:</label>
-                <input
-                  type="tel"
-                  id="PermanentPhone1"
-                  name="PermanentPhone1"
-                  formControlName="PermanentPhone1"
-                  class="form-control"
-                  style="width: 80%; padding: 10px; border-radius: 10px"
-                />
-                <!-- <div
-                  *ngIf="addressForm1.get('PermanentPhone1')?.touched && addressForm1.get('PermanentPhone1')?.hasError('required')"
-                  class="text-danger ms-3"> *Phone NO is required</div> -->
-                <div
-                  *ngIf="addressForm1.get('PermanentPhone1').errors?.['pattern']"
-                  class="text-danger"
-                >
-                  *Mobile Number must contain only numbers
-                </div>
-                <div
-                  *ngIf="addressForm1.get('PermanentPhone1').errors?.['maxlength']"
-                  class="text-danger"
-                >
-                  *Mobile Number must be 10 digits long
-                </div>
-                <div
-                  *ngIf="addressForm1.get('PermanentPhone1').errors?.['minlength']"
-                  class="text-danger"
-                >
-                  *Mobile Number must be 10 digits long
-                </div>
-              </div>
-
-              <div class="form-group col-md-4"></div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="PermanentCity">City:</label>
+              <!-- <input type="text" id="PermanentCity" name="PermanentCity" formControlName="PermanentCity" class="form-control"/> -->
+              <select formControlName="PermanentCity"
+                id="PermanentCity" class="form-control">
+                <option *ngFor="let city of cities"
+                  [value]="city.label">{{ city.label }}</option>
+              </select>
             </div>
 
-            <!-- Buttons -->
-            <div class="form-row" style="text-align: center">
-              <div class="col" [hidden]="addressForm1.disabled">
-                <button
-                  type="submit"
-                  class="btn btn-primary animated"
-                  style="width: 15%"
-                >
-                  <span class="text">Submit</span>
-                </button>
-                <button
-                  class="btn btn-primary btn2 animated"
-                  style="width: 15%; background-color: gray"
-                  type="button"
-                  (click)="emppermant()"
-                >
-                  <span class="text">Cancel</span>
-                </button>
-              </div>
+            <div class="form-group col-md-4">
+
+              <label for="PermanentPincode">Pincode:</label>
+              <input type="text" id="PermanentPincode"
+                name="PermanentPincode" class="form-control"
+                formControlName="PermanentPincode" />
             </div>
-          </form>
+            <div class="form-group col-md-4"></div>
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="form-row" style="text-align: center"
+            [hidden]="addressForm1.disabled">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary animated"
+                style="width: 15%">
+                <span class="text">Submit</span>
+              </button>
+              <button class="btn btn-primary btn2 animated"
+                style="width: 15%; background-color: gray"
+                type="button" (click)="emppermant()">
+                <span class="text">Cancel</span>
+              </button>
+
+            </div>
+          </div>
+        </form>
+
+
         </div>
       </div>
 
@@ -1288,18 +868,17 @@
 
     <!-- <button class="btn btn-primary animated" *ngIf="addressButtonsHide" (click)="emergency()" style="margin-left: 6%; width: 270px;margin-bottom: 2%;"><span class="text"> Emergency Details</span> </button> -->
 
-    <jw-modal id="custom-modal-7">
+    <jw-modal id="custom-modal-5">
       <div *ngIf="loading4">
         <div>
-          <span (click)="closeModal('custom-modal-7')"
-            ><button
+ 
+            <button
               type="button"
               class="btn-close"
               data-dismiss="modal"
               aria-label="Close"
-              (click)="openModal('custom-modal-2')"
-            ></button
-          ></span>
+              (click)="closeModal('custom-modal-5')"
+            ></button>
 
           <hr />
 
@@ -1613,19 +1192,6 @@
       </div>
     </jw-modal>
 
-    <!--------------------------------------------------Back Navigation--------------------------------------------------------------->
-
-
-
-    <!-- <jw-modal id="custom-modal-8">
-      
-      <div class="modal-body">
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeModal('custom-modal-8')"></button>
-        <hr />
-
-      </div>
-
-      </jw-modal> -->
 
 
     <!-----------------------------------------------Loading Spinner------------------------------------------------------------>

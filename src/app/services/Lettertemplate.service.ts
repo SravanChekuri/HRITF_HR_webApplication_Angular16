@@ -50,32 +50,32 @@ export class LettertemplateService {
 
 //api for download letters in search generate letters
   
-  viewLetter(emp_no:any,tempId:any,name:any){
-    this.service.authLink();
-    const httpheaders = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem('token')
-    });
-    this.http.get(`${environment.baseApiKey}/employeeLetterDownload/${emp_no}/${tempId}`, {
-      headers: httpheaders,
-      responseType: 'blob'  
-    }).subscribe(response => {
-      this.saveFile(response,"HRITF "+ name+" "+emp_no+'.rtf');
-    });
-  }
+  // viewLetter(emp_no:any,tempId:any,name:any){
+  //   this.service.authLink();
+  //   const httpheaders = new HttpHeaders({
+  //     Authorization: 'Bearer ' + localStorage.getItem('token')
+  //   });
+  //   this.http.get(`${environment.baseApiKey}/employeeLetterDownload/${emp_no}/${tempId}`, {
+  //     headers: httpheaders,
+  //     responseType: 'blob'  
+  //   }).subscribe(response => {
+  //     this.saveFile(response,"HRITF "+ name+" "+emp_no+'.rtf');
+  //   });
+  // }
 
   //for download letters in search generate letters
 
-  private saveFile(data: Blob, filename: string) {
-    const blob = new Blob([data], { type: 'application/rtf' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-  }
+  // private saveFile(data: Blob, filename: string) {
+  //   const blob = new Blob([data], { type: 'application/rtf' });
+  //   const url = window.URL.createObjectURL(blob);
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = filename;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   window.URL.revokeObjectURL(url);
+  //   document.body.removeChild(a);
+  // }
 
 //sample file download api
 
