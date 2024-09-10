@@ -42,9 +42,7 @@
  
 .btn-primary:hover {
   color: #000;
-}
- 
- 
+} 
  
 .main{
   background-color: white;
@@ -62,7 +60,6 @@ p{
   margin-left: 2%;
   font-weight: 500;
 }
- 
  
 #excelFile{
   margin:0 2% 1% 5%;

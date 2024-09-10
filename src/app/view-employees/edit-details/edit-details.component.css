@@ -4,9 +4,6 @@
   width: 210px;
   padding: 10px;
   border-radius: 30px;
-  /* margin-top: 20px;
-  margin-left: 10%;
-  margin-bottom: 6%; */
   position: relative;
   overflow: hidden;
   background-color: #007bff;
@@ -173,20 +170,15 @@ select {
   border: 1px solid #ccc;
   border-radius: 10px;
   box-sizing: border-box;
-  /* background-color: #dceaf7;
-  border: 0px solid black; */
   font-weight: 500;
 }
 
 /* Style for submit buttons */
 .btn1 {
   margin-top: 50px;
-  /* margin-bottom: 50px; */
 }
 .btn2 {
   margin-left: 20px;
-  /* margin-bottom: 50px; */
-  /* margin-top: 50px; */
 }
 
 .main {
@@ -194,11 +186,6 @@ select {
   background-color: white;
   padding: 10px;
 }
-/* h5{
-font-size: xx-large;
-font-family: bold;
-padding: 2%;
-} */
 
 .plus-icon {
   position: absolute;
@@ -206,10 +193,6 @@ padding: 2%;
   right: 8%;
 }
 
-/* .edit-icon{ */
-/* font-size:medium; */
-
-/* } */
 select {
   appearance: none;
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEyIDYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMmgxMkw2IDZMNCA0eiIgZmlsbD0iIzAwMDAwMCIvPjwvc3ZnPg==");
@@ -287,12 +270,6 @@ select {
   overflow-y: hidden;
 }
 
-/* .disabled-select {
-  background-color: #e9ecef; 
-  cursor: not-allowed;
-  pointer-events: none; 
-} */
-
 .employee-list-display {
   width: 100%; 
   height: auto;
@@ -332,7 +309,6 @@ select {
 .card-text {
   font-size: 16px;
   font-weight: bold;
-  /* color: red; */
   margin-bottom: 10px;
 }
 

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
     });
  
     if (this.RegisterForm.valid) {
-        console.log("reg", this.RegisterForm);
+        // console.log("reg", this.RegisterForm);
         const signIndata = {
             USER_ID: this.RegisterForm.value['USERID'],
             USER_NAME: this.RegisterForm.value['USERNAME'],
@@ -89,8 +89,8 @@ export class RegisterComponent implements OnInit {
                     showConfirmButton: true
                 });
             });
-    }
-}
+     }
+  }
  
 }
  

@@ -65,16 +65,16 @@ export class AddEmployeeComponent implements OnInit {
     this.maximumDate = today.toISOString().split('T')[0];
   }
 
-  getHolidaysForYear(year: number): string[] {
-    return [
-      `${year}-01-01`, // New Year's Day
-      `${year}-01-26`, // Republic Day
-      `${year}-08-15`, // Independence Day
-      `${year}-10-02`, // Gandhi Jayanti
-      `${year}-12-25`, // Christmas Day
-      `${year}-05-01`, // may Day
-    ];
-  }
+  // getHolidaysForYear(year: number): string[] {
+  //   return [
+  //     `${year}-01-01`, // New Year's Day
+  //     `${year}-01-26`, // Republic Day
+  //     `${year}-08-15`, // Independence Day
+  //     `${year}-10-02`, // Gandhi Jayanti
+  //     `${year}-12-25`, // Christmas Day
+  //     `${year}-05-01`, // may Day
+  //   ];
+  // }
 
   //holidays and saturdays and sundays
   dateValidator(control: any) {
@@ -122,7 +122,6 @@ export class AddEmployeeComponent implements OnInit {
       EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate'],
     };
     // console.log('employeeData', employeeData);
-
     // Submit the form
     this.service.addEmployee(employeeData).subscribe((res: any) => {
         // console.log("res",res.message);
@@ -143,8 +142,7 @@ export class AddEmployeeComponent implements OnInit {
       },
       (error) => {
         // console.log("err", error);
-        this.msg =
-          error.error?.message || error.error?.error || 'An error occurred';
+        this.msg = error.error?.message || error.error?.error || 'An error occurred';
         Swal.fire({
           position: 'top',
           icon: 'error',

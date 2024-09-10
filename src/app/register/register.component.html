@@ -27,9 +27,6 @@
                 <div class="label-container">
                     <label for="fn">First Name <span style="color: red;">*</span>:</label>
                     <input type="text" id="fn" class="form-control" formControlName="FIRSTNAME">
-                    <!-- <div *ngIf="RegisterForm.get('FIRSTNAME')?.touched && RegisterForm.get('FIRSTNAME')?.hasError('required')"
-                    class="text-danger ">*First Name is required
-                    </div> -->
                     <div *ngIf="RegisterForm.get('FIRSTNAME')?.touched && RegisterForm.get('FIRSTNAME')?.hasError('required')" class="text-danger">
                         *First Name is required
                     </div>
@@ -91,8 +88,6 @@
             <div class="button-container">
                 <button class="btn btn-primary" role="button" type="submit" ><span class="text">Submit</span></button>
                 <button class="btn btn-primary" role="button" type="reset" style="margin-left: 2%;background-color: grey;"><span class="text">Cancel</span></button>
-                <!-- <button class="btn btn-primary" type="submit" [disabled]="RegisterForm.invalid" style="width: 80px;">save</button>&nbsp;&nbsp;
-                <button class="btn btn-secondary" type="reset" >Cancel</button> -->
             </div>
  
             <div *ngIf="loading" class="spinner mt-3" style="margin-left: 48%;"></div>

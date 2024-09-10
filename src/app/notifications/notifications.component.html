@@ -18,7 +18,7 @@
                     <tr *ngFor="let empData of newEmpData">
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.EMP_NO }}</td>
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 25%;">{{ empData.EMPLOYEE.FIRST_NAME }} {{ empData.EMPLOYEE.LAST_NAME }}</td>
-                        <td *ngIf="empData && empData.EMPLOYMENT_DETAILS" style="width: 15%;">{{ empData.EMPLOYMENT_DETAILS.DATE_OF_JOINING }}</td>
+                        <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.DATE_OF_JOINING }}</td>
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.WORK_LOCATION }}</td>
                         <td *ngIf="empData && empData.EMPLOYEE" style="width: 15%;">{{ empData.EMPLOYEE.CREATED_BY }}</td>                    
                     </tr>

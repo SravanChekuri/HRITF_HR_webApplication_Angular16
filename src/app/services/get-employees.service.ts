@@ -111,10 +111,7 @@ export class GetEmployeesService {
 
   //Search emloyees for view profiles
 
-  filterEmployees(
-    filterInput: string,
-    startDateValue: string
-  ): Observable<any> {
+  filterEmployees( filterInput: string, startDateValue: string ): Observable<any> {
     this.service.authLink();
     const httpheaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),

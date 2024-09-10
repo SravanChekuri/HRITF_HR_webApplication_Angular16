@@ -42,7 +42,8 @@ import { filter } from 'rxjs/operators';
  
     getNotifications(){
       this.service.notifications().subscribe((res)=>{
-        this.notificationsData = res;       
+        this.notificationsData = res;  
+        // console.log(res);
         this.newEmpData = res.newEmployees || [];
         this.confrimEmp = res.one_year_confirmation_employees || [];
         this.probationData=res.probation_complete_employees

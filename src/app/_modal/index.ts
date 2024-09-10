@@ -4,13 +4,10 @@ import { Injectable } from '@angular/core';
 export class ModalService {
   private modals: any[] = [];
   
-
   add(modal: any) {
     // console.log('modal', modal);
     // alert('modal' + modal);
-    // setTimeout(() => {
       this.modals.push(modal);
-    // }, 3000);
     // console.log("modals--->",this.modals);
   }
 

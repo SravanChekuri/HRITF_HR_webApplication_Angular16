@@ -20,7 +20,6 @@ import { GetEmployeesService } from '../app/services/get-employees.service';
 import { OtpComponent } from './otp/otp.component';
 import { ResetComponent } from './otp/reset/reset.component';
 import { AddTemplateComponent } from './generate-letters/add-template/add-template.component';
-import { ProfileComponent } from './profile/profile.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { EditDetailsComponent } from './view-employees/edit-details/edit-details.component';
 import { SearchGenerateLetterComponent } from './search-generate-letter/search-generate-letter.component';
@@ -35,8 +34,6 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ModalModule } from './_modal/modal.module';
-
-
 
 
 @NgModule({
@@ -55,7 +52,6 @@ import { ModalModule } from './_modal/modal.module';
     OtpComponent,
     ResetComponent,
     AddTemplateComponent,
-    ProfileComponent,
     EditDetailsComponent,
     SearchGenerateLetterComponent,
     SelectTemplateComponent,
@@ -65,10 +61,8 @@ import { ModalModule } from './_modal/modal.module';
     ViewUsersComponent,
     EditUserComponent,
     NotificationsComponent,
-
-    
- 
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

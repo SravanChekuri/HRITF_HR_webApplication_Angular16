@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           position:'top',
           title: "Oops! 😞",
-          text: `${this.msg}`,
+          text: `${this.msg + ' in Server Connection'}`,
           icon: "error",
           showCancelButton:false,
           width:400

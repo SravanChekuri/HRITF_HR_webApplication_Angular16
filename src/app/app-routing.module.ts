@@ -8,7 +8,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { OtpComponent } from './otp/otp.component';
 import { ResetComponent } from './otp/reset/reset.component';
 import { AddTemplateComponent } from './generate-letters/add-template/add-template.component'
-import { ProfileComponent } from './profile/profile.component';
 import { EditDetailsComponent } from './view-employees/edit-details/edit-details.component';
 import { SearchGenerateLetterComponent } from './search-generate-letter/search-generate-letter.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
@@ -36,17 +35,15 @@ const routes: Routes = [
   { path: 'OTPPage/:email', component: OtpComponent, data: { hideHeader: true } },
   { path: 'reset', component: ResetComponent, data: { hideHeader: true } },
   { path: 'addTemplate', component: AddTemplateComponent, canActivate: [AuthGuard, AuthGuard1] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'profile/:id', component: ProfileComponent,canActivate: [AuthGuard] },
   { path: 'edit', component: EditDetailsComponent,canActivate: [AuthGuard] },
-  { path: 'edit123', component: EditDetailsComponent,canActivate: [AuthGuard] },
+  { path: 'editdetails', component: EditDetailsComponent,canActivate: [AuthGuard] },
   { path: 'SelectTemplate', component: SelectTemplateComponent,canActivate: [AuthGuard] },
   { path: 'employeeLetters', component: SearchGenerateLetterComponent,canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard, AuthGuard1] },
   { path: 'viewUsers', component: ViewUsersComponent, canActivate: [AuthGuard, AuthGuard1] },
   { path: "editUser", component: EditUserComponent, canActivate: [AuthGuard, AuthGuard1] },
   { path: 'notifications', component: NotificationsComponent,canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/login' },
+  { path: '**', redirectTo: '/login', },
 ];
 
 @NgModule({

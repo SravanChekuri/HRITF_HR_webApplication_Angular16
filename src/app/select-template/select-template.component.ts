@@ -11,19 +11,10 @@ import Swal from 'sweetalert2';
  
 export class SelectTemplateComponent implements OnInit {
  
-//  letterType: any;
- letterarray:string[]=[];
- suggestedEmployeeNumbers: string[][] = [];
- suggestionsVisible: boolean[] = [];
- lettersData: any = [
-    // { name:'Appointment Letter',id: 1 },
-    // { name:'Offer Letter',id: 2 },
-    // { name:'Confirmation Letter',id: 3 },
-    // { name:'Revision Letter',id: 4 },
-    // { name:'Termination Letter',id: 5 },
-    // { name:'Employement Letter',id: 6 },
-    // { name:'Relieving Letter',id: 7 }
-  ];
+  letterarray:string[]=[];
+  suggestedEmployeeNumbers: string[][] = [];
+  suggestionsVisible: boolean[] = [];
+  lettersData: any = [];
   TemplateForm: FormGroup = new FormGroup({});
   loading: boolean = false;
   templateId: any;
@@ -141,7 +132,8 @@ export class SelectTemplateComponent implements OnInit {
      });
     //  console.log('data1',data1);
     this.services.sendTemplateDetails(data1).subscribe((res:any) => {
-        console.log(res);
+        // console.log(res);   
+        this.buttonHide = true;             
         this.loading = false;
         Swal.fire({
           position:'top',
@@ -154,12 +146,12 @@ export class SelectTemplateComponent implements OnInit {
         });
 
         if(res.type == 'application/rtf'){
-          this.saveFile1(res, 'HRIT Factory'+ res +' '+  +'.rtf');
+          this.saveFile1(res, 'HRIT Factory '+ data1[0].EMP_NO +' '+ data1[0].TEMPLATE_NAME +'.rtf');
         }
         else{
           this.saveFile2(res, 'HRIT Factory Letters.zip');
         }
-        this.TemplateForm.reset();
+        this.TemplateForm.reset({employeeNumber: [], letterTemplate: ''});
       },(error) => {
         this.loading = false;
         if (error.error instanceof Blob) {
