@@ -65,11 +65,13 @@ export class SearchGenerateLetterComponent implements OnInit {
         });
       }
       
-    view() {
+    view(letter_type:any) {
+      console.log("this.lettersData",this.lettersData);
+      
       const data1:any[] =[{ EMP_NO:this.lettersData[0].EMP_NO, TEMPLATE_NAME:this.lettersData[0].LETTER_TYPE}];
       // console.log("Data1---->",data1);
       this.template.sendTemplateDetails(data1).subscribe((res:any)=>{
-        this.saveFile1(res, 'HRIT Factory '+ this.lettersData[0].EMP_NO +' '+ this.lettersData[0].LETTER_TYPE +'.rtf');
+        this.saveFile1(res, 'HRIT Factory '+ this.lettersData[0].EMP_NO +' '+ letter_type +'.rtf');
         Swal.fire({
           position:'top',
           icon:'success',
