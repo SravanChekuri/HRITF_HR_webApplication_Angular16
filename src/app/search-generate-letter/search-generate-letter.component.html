@@ -3,7 +3,7 @@
         <div class="d-flex flex-row">
           <div style="margin: 40px 20px 10px 6%;font-weight: bold;"><p>Prepare Letters by clicking on Prepare Letters button</p></div>
           <button type="button" class="btn btn-primary mt-5" routerLink="/SelectTemplate" role="button" ><span class="text">Prepare letters</span></button>
-          <button type="button" class="btn btn-primary mt-5" routerLink="/editdetails" role="button"style="background-color:gray;" ><span class="text">back</span></button>  
+          <button type="button" class="btn btn-primary mt-5" routerLink="/editdetails" role="button"style="background-color:gray;" ><span class="text">Back</span></button>  
         </div>
 
         <hr>
@@ -23,7 +23,7 @@
                 <td style="text-align: center;">{{ lettersData.indexOf(data)+1}}</td>
                 <td style="text-align: center;">{{ data?.LETTER_TYPE }}</td>
                 <td style="text-align: center;">{{ data?. CREATED_AT| date }}</td>
-                <td style="text-align: center;"><button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="view(data.LETTER_TYPE)">
+                <td style="text-align: center;"><button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="downloadLetter(data.EMP_NO, data.LETTER_TYPE)">
                   <i class="fa-solid fa-download"></i>
                 </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="deleteLetter(data.EMP_ID, data.TEMPLATE_ID)">

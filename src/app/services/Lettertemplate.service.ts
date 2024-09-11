@@ -50,7 +50,7 @@ export class LettertemplateService {
 
 //api for download letters in search generate letters
   
-  // viewLetter(emp_no:any,tempId:any,name:any){
+  // viewLetter(emp_no:string,tempId:string,name:string){
   //   this.service.authLink();
   //   const httpheaders = new HttpHeaders({
   //     Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -62,6 +62,22 @@ export class LettertemplateService {
   //     this.saveFile(response,"HRITF "+ name+" "+emp_no+'.rtf');
   //   });
   // }
+
+  viewLetter(emp_no: string, tempname: string): Observable<any> {
+    const httpheaders = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    });
+    const encodedEmpNo = encodeURIComponent(emp_no);
+    const encodedName = encodeURIComponent(tempname);
+    // console.log("encodedName",encodedName);
+    const decodedName = decodeURIComponent(encodedName);
+    // console.log("Decoded Name:", decodedName);
+    // console.log("api",`${environment.baseApiKey}/employeeLetterDownload/${encodedEmpNo}/${decodedName}`);
+     return this.http.get(`${environment.baseApiKey}/employeeLetterDownload/${encodedEmpNo}/${decodedName}`,{
+      headers: httpheaders,
+      responseType: 'blob'
+    });
+  }
 
   //for download letters in search generate letters
 

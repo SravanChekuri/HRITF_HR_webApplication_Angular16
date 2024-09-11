@@ -65,35 +65,73 @@ export class SearchGenerateLetterComponent implements OnInit {
         });
       }
       
-    view(letter_type:any) {
-      console.log("this.lettersData",this.lettersData);
-      
-      const data1:any[] =[{ EMP_NO:this.lettersData[0].EMP_NO, TEMPLATE_NAME:this.lettersData[0].LETTER_TYPE}];
-      // console.log("Data1---->",data1);
-      this.template.sendTemplateDetails(data1).subscribe((res:any)=>{
-        this.saveFile1(res, 'HRIT Factory '+ this.lettersData[0].EMP_NO +' '+ letter_type +'.rtf');
-        Swal.fire({
-          position:'top',
-          icon:'success',
-          title:'Success',
-          text:'Letter Downloaded Successfully',
-          timer:1500,
-          showConfirmButton: false,
-          width:400
-        });
-      },(error)=>{
-        // console.log("error to download -->",error);
-        Swal.fire({
-          position:'top',
-          icon:'error',
-          title:'Error',
-          text:' Unable to download Letter',
-          width:400
-        });
-      });
-    }
+    // view(letter_type:any) {
+    //   console.log("this.lettersData",this.lettersData);
+    //   const data1:any[] =[{ EMP_NO:this.lettersData[0].EMP_NO, TEMPLATE_NAME:this.lettersData[0].LETTER_TYPE}];
+    //   console.log("Data1---->",data1);
+    //   this.template.sendTemplateDetails(data1).subscribe((res:any)=>{
+    //     this.saveFile1(res, 'HRIT Factory '+ this.lettersData[0].EMP_NO +' '+ letter_type +'.rtf');
+    //     Swal.fire({
+    //       position:'top',
+    //       icon:'success',
+    //       title:'Success',
+    //       text:'Letter Downloaded Successfully',
+    //       timer:1500,
+    //       showConfirmButton: false,
+    //       width:400
+    //     });
+    //   },(error)=>{
+    //     // console.log("error to download -->",error);
+    //     Swal.fire({
+    //       position:'top',
+    //       icon:'error',
+    //       title:'Error',
+    //       text:' Unable to download Letter',
+    //       width:400
+    //     });
+    //   });
+    // }
 
-    private saveFile1(data: Blob, filename: string) {
+    // private saveFile1(data: Blob, filename: string) {
+    //   const blob = new Blob([data], { type: 'application/rtf' });
+    //   const url = window.URL.createObjectURL(blob);
+    //   const a = document.createElement('a');
+    //   a.href = url;
+    //   a.download = filename;
+    //   document.body.appendChild(a);
+    //   a.click();
+    //   window.URL.revokeObjectURL(url);
+    //   document.body.removeChild(a);
+    // }
+
+    downloadLetter(emp_no: string, templatename: string, ) {
+      this.template.viewLetter(emp_no, templatename).subscribe((res: any) => {
+          // console.log("res from download letter",res);
+          this.saveFile(res, `HRITF_${emp_no}_${templatename}.rtf`);  
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Success',
+            text: 'Letter Downloaded Successfully',
+            timer: 1500,
+            showConfirmButton: false,
+            width: 400
+          });
+        },
+        (error) => {
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Error',
+            text: 'Unable to download Letter',
+            width: 400
+          });
+        }
+      );
+    }
+    
+    // Helper method to save the file
+    private saveFile(data: Blob, filename: string) {
       const blob = new Blob([data], { type: 'application/rtf' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -103,8 +141,7 @@ export class SearchGenerateLetterComponent implements OnInit {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    }
-  
+    }  
     
     deleteLetter(EMP_NO: any, templateId: any) {
       // console.log(this.employeeData[0].EMP_ID,templateId);

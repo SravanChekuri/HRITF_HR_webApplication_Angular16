@@ -8,9 +8,9 @@
             <img src="../../../assets/images/userDP.jpg" alt="emp Img" class="profile-img" />
             <div class="profile-info">
               <h6>{{ updateForm.get("workerType").value === "Employee" ? "Employee Name :" : "Candidate Name :" }}
-                <span style="color: rgb(255, 0, 200)"> {{ employee.FIRST_NAME }} {{ employee.MIDDLE_NAME }} {{ employee.LAST_NAME }} </span>
+                <span style="color: rgb(255, 0, 200)"> {{ employeeData[0].FIRST_NAME }} {{ employeeData[0].MIDDLE_NAME }} {{ employeeData[0].LAST_NAME }} </span>
               </h6>
-              <h6> {{ updateForm.get("workerType").value === "Employee" ? "Employee Number :" : "Candidate Number :" }}<span style="color: blue"> {{ employee.EMP_NO }}</span> </h6>
+              <h6> {{ updateForm.get("workerType").value === "Employee" ? "Employee Number :" : "Candidate Number :" }}<span style="color: blue"> {{ employeeData[0].EMP_NO }}</span> </h6>
             </div>
           </div>
 

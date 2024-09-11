@@ -365,6 +365,9 @@ export class EditDetailsComponent implements OnInit {
   }
   closeModal1(id: any) {
     this.missedAddressType = false;
+    if(id === 'custom-modal-2'){
+      this.cls("custom-modal-2");
+    }
     this.modalServcie.close(id);
   }
 
@@ -791,8 +794,7 @@ export class EditDetailsComponent implements OnInit {
               }).then(() => {
                 this.presentbutton = !this.presentbutton;
                 this.addressForm.disable();
-                this.fetchEmpData(this.employee.EMP_NO,res.data.DATE_FROM,this.employee.EFFECTIVE_END_DATE);
-              });
+                this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);              });
             },
             (error) => {
               this.loading = false;
@@ -863,8 +865,7 @@ export class EditDetailsComponent implements OnInit {
           }).then(() => {
             this.permanentbuttons = !this.permanentbuttons;
             this.addressForm1.disable();
-            this.fetchEmpData(this.employee.EMP_NO,res.data.DATE_FROM,this.employee.EFFECTIVE_END_DATE);
-          });
+            this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);          });
         },
         (error) => {
           this.loading = false;
@@ -1002,6 +1003,18 @@ export class EditDetailsComponent implements OnInit {
       });
       this.loading2 = true;
       this.openModal('custom-modal-3');
+        if (this.dateOfJoining2 >= this.dateOfJoining) {
+          this.openModal('custom-modal-3');
+        }
+        else {
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Datefrom should not be Eralier than Dateofjoining ',
+            width: 400,
+          });
+        }
     } else if(this.addressType === 'PRESENT') {
       // alert("Present Address Update");
       this.employeeService.sendAddresstypeDate(this.employee.EMP_ID,this.addressType,this.dateOfJoining2,enddate).subscribe((res: any) => {
@@ -1065,6 +1078,18 @@ export class EditDetailsComponent implements OnInit {
       });
       this.loading3 = true;
       this.openModal('custom-modal-4');
+        if (this.dateOfJoining2 >= this.dateOfJoining) {
+          this.openModal('custom-modal-3');
+        }
+        else {
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Datefrom should not be Eralier than Dateofjoining ',
+            width: 400,
+          });
+        }
     } 
     else if(this.addressType === 'PERMANENT') {
       // alert("Permanet Address Update");
@@ -1205,7 +1230,7 @@ export class EditDetailsComponent implements OnInit {
       RELATION_TYPE: this.emergencyContact.value['relation'],
       CONTACT_NO: contactNoInteger,
       DATE_OF_BIRTH: this.emergencyContact.value['Dateofbirth'],
-      EMP_ID: this.employee.EMP_ID,
+      EMP_ID: this.employeeData[0].EMP_ID,
       EFFECTIVE_START_DATE: this.emergencyContact.value['Effectivestartdate'],
       EFFECTIVE_END_DATE: this.emergencyContact.value['Effectiveenddate'],
       ADDRESS_TYPE: this.emergencyContact.value['addressType'],
@@ -1224,7 +1249,7 @@ export class EditDetailsComponent implements OnInit {
         }).then(() => {
           this.isHideEmergencyButtons = !this.isHideEmergencyButtons;
           this.emergencyContact.disable();
-          this.fetchEmpData(this.employee.EMP_NO,this.filterESD,this.employee.EFFECTIVE_END_DATE);
+          this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);        
         });
         this.closeModal('custom-modal-5');
       },
@@ -1285,7 +1310,7 @@ export class EditDetailsComponent implements OnInit {
           // this.openModal('custom-modal-2');
         },
         (error) => {
-          // console.log("err", error);
+          // console.log("error", error);
           Swal.fire({
             position: 'top',
             icon: 'error',
@@ -1299,6 +1324,7 @@ export class EditDetailsComponent implements OnInit {
   //.................................emergency record search  for previous dates..........................//
 
   emergencysubmitdate() {
+    // console.log("search doj",this.searchDOJ);
     this.employeeService.getemergencyAddressData(this.employee.EMP_ID,this.searchDOJ,this.emrgencyEnd).subscribe((res: any) => {
           // console.log("res", res);
           this.getEmergencyBasedOnDate = res.data;
