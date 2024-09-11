@@ -783,6 +783,7 @@ export class EditDetailsComponent implements OnInit {
       };
       // console.log("updateData", updateData);
       this.addressForm.value['AddressType'] ? this.employeeService.addressData(updateData, this.employee.EMP_ID).subscribe((res: any) => {
+        // alert("succces init")
               this.loading = false;
               Swal.fire({
                 position: 'top',
@@ -797,6 +798,7 @@ export class EditDetailsComponent implements OnInit {
                 this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);              });
             },
             (error) => {
+              // alert("fail init 1")
               this.loading = false;
               if (error.error && error.error.error) {
                 Swal.fire({
@@ -807,6 +809,7 @@ export class EditDetailsComponent implements OnInit {
                   width: 400,
                 });
               } else if (error.error && error.error.message) {
+                // alert("fail init 2")
                 Swal.fire({
                   position: 'top',
                   icon: 'error',
@@ -853,6 +856,7 @@ export class EditDetailsComponent implements OnInit {
       PHONE_1: this.addressForm1.value['PermanentPhone1'],
     };
     this.employeeService.addressData(PermanentAddress, this.employee.EMP_ID).subscribe((res: any) => {
+      alert("success init")
           this.loading = false;
           Swal.fire({
             position: 'top',
@@ -868,6 +872,7 @@ export class EditDetailsComponent implements OnInit {
             this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);          });
         },
         (error) => {
+          alert("fail init 1")
           this.loading = false;
           if (error.error && error.error.error) {
             Swal.fire({
@@ -878,6 +883,7 @@ export class EditDetailsComponent implements OnInit {
               width: 400,
             });
           } else if (error.error && error.error.message) {
+            alert("fail init 2")
             Swal.fire({
               position: 'top',
               icon: 'error',
@@ -986,38 +992,41 @@ export class EditDetailsComponent implements OnInit {
     this.addressDateFrom = this.dateOfJoining;
     let enddate = '4712-12-31';
     if (this.getPresentAddr.length === 0 && this.addressType === 'PRESENT') {
+      // alert("1"+this.addressType)
       // this.ishidePresentAdd=true;
       // alert("Present Address init");
-      this.ishideEditPrsentAdd = true;
-      this.addressForm = this.formbuilder.group({
-        EmployeeId: [this.employee.EMP_ID, Validators.required],
-        AddressType: ['PRESENT'],
-        Address: [''],
-        City: [''],
-        State: [''],
-        Country: [''],
-        Pincode: [''],
-        DateForm: ['', Validators.required],
-        Phone1: ['',[Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
-        DateTo: ['4712-12-31'],
-      });
-      this.loading2 = true;
-      this.openModal('custom-modal-3');
-        if (this.dateOfJoining2 >= this.dateOfJoining) {
-          this.openModal('custom-modal-3');
-        }
-        else {
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Datefrom should not be Eralier than Dateofjoining ',
-            width: 400,
-          });
-        }
+      if (this.dateOfJoining2 >= this.dateOfJoining) {
+        // alert("success alert")
+        this.ishideEditPrsentAdd = true;
+        this.addressForm = this.formbuilder.group({
+          EmployeeId: [this.employee.EMP_ID, Validators.required],
+          AddressType: ['PRESENT'],
+          Address: [''],
+          City: [''],
+          State: [''],
+          Country: [''],
+          Pincode: [''],
+          DateForm: ['', Validators.required],
+          Phone1: ['',[Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
+          DateTo: ['4712-12-31'],
+        });
+        this.loading2 = true;  
+        this.openModal('custom-modal-3');
+      }
+      else {
+        // alert("error alert");
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Date From should not be Eralier than Date of joining ',
+          width: 500,
+        });
+      }        
     } else if(this.addressType === 'PRESENT') {
+      // alert("2"+ this.addressType)
       // alert("Present Address Update");
-      this.employeeService.sendAddresstypeDate(this.employee.EMP_ID,this.addressType,this.dateOfJoining2,enddate).subscribe((res: any) => {
+      this.employeeService.sendAddresstypeDate(this.employeeData[0].EMP_ID,this.addressType,this.dateOfJoining2,enddate).subscribe((res: any) => {
             // console.log("ressdgh", res);
             this.AddressData = res.data;
             // console.log("this.AddressData", this.AddressData.STATE);
@@ -1061,35 +1070,35 @@ export class EditDetailsComponent implements OnInit {
           });
     }
     if (this.addressType === 'PERMANENT' && this.getPermanentAddr.length === 0) {
-      // alert("Permanent Address init");
       this.addressDateFrom = this.dateOfJoining;
-      this.ishideEditPermBtn = true;
-      this.addressForm1 = this.formbuilder.group({
-        EmployeeId: [this.employee.EMP_ID],
-        PermanentAdressType: ['PERMANENT'],
-        PermanentAddress: [''],
-        PermanentCity: [''],
-        PermanentState: [''],
-        PermanentCountry: [''],
-        PermanentPincode: [''],
-        PermanentDateForm: ['', Validators.required],
-        PermanentDateTo: ['4712-12-31'],
-        PermanentPhone1: ['',[Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
-      });
-      this.loading3 = true;
-      this.openModal('custom-modal-4');
-        if (this.dateOfJoining2 >= this.dateOfJoining) {
-          this.openModal('custom-modal-3');
-        }
-        else {
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Datefrom should not be Eralier than Dateofjoining ',
-            width: 400,
-          });
-        }
+      // alert("1"+this.addressType)
+      // alert("Permanent Address init");
+      if (this.dateOfJoining2 >= this.dateOfJoining) {
+        this.ishideEditPermBtn = true;
+        this.addressForm1 = this.formbuilder.group({
+          EmployeeId: [this.employee.EMP_ID],
+          PermanentAdressType: ['PERMANENT'],
+          PermanentAddress: [''],
+          PermanentCity: [''],
+          PermanentState: [''],
+          PermanentCountry: [''],
+          PermanentPincode: [''],
+          PermanentDateForm: ['', Validators.required],
+          PermanentDateTo: ['4712-12-31'],
+          PermanentPhone1: ['',[Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
+        });
+        this.loading3 = true;  
+        this.openModal('custom-modal-4');
+      }
+      else {
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Date From should not be Eralier than Date of joining ',
+          width: 500,
+        });
+      }
     } 
     else if(this.addressType === 'PERMANENT') {
       // alert("Permanet Address Update");
