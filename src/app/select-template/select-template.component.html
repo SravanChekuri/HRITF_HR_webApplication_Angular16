@@ -18,7 +18,7 @@
           <label for="employeeNumber">Employee/Candidate Number<span style="color: red;font-weight: bold;">*</span>:</label>
  
       <div class="suggestions-container">
-          <input type="text" formControlName="employeeNumber" class="form-control" (input)="onEmployeeNumberChange($event, i)" placeholder="E.g.,C0001/E0001...">
+          <input type="text" formControlName="employeeNumber" class="form-control" (input)="onEmployeeNumberChange($event, i)" placeholder="E.g.,E0001/C0001...">
           <ul *ngIf="suggestionsVisible[i]" class="suggestions-list">
             <li *ngFor="let suggestion of suggestedEmployeeNumbers[i]" (click)="selectSuggestion(suggestion, i)">
               {{ suggestion }}

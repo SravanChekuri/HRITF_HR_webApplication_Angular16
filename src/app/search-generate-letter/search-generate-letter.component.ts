@@ -67,35 +67,35 @@ export class SearchGenerateLetterComponent implements OnInit {
           this.lettersData = res.letters_details;
           // console.log("lettersData --->>", this.lettersData);
         },(error) =>{
-          console.log("error at workertype method",error);
+          // console.log("error at workertype method",error);
         });
       }
 
     getRevisionLetter(){
       this.template.getRevisionLetters(this.employeeData[0].EMP_ID).subscribe((res)=>{
-        console.log("res from revision leter",res);
+        // console.log("res from revision leter",res);
         this.revisionData = res.Revision_letter_details;
         // this.lengthOfRevisionObj = Object.keys(this.revisionData).length;
         // this.revisionDate = this.revisionData[0].CREATED_AT;
         // console.log("revisionDate",this.revisionDate);
-        console.log("revisionData",this.revisionData);
+        // console.log("revisionData",this.revisionData);
       },error =>{
-        console.log("error--->",error);
+        // console.log("error--->",error);
       });
     }
       
 
       onDateSelected( selectedDate: string) {
         this.selectedDates = selectedDate;
-        console.log('Selected date:', this.selectedDates);
+        // console.log('Selected date:', this.selectedDates);
         this.template.getRevisionPreviousLetters(this.employeeData[0].EMP_ID, this.selectedDates).subscribe((res)=>{
-          console.log("res from previous revision letter",res);
+          // console.log("res from previous revision letter",res);
           this.revisionData = res.Revisionletter_details;
-          console.log("revisionData",this.revisionData);
+          // console.log("revisionData",this.revisionData);
           // this.revisionDate = this.revisionData[0].CREATED_AT;
           // console.log("revisionDate",this.revisionDate);  
         },error=>{
-          console.log("error at previous revision---->",error);
+          // console.log("error at previous revision---->",error);
           Swal.fire({
             position: 'top',
             icon: 'error',
