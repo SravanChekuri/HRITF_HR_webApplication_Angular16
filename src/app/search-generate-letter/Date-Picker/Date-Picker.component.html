@@ -1,0 +1,12 @@
+<div class="date-picker-container">
+  <button (click)="toggleCalendar()" class="calendar-button">
+    <i class="fa-solid fa-calendar-days"></i>
+  </button>
+  <div *ngIf="showCalendar" class="calendar-popup">
+    <input
+      type="date"
+      (change)="onDateChange($event)"
+      [value]="selectedDate"
+    />
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.date-picker-container {
+  position: relative;
+  display: inline-block;
+}
+
+.calendar-button {
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+}
+
+.calendar-popup {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+}
+

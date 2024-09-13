@@ -34,6 +34,7 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ModalModule } from './_modal/modal.module';
+import { DatePickerComponent } from './search-generate-letter/Date-Picker/Date-Picker.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { ModalModule } from './_modal/modal.module';
     ViewUsersComponent,
     EditUserComponent,
     NotificationsComponent,
+    DatePickerComponent
   ],
 
   imports: [
@@ -75,6 +77,7 @@ import { ModalModule } from './_modal/modal.module';
     NgxSpinnerModule,
     FontAwesomeModule,
     ModalModule,
+    
     
   ],
   providers: [

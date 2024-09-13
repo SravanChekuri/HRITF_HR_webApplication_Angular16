@@ -544,6 +544,7 @@ export class EditDetailsComponent implements OnInit {
     if (this.employmentbutton) {
       this.employementForm.enable();
     } else {
+      this.updateEmploymentDetailsForm();
       this.employementForm.disable();
       this.employmentbutton = false;
       this.isShowEmployementButtons = false;
@@ -798,6 +799,7 @@ export class EditDetailsComponent implements OnInit {
                 this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);              });
             },
             (error) => {
+              // console.log("error",error);
               // alert("fail init 1")
               this.loading = false;
               if (error.error && error.error.error) {
@@ -855,8 +857,9 @@ export class EditDetailsComponent implements OnInit {
       DATE_TO: this.addressForm1.value['PermanentDateTo'],
       PHONE_1: this.addressForm1.value['PermanentPhone1'],
     };
+    // console.log("PermanentAddress",PermanentAddress);
     this.employeeService.addressData(PermanentAddress, this.employee.EMP_ID).subscribe((res: any) => {
-      alert("success init")
+      // alert("success init")
           this.loading = false;
           Swal.fire({
             position: 'top',
@@ -872,7 +875,7 @@ export class EditDetailsComponent implements OnInit {
             this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);          });
         },
         (error) => {
-          alert("fail init 1")
+          // alert("fail init 1")
           this.loading = false;
           if (error.error && error.error.error) {
             Swal.fire({
@@ -883,7 +886,7 @@ export class EditDetailsComponent implements OnInit {
               width: 400,
             });
           } else if (error.error && error.error.message) {
-            alert("fail init 2")
+            // alert("fail init 2")
             Swal.fire({
               position: 'top',
               icon: 'error',
@@ -991,10 +994,10 @@ export class EditDetailsComponent implements OnInit {
     // alert("Address type date method called." +this.addressType);
     this.addressDateFrom = this.dateOfJoining;
     let enddate = '4712-12-31';
-    if (this.getPresentAddr.length === 0 && this.addressType === 'PRESENT') {
-      // alert("1"+this.addressType)
+    if (this.addressType === 'PRESENT' && this.getPresentAddr.length === 0 ) {
+      alert("1"+this.addressType)
       // this.ishidePresentAdd=true;
-      // alert("Present Address init");
+      alert("Present Address init");
       if (this.dateOfJoining2 >= this.dateOfJoining) {
         // alert("success alert")
         this.ishideEditPrsentAdd = true;
@@ -1023,9 +1026,9 @@ export class EditDetailsComponent implements OnInit {
           width: 500,
         });
       }        
-    } else if(this.addressType === 'PRESENT') {
-      // alert("2"+ this.addressType)
-      // alert("Present Address Update");
+    } else if(this.addressType === 'PRESENT' && this.getPresentAddr.length >= 1 ) {
+      alert("2"+ this.addressType)
+      alert("Present Address Update");
       this.employeeService.sendAddresstypeDate(this.employeeData[0].EMP_ID,this.addressType,this.dateOfJoining2,enddate).subscribe((res: any) => {
             // console.log("ressdgh", res);
             this.AddressData = res.data;

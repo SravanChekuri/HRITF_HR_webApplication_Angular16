@@ -165,5 +165,27 @@ export class LettertemplateService {
     return this.http.get<any>(environment.baseApiKey+ '/getEmployeeLetters/'+emp_id+ '/'+workerType,{headers:httpheaders});
   }
 
+    // api for worker type for letters
+
+    getRevisionLetters(emp_id:any){
+      this.service.authLink();
+      const httpheaders = new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      });
+      return this.http.get<any>(environment.baseApiKey+ '/getRevisionLetters/'+emp_id ,{headers:httpheaders});
+    }
+
+
+  // api for revision letter previous data
+
+  getRevisionPreviousLetters(emp_id:any,date:any){
+    this.service.authLink();
+    const httpheaders = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    });
+    return this.http.get<any>(environment.baseApiKey+ '/RevisionLetter_ByDate/'+ emp_id + '/' +date ,{headers:httpheaders});
+  }
+
+
 }
 

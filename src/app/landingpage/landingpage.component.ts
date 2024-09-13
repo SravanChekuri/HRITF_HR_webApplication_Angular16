@@ -60,11 +60,11 @@ export class LandingpageComponent implements OnInit {
  
   getNotifications() {
     this.service.recentEmployees().subscribe((res) => {
-      // console.log("recent emp:",res);
+      //  console.log("recent emp:",res);
       this.employees = [];
       res.forEach((element: any) => {
         this.employees.push({ ...element});
-        // console.log("recent employees", this.employees);
+        //  console.log("recent employees", this.employees);
       });
       this.totalEmployeesCount = this.employees.length;
       this.employeeExists = this.employees.length > 0;
@@ -100,6 +100,8 @@ export class LandingpageComponent implements OnInit {
   }
  
   selectedEmpNo(emp: any) {
+    // console.log("emp",emp);
+    // console.log(this.displayedEmployees);
     this.empNo = emp;
     localStorage.setItem('employee', JSON.stringify(this.empNo));
     this.router.navigate(['./editdetails']).then(() => {

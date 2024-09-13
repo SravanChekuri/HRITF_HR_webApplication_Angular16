@@ -39,7 +39,7 @@
                     </tr>
                     <tr *ngFor="let empData of oneyearcompletionarr">
                         <td>{{empData.EMP_NO}}</td>
-                        <td>{{empData.FIRST_NAME}}</td>
+                        <td>{{empData.FIRST_NAME}} {{empData.LAST_NAME}}</td>
                         <td>{{empData.conformationdate | date}}</td>
                         <td>{{empData.msg}}</td>
                     </tr>
@@ -62,7 +62,7 @@
                     <tr *ngFor="let empData of probationCompletionArr">
  
                        <td>{{empData.EMP_NO}}</td>
-                       <td>{{empData.FIRST_NAME}}</td>
+                       <td>{{empData.FIRST_NAME}} {{empData.LAST_NAME}}</td>
                        <td>{{empData.CONFIRMATION_DATE | date}}</td>
                        <td>{{empData.msg}}</td>
                     </tr>

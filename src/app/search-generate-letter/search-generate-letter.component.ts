@@ -18,6 +18,11 @@ export class SearchGenerateLetterComponent implements OnInit {
     loading: boolean = false;
     todaysDate: any;
 
+    revisionData:any[]=[];
+    // revisionDate:any;
+    selectedDates: any ;
+    // lengthOfRevisionObj:any;
+    
 
     constructor(
                 private template: LettertemplateService,
@@ -47,6 +52,7 @@ export class SearchGenerateLetterComponent implements OnInit {
             //   console.log("emp id",this.employeeData[0].EMP_ID);
             //   console.log("worker type",this.employeeData[0].WORKER_TYPE);
             this.submitWorkerType();
+            this.getRevisionLetter();
             });
         } catch (error) {
           // alert("Error fetching the Employeee data");
@@ -61,48 +67,44 @@ export class SearchGenerateLetterComponent implements OnInit {
           this.lettersData = res.letters_details;
           // console.log("lettersData --->>", this.lettersData);
         },(error) =>{
-          // console.log("error at workertype method",error);
+          console.log("error at workertype method",error);
         });
       }
-      
-    // view(letter_type:any) {
-    //   console.log("this.lettersData",this.lettersData);
-    //   const data1:any[] =[{ EMP_NO:this.lettersData[0].EMP_NO, TEMPLATE_NAME:this.lettersData[0].LETTER_TYPE}];
-    //   console.log("Data1---->",data1);
-    //   this.template.sendTemplateDetails(data1).subscribe((res:any)=>{
-    //     this.saveFile1(res, 'HRIT Factory '+ this.lettersData[0].EMP_NO +' '+ letter_type +'.rtf');
-    //     Swal.fire({
-    //       position:'top',
-    //       icon:'success',
-    //       title:'Success',
-    //       text:'Letter Downloaded Successfully',
-    //       timer:1500,
-    //       showConfirmButton: false,
-    //       width:400
-    //     });
-    //   },(error)=>{
-    //     // console.log("error to download -->",error);
-    //     Swal.fire({
-    //       position:'top',
-    //       icon:'error',
-    //       title:'Error',
-    //       text:' Unable to download Letter',
-    //       width:400
-    //     });
-    //   });
-    // }
 
-    // private saveFile1(data: Blob, filename: string) {
-    //   const blob = new Blob([data], { type: 'application/rtf' });
-    //   const url = window.URL.createObjectURL(blob);
-    //   const a = document.createElement('a');
-    //   a.href = url;
-    //   a.download = filename;
-    //   document.body.appendChild(a);
-    //   a.click();
-    //   window.URL.revokeObjectURL(url);
-    //   document.body.removeChild(a);
-    // }
+    getRevisionLetter(){
+      this.template.getRevisionLetters(this.employeeData[0].EMP_ID).subscribe((res)=>{
+        console.log("res from revision leter",res);
+        this.revisionData = res.Revision_letter_details;
+        // this.lengthOfRevisionObj = Object.keys(this.revisionData).length;
+        // this.revisionDate = this.revisionData[0].CREATED_AT;
+        // console.log("revisionDate",this.revisionDate);
+        console.log("revisionData",this.revisionData);
+      },error =>{
+        console.log("error--->",error);
+      });
+    }
+      
+
+      onDateSelected( selectedDate: string) {
+        this.selectedDates = selectedDate;
+        console.log('Selected date:', this.selectedDates);
+        this.template.getRevisionPreviousLetters(this.employeeData[0].EMP_ID, this.selectedDates).subscribe((res)=>{
+          console.log("res from previous revision letter",res);
+          this.revisionData = res.Revisionletter_details;
+          console.log("revisionData",this.revisionData);
+          // this.revisionDate = this.revisionData[0].CREATED_AT;
+          // console.log("revisionDate",this.revisionDate);  
+        },error=>{
+          console.log("error at previous revision---->",error);
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Error',
+            text: `${error.error.error}`,
+            width: 400
+          });
+        });
+      }
 
     downloadLetter(emp_no: string, templatename: string, ) {
       this.template.viewLetter(emp_no, templatename).subscribe((res: any) => {
@@ -153,18 +155,12 @@ export class SearchGenerateLetterComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
           }).then(() => {
-            // this.fetchEmpData( this.employee.EMP_NO, this.employeeESd, this.employee.EFFECTIVE_END_DATE);
             this.submitWorkerType();
+            this.getRevisionLetter();
           });
       });
     }
     
-
-
-    
-
-
-
 
       
 
