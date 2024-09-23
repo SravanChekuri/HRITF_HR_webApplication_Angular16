@@ -1371,7 +1371,7 @@ updatPermanenet(){
         LastName: [this.getEmergencydata[0].LAST_NAME, Validators.required],
         Gender: [this.getEmergencydata[0].GENDER],
         relation: [this.getEmergencydata[0].RELATION_TYPE, Validators.required],
-        contactNo: [this.getEmergencydata[0].CONTACT_NO, Validators.required],
+        contactNo: [this.getEmergencydata[0].CONTACT_NO, [Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),]],
         Dateofbirth: [this.getEmergencydata[0].DATE_OF_BIRTH],
         Effectivestartdate: [this.getEmergencydata[0].EFFECTIVE_START_DATE,Validators.required,],
         Effectiveenddate: [this.getEmergencydata[0].EFFECTIVE_END_DATE],
@@ -1537,7 +1537,7 @@ updatPermanenet(){
             LastName: [this.getEmergencyBasedOnDate.LAST_NAME,Validators.required,],
             Gender: [this.getEmergencyBasedOnDate.GENDER],
             relation: [this.getEmergencyBasedOnDate.RELATION_TYPE,Validators.required,],
-            contactNo: [this.getEmergencyBasedOnDate.CONTACT_NO,Validators.required,],
+            contactNo: [this.getEmergencyBasedOnDate.CONTACT_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),]],
             Dateofbirth: [this.getEmergencyBasedOnDate.DATE_OF_BIRTH],
             Effectivestartdate: [this.getEmergencyBasedOnDate.EFFECTIVE_START_DATE,Validators.required,],
             Effectiveenddate: [this.getEmergencyBasedOnDate.EFFECTIVE_END_DATE],
@@ -1597,7 +1597,7 @@ salarydata(){
     // PROPOSED_SALARY_N: this.Employeesalary.value['previousSalary'], // Ensure this is needed
     PROPOSAL_REASON: this.Employeesalary.value['proposalReason'],
     // REVIEW_DATE: this.Employeesalary.value['reviewDate'],
-    PROPOSED_SALARY: this.Employeesalary.value['proposalSalary']
+    PROPOSED_SALARY_N: this.Employeesalary.value['proposalSalary']
   }
     // console.log("salaryData",data);
     this.employeeService.salaryemployeedetails(data).subscribe((res)=>{
@@ -1642,8 +1642,8 @@ getsalarydata(){
     // PROPOSED_SALARY_N:[this.employeeList.salary_details[0].PROPOSED_SALARY_N],
     proposalReason:[this.employeeList.salary_details[0].PROPOSAL_REASON],
     // reviewDate:[this.employeeList.salary_details[0].REVIEW_DATE],
-    proposalSalary:[this.employeeList.salary_details[0].PROPOSED_SALARY],
-    previousSalary:[this.employeeList.salary_details[0].PROPOSED_SALARY_N],
+    proposalSalary:[this.employeeList.salary_details[0].PROPOSED_SALARY_N],
+    previousSalary:[this.employeeList.salary_details[0].PROPOSED_SALARY],
   });
   this.Employeesalary.disable();
 }
@@ -1657,7 +1657,7 @@ salaryUpdate(){
     // PROPOSED_SALARY_N:this.Employeesalary.value['previousSalary'],
     PROPOSAL_REASON:this.Employeesalary.value['proposalReason'],
     // REVIEW_DATE:this.Employeesalary.value['reviewDate'],
-    PROPOSED_SALARY:this.Employeesalary.value['proposalSalary']
+    PROPOSED_SALARY_N:this.Employeesalary.value['proposalSalary']
   }
   // console.log("updatedata",updatedata);
   this.employeeService.salaryUpadate(updatedata,this.employeeList.employment_details[0].ASSIGNMENT_ID).subscribe((res)=>{
@@ -1699,7 +1699,7 @@ salarySubmitDate(){
       dateToProposal:[this.getSalaryBasedOnDate.DATE_TO],
       comments:[this.getSalaryBasedOnDate.COMMENTS],
       proposalReason:[this.getSalaryBasedOnDate.PROPOSAL_REASON],
-      proposalSalary:[this.getSalaryBasedOnDate.PROPOSED_SALARY,Validators.required],
+      proposalSalary:[this.getSalaryBasedOnDate.PROPOSED_SALARY_N,Validators.required],
     })
     this.Employeesalary.disable();
   },error=>{

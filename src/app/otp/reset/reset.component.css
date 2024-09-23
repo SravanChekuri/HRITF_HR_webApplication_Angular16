@@ -11,19 +11,19 @@
   width: 100%;
   max-width: 270px;
   margin-left: -35%;
-  margin-top: 20% !important;
+  margin-top: 10% !important;
 }
 
 .card {
   width: 100%;
   max-width: 400px;
-  height: auto;
-  min-height: 60vh; 
+  height: 570px;
+  min-height: 45vh; 
   padding: 30px;
   border: 1px solid white;
   border-radius: 20px;
   opacity: 0.8;
-  margin: 10% -4% 0 10%;
+  margin: 3% -4% 0 10%;
 }
 
 h3 {

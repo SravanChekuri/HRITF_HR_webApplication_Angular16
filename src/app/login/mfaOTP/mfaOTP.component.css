@@ -7,7 +7,7 @@
 
 .logo{
   width: 50%;
-  margin:40% 0 0 20%;
+  margin:30% 0 0 20%;
 }
 
 .align-items{
@@ -22,7 +22,7 @@
   background-color: white;
   width: 200%;
   height: 100%;
-  margin:12% 15% 0 0;
+  margin:10% 15% 0 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
 
 }
