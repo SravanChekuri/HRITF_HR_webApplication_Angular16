@@ -9,6 +9,46 @@
   overflow-y: auto;
 }
  
+/* Modal overlay to cover the entire screen */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it’s on top of other content */
+}
+ 
+.button-container{
+  display: flex;
+  margin-left: 3%;
+}
+/* Modal content styling */
+.modal-content {
+  background: #fff; /* White background for the modal */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px; /* Optional: Set a max width */
+  width: 100%;
+  max-height:200px;
+  height: 100vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+/* Optional: Style for modal buttons */
+.modal-content .btn {
+  margin-right: 10px;
+}
+ 
+ 
  
  select{
   appearance: none;
@@ -59,6 +99,7 @@ body, html {
   justify-content: center;
   margin-top: 20px;
   width: 100%;
+ 
 }
  
 /* Form inputs and selects */
@@ -162,6 +203,42 @@ select {
   transition: color 0.5s ease, border-color 0.5s ease;
 }
  
+.submit-button{
+  background-color: #007bff;
+  height: 50px !important;
+  color: white;
+  margin: 2%;
+  border: 0.5px solid black;
+  padding: 4%;
+  border-radius: 34px;
+  margin-left: 40px;
+}
+
+.submit-button:hover{
+  background-color: #FFFF !important;
+  transition: 0.3 linear;
+  color: black;
+
+}
+ 
+.cancel{
+  color: white;
+  width: 90px;
+  height: 50px !important;
+  background-color: #6c757d;
+  margin: 2%;
+  border: 0.5px solid black;
+  padding: 1%;
+  border-radius: 34px; 
+}
+
+.cancel:hover{
+  background-color: #FFFF !important;
+  transition: 0.3 linear;
+  color: black;
+
+}
+
  
 .btn-primary::before {
   content: '';
@@ -306,3 +383,15 @@ select {
 .suggestions-list li:hover {
   background-color: #f0f0f0;
 }
+ 
+.popup-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 5%;
+  height: 50%;
+  width: 50%;
+}
+ 

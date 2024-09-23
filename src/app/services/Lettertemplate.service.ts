@@ -183,7 +183,7 @@ export class LettertemplateService {
     const httpheaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
-    return this.http.get<any>(environment.baseApiKey+ '/RevisionLetter_ByDate/'+ emp_id + '/' +date ,{headers:httpheaders});
+    return this.http.get<any>(environment.baseApiKey+ '/RevisionLetter_ByDate/'+ emp_id + '/' + date+'-06-01' ,{headers:httpheaders});
   }
 
 

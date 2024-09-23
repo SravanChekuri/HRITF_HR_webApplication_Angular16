@@ -4,11 +4,13 @@
   background-size: cover;
   width: 100%;
   height: 100vh;
+  overflow-y: auto;
 }
 .logo-img {
   width: 100%;
   max-width: 270px;
   margin-left: -35%;
+  margin-top: 20% !important;
 }
 
 .card {
@@ -20,7 +22,7 @@
   border: 1px solid white;
   border-radius: 20px;
   opacity: 0.8;
-  margin: 5% -4% 0 10%;
+  margin: 10% -4% 0 10%;
 }
 
 h3 {

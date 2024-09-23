@@ -48,6 +48,8 @@ export class EditDetailsComponent implements OnInit {
   employmentdate: any;
   employmentbutton: any = false;
   isShowEmployementButtons: boolean = false;
+  updateEmployeementButton:boolean=false;
+  submitEmployeementButton:boolean=true;
 
   //-----------------------drop down ng-container looping for employeement---------------------------//
 
@@ -74,6 +76,8 @@ export class EditDetailsComponent implements OnInit {
   presentbutton: boolean = false;
   ishidePresentAdd: boolean = false;
   AddressData: any;
+  isHidePresentSubmitButton:boolean=true;
+  isHidePresentUpdateButton:boolean=false;
 
   //-----------------------------------------------permanent Address Form & variables---------------------------
 
@@ -84,6 +88,8 @@ export class EditDetailsComponent implements OnInit {
   ishidePermanentAdd: boolean = false;
   ishideEditPermBtn: boolean = false;
   permanentbuttons: boolean = false;
+  isHidePermanentSubmitbtn:boolean=true;
+  isHidePermanentUpdatebtn:boolean=false;
 
   //------------------------------------------------Emergency Form and variables-------------------------------
 
@@ -92,12 +98,24 @@ export class EditDetailsComponent implements OnInit {
   emergencyformButtons: boolean = false;
   updateEmergencyButton = false;
   loading4: boolean;
-  emergencyEditHideButton: boolean = true;
+  emergencyEditHideButton: boolean = false;
   empEmergencyAddEsd: any;
   emrgencyEnd: any;
   getEmergencyBasedOnDate: any;
   isHideEmergencyButtons: boolean = false;
   emergencybutton: any = false; //no
+
+  //--------------------------------salaryForm---------------------------------------------//
+
+  Employeesalary:any=new FormGroup({})
+  updateHideSalaryButton:any=false;
+  submitHideSalaryButton:any=true;
+  salaryDate:any;
+  getSalaryBasedOnDate: any;
+  salaryEnddate:any;
+  salarybutton: any = false;
+  isHideSlaryEditButton:boolean = false;
+
 
   //-------------------------------ngOnInt-Variables-------------------------------------------------------------
 
@@ -134,6 +152,7 @@ export class EditDetailsComponent implements OnInit {
   selectedCountry: any;
   selectedstate: any;
   selectedcity: any;
+  salaryEnable: boolean;
 
   constructor(
     private employeeService: GetEmployeesService,
@@ -206,13 +225,9 @@ export class EditDetailsComponent implements OnInit {
   }
   onCountryChange(event: any) {
     // console.log("target value:", event.target.value)
-    this.selectedCountry = this.countries.find(
-      (country) => event.target.value === country.lable
-    );
+    this.selectedCountry = this.countries.find((country) => event.target.value === country.lable);
     // console.log("thsi.selectedCountry:", this.selectedCountry.value)
-    this.loginService
-      .getAllstates(this.selectedCountry.value)
-      .subscribe((statesData) => {
+    this.loginService.getAllstates(this.selectedCountry.value).subscribe((statesData) => {
         // console.log("States Data:", statesData)
         this.states = statesData.map((States: States) => ({
           value: States.iso2,
@@ -224,13 +239,9 @@ export class EditDetailsComponent implements OnInit {
 
   onStateChange(event: any) {
     // console.log("targetvalue", event.target.value);
-    this.selectedstate = this.states.find(
-      (state) => event.target.value === state.lable
-    );
+    this.selectedstate = this.states.find((state) => event.target.value === state.lable);
     // console.log('this.selectedstates:', this.selectedstate.value)
-    this.loginService
-      .getAllcities(this.selectedCountry.value, this.selectedstate.value)
-      .subscribe((citiesData) => {
+    this.loginService.getAllcities(this.selectedCountry.value, this.selectedstate.value).subscribe((citiesData) => {
         // console.log("cities Data:", citiesData)
         this.cities = citiesData.map((cities: cities) => ({
           label: cities.name,
@@ -241,13 +252,9 @@ export class EditDetailsComponent implements OnInit {
 
   updateCountryChange(countryValue: any) {
     // console.log("country:", countryValue)
-    this.selectedCountry = this.countries.find(
-      (country) => countryValue === country.lable
-    );
+    this.selectedCountry = this.countries.find((country) => countryValue === country.lable);
     // console.log("This.selecetedCountry:", this.selectedCountry.value)
-    this.loginService
-      .getAllstates(this.selectedCountry.value)
-      .subscribe((statesData) => {
+    this.loginService.getAllstates(this.selectedCountry.value).subscribe((statesData) => {
         // console.log("States Data:", statesData)
         this.states = statesData.map((states: States) => ({
           value: states.iso2,
@@ -286,7 +293,7 @@ export class EditDetailsComponent implements OnInit {
   fetchEmpData(id: any, startDate: any, endDate: any) {
     try {
       this.employeeService.fetchEmployeeDetails(id, startDate, endDate).subscribe((result) => {
-        // console.log('results of Fetch Employee details :', result);
+        //  console.log('results of Fetch Employee details :', result);
         this.employeeList = result;
         // console.log("employeeList data:", this.employeeList);
         this.employeeData = result.employee_details;
@@ -322,9 +329,27 @@ export class EditDetailsComponent implements OnInit {
           this.isShowEmployementButtons = true;
         } else {
           // alert("update employee employement form")
-          this.updateEmploymentDetailsForm();
+          this.employeementData()
+          // this.updateEmploymentDetailsForm();
+          this.employementForm.disable();
+          this.EmployementData = true;
           this.isHideEditEmployementButton = true;
+          this.updateEmployeementButton=true;
+          this.submitEmployeementButton=false;
         }
+        
+        if (this.employeeList.salary_details.length===0){
+          // alert(1)
+          this.salaryform();
+          this.isHideSlaryEditButton = false;
+        }
+        else{
+          // alert(2)
+          this.getsalarydata();
+          this.isHideSlaryEditButton = true;
+        }
+
+       
       });
     } catch (error) {
       // alert("Error fetching the Employeee data");
@@ -371,6 +396,13 @@ export class EditDetailsComponent implements OnInit {
     this.modalServcie.close(id);
   }
 
+  closeModel2(id:any){
+    if(id === 'custom-modal-6'){
+      this.searchDOJ = this.employeeData[0].DATE_OF_JOINING;
+    }
+    this.modalServcie.close(id);
+  }
+
   cls(id: any) {
     this.resetAddressType();
     this.dateOfJoining2 = this.employeeData[0].DATE_OF_JOINING;
@@ -388,12 +420,16 @@ export class EditDetailsComponent implements OnInit {
   //----------------------------------------------------For model boxes----------------------------------------------------//
 
   openModal(id: any) {
+    // this.salaryEnable=false;
     // alert(id)
     this.modalId = id;
     this.modalServcie.open(id);
   }
+  
+ 
 
   //...........................Employee/Candidate Form details........................................
+
 
   //................update Employee...................
 
@@ -543,15 +579,39 @@ export class EditDetailsComponent implements OnInit {
     this.employmentbutton = !this.employmentbutton;
     if (this.employmentbutton) {
       this.employementForm.enable();
-    } else {
-      this.updateEmploymentDetailsForm();
+    } else {      
+      // this.updateEmploymentDetailsForm();
       this.employementForm.disable();
+      this.submitEmployeementButton=false;
+      this.updateEmergencyButton=true
       this.employmentbutton = false;
       this.isShowEmployementButtons = false;
     }
   }
 
-  //........................................init............................................
+  //........................................init..................................................
+
+  employeementData(){
+    this.employementForm = this.formbuilder.group({
+      employementId1: [this.employeeList.employment_details[0].EMP_ID,Validators.required,],
+      Organization_Name: [this.employeeList.employment_details[0].ORGANIZATION_NAME,Validators.required,],
+      Position: [this.employeeList.employment_details[0].POSITION],
+      Department: [this.employeeList.employment_details[0].DEPARTMENT],
+      // Annual_Salary: [this.employeeList.employment_details[0].ANNUAL_SALARY,Validators.required,],
+      // Previous_AnnualSalary: [this.employeeList.employment_details[0].PREVIOUS_ANNUAL_SALARY,],
+      dateOfJoining: [this.employeeList.employment_details[0].DATE_OF_JOINING,Validators.required,],
+      MobileNo: [this.employeeList.employment_details[0].MOBILE_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
+      Status: [this.employeeList.employment_details[0].STATUS],
+      Notice_Period: [this.employeeList.employment_details[0].NOTICE_PERIOD],
+      Effective_Start_Date: [this.employeeList.employment_details[0].EFFECTIVE_START_DATE,Validators.required,],
+      Effective_End_Date: [this.employeeList.employment_details[0].EFFECTIVE_END_DATE,],
+      PreviousExperiences: [this.employeeList.employment_details[0].PREVIOUS_EXPERIENCE,],
+      CurrentCompanyExperience: [this.employeeList.employment_details[0].CURRENT_COMP_EXPERIENCE,],
+      workerType: [this.employeeList.employment_details[0].WORKER_TYPE,Validators.required,],
+      Probation_Period: [this.employeeList.employment_details[0].PROBATION_PERIOD,],
+    });
+    
+  }
 
   employementInitializationForm() {
     this.employementForm = this.formbuilder.group({
@@ -559,8 +619,8 @@ export class EditDetailsComponent implements OnInit {
       Organization_Name: ['', Validators.required],
       Position: [''],
       Department: [''],
-      Annual_Salary: ['', Validators.required],
-      Previous_AnnualSalary: ['0'],
+      // Annual_Salary: ['', Validators.required],
+      // Previous_AnnualSalary: ['0'],
       dateOfJoining: [this.dateOfJoining, Validators.required],
       MobileNo: ['',[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
       Status: ['', Validators.required],
@@ -581,14 +641,16 @@ export class EditDetailsComponent implements OnInit {
 
   employmentSubmit() {
     this.loading = true;
+    // console.log(this.employementForm.status);
+    
     if (this.employementForm.status === 'VALID') {
       const formattedData = {
         EMP_ID: this.employementForm.value['employementId1'],
         ORGANIZATION_NAME: this.employementForm.value['Organization_Name'],
         POSITION: this.employementForm.value['Position'],
         DEPARTMENT: this.employementForm.value['Department'],
-        ANNUAL_SALARY: this.employementForm.value['Annual_Salary'],
-        PREVIOUS_ANNUAL_SALARY:this.employementForm.value['Previous_AnnualSalary'],
+        // ANNUAL_SALARY: this.employementForm.value['Annual_Salary'],
+        // PREVIOUS_ANNUAL_SALARY:this.employementForm.value['Previous_AnnualSalary'],
         DATE_OF_JOINING: this.employementForm.value['dateOfJoining'],
         MOBILE_NO: this.employementForm.value['MobileNo'],
         STATUS: this.employementForm.value['Status'],
@@ -600,7 +662,7 @@ export class EditDetailsComponent implements OnInit {
         CURRENT_COMP_EXPERIENCE:this.employementForm.value['CurrentCompanyExperience'],
         WORKER_TYPE: this.employementForm.value['workerType'],
       };
-      // console.log("empdetails", formattedData);
+      //  console.log("empdetails", formattedData);
       this.employeeService.EmployeeDetails(formattedData).subscribe((res: any) => {
           this.isHideEditEmployementButton = true;
           this.loading = false;
@@ -615,9 +677,12 @@ export class EditDetailsComponent implements OnInit {
           }).then(() => {
             this.employementForm.disable();
             this.employmentbutton = !this.employmentbutton;
+             this.submitEmployeementButton=false;
+            this.updateEmployeementButton=true;
           });
         },
         (error) => {
+          // console.log("error",error);
           this.loading = false;
           if (error.error && error.error.error) {
             Swal.fire({
@@ -649,27 +714,56 @@ export class EditDetailsComponent implements OnInit {
   //...........................................update Employement...........................................................
 
   updateEmploymentDetailsForm() {
-    // console.log('PROBATION_PERIOD', this.employeeList.employment_details);
-    this.employementForm = this.formbuilder.group({
-      employementId1: [this.employeeList.employment_details[0].EMP_ID,Validators.required,],
-      Organization_Name: [this.employeeList.employment_details[0].ORGANIZATION_NAME,Validators.required,],
-      Position: [this.employeeList.employment_details[0].POSITION],
-      Department: [this.employeeList.employment_details[0].DEPARTMENT],
-      Annual_Salary: [this.employeeList.employment_details[0].ANNUAL_SALARY,Validators.required,],
-      Previous_AnnualSalary: [this.employeeList.employment_details[0].PREVIOUS_ANNUAL_SALARY,],
-      dateOfJoining: [this.employeeList.employment_details[0].DATE_OF_JOINING,Validators.required,],
-      MobileNo: [this.employeeList.employment_details[0].MOBILE_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
-      Status: [this.employeeList.employment_details[0].STATUS],
-      Notice_Period: [this.employeeList.employment_details[0].NOTICE_PERIOD],
-      Effective_Start_Date: [this.employeeList.employment_details[0].EFFECTIVE_START_DATE,Validators.required,],
-      Effective_End_Date: [this.employeeList.employment_details[0].EFFECTIVE_END_DATE,],
-      PreviousExperiences: [this.employeeList.employment_details[0].PREVIOUS_EXPERIENCE,],
-      CurrentCompanyExperience: [this.employeeList.employment_details[0].CURRENT_COMP_EXPERIENCE,],
-      workerType: [this.employeeList.employment_details[0].WORKER_TYPE,Validators.required,],
-      Probation_Period: [this.employeeList.employment_details[0].PROBATION_PERIOD,],
-    });
-    this.employementForm.disable();
+   
+    const updatedData = {
+      ASSIGNMENT_ID:this.employeeList.employment_details[0].ASSIGNMENT_ID,
+      EMP_ID: this.employementForm.value['employementId1'],
+      ORGANIZATION_NAME: this.employementForm.value['Organization_Name'],
+      POSITION: this.employementForm.value['Position'],
+      DEPARTMENT: this.employementForm.value['Department'],
+      // ANNUAL_SALARY: this.employementForm.value['Annual_Salary'],
+      // PREVIOUS_ANNUAL_SALARY:this.employementForm.value['Previous_AnnualSalary'],
+      DATE_OF_JOINING: this.employementForm.value['dateOfJoining'],
+      MOBILE_NO: this.employementForm.value['MobileNo'],
+      STATUS: this.employementForm.value['Status'],
+      PROBATION_PERIOD: this.employementForm.value['Probation_Period'],
+      NOTICE_PERIOD: this.employementForm.value['Notice_Period'],
+      EFFECTIVE_START_DATE:this.employementForm.value['Effective_Start_Date'],
+      EFFECTIVE_END_DATE: this.employementForm.value['Effective_End_Date'],
+      PREVIOUS_EXPERIENCE: this.employementForm.value['PreviousExperiences'],
+      CURRENT_COMP_EXPERIENCE:this.employementForm.value['CurrentCompanyExperience'],
+      WORKER_TYPE: this.employementForm.value['workerType'],
+    };
+
+    this.employeeService.updateEmployeementData(updatedData,this.employeeList.employment_details[0].EMP_ID).subscribe((res)=>{
+      // console.log("res",res);
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Success',
+        showConfirmButton: false,
+        timer: 1500,
+        width: 400,
+      }).then(() => {
+        this.employementForm.disable();
+        // this.employmentbutton = !this.employmentbutton;
+        this.updateEmergencyButton=true
+      });
+    },error=>{
+      // console.log("err",error);
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Error',
+        text: `${error.error.error}`,
+        showConfirmButton: true,
+      });
+
+      
+    })
+    // this.employementForm.disable();
     this.EmployementData = true;
+   
   }
 
   //.....................................search for previous record for employement.............................................................
@@ -687,8 +781,8 @@ export class EditDetailsComponent implements OnInit {
             Organization_Name: [this.employmentdate.ORGANIZATION_NAME,Validators.required,],
             Position: [this.employmentdate.POSITION],
             Department: [this.employmentdate.DEPARTMENT],
-            Annual_Salary: [this.employmentdate.ANNUAL_SALARY,Validators.required,],
-            Previous_AnnualSalary: [this.employmentdate.PREVIOUS_ANNUAL_SALARY],
+            // Annual_Salary: [this.employmentdate.ANNUAL_SALARY,Validators.required,],
+            // Previous_AnnualSalary: [this.employmentdate.PREVIOUS_ANNUAL_SALARY],
             dateOfJoining: [this.employmentdate.DATE_OF_JOINING,Validators.required,],
             MobileNo: [this.employmentdate.MOBILE_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
             Status: [this.employmentdate.STATUS],
@@ -782,8 +876,9 @@ export class EditDetailsComponent implements OnInit {
         PHONE_1: this.addressForm.value['Phone1'],
         DATE_TO: this.addressForm.value['DateTo'],
       };
-      // console.log("updateData", updateData);
-      this.addressForm.value['AddressType'] ? this.employeeService.addressData(updateData, this.employee.EMP_ID).subscribe((res: any) => {
+      //  console.log("updateData", updateData);
+      this.addressForm.value['AddressType'] ? this.employeeService.addressData(updateData).subscribe((res: any) => {
+        // console.log(res);
         // alert("succces init")
               this.loading = false;
               Swal.fire({
@@ -794,13 +889,16 @@ export class EditDetailsComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 2000,
               }).then(() => {
+                 this.ishideEditPrsentAdd=true;
                 this.presentbutton = !this.presentbutton;
+                this.isHidePresentUpdateButton=true;
+                this.isHidePresentSubmitButton=false;
                 this.addressForm.disable();
                 this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);              });
             },
             (error) => {
-              // console.log("error",error);
               // alert("fail init 1")
+              // console.log(error);
               this.loading = false;
               if (error.error && error.error.error) {
                 Swal.fire({
@@ -838,6 +936,47 @@ export class EditDetailsComponent implements OnInit {
     });
   }
 
+
+////---------------------------------updateButtonPrsentAddressData----------------------------------------///
+  updatePresentAddress(){
+    // alert('update')
+    const Data = {
+      EMP_ID: this.addressForm.value['EmployeeId'],
+      ADDRESS_TYPE: 'PRESENT',
+      ADDRESS: this.addressForm.value['Address'],
+      CITY: this.addressForm.value['City'],
+      STATE: this.addressForm.value['State'],
+      COUNTRY: this.addressForm.value['Country'],
+      PIN_CODE: this.addressForm.value['Pincode'],
+      DATE_FROM: this.addressForm.value['DateForm'],
+      PHONE_1: this.addressForm.value['Phone1'],
+      DATE_TO: this.addressForm.value['DateTo'],
+    };
+    // console.log("Data",Data);
+    this.employeeService.updateButtonPresentAddressData(Data,this.employeeList.employment_details[0].EMP_ID).subscribe((res)=>{
+      // console.log("res,",res);
+      this.isHidePresentSubmitButton=false;
+      this.isHidePresentUpdateButton=true;
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Successful',
+        showConfirmButton: false,
+        timer: 2000,
+      })  
+    },(error)=>{
+      // console.log("error",error);
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Oops...',
+        text: `${error.error.error}`,
+        width: 400,
+      });
+    })
+  }
+  
+//-----------------------------------------------------------------------------------------------------//
   submitPermanenetAdd() {
     this.loading = true;
     if (this.addressForm1.invalid) {
@@ -857,9 +996,8 @@ export class EditDetailsComponent implements OnInit {
       DATE_TO: this.addressForm1.value['PermanentDateTo'],
       PHONE_1: this.addressForm1.value['PermanentPhone1'],
     };
-    // console.log("PermanentAddress",PermanentAddress);
-    this.employeeService.addressData(PermanentAddress, this.employee.EMP_ID).subscribe((res: any) => {
-      // alert("success init")
+    this.employeeService.addressData(PermanentAddress).subscribe((res: any) => {
+      //alert("success init")
           this.loading = false;
           Swal.fire({
             position: 'top',
@@ -870,12 +1008,15 @@ export class EditDetailsComponent implements OnInit {
             timer: 2000,
             width: 400,
           }).then(() => {
+             this.ishideEditPermBtn=true;
+             this.isHidePermanentSubmitbtn=false;
+             this.isHidePermanentUpdatebtn=true;
             this.permanentbuttons = !this.permanentbuttons;
             this.addressForm1.disable();
             this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);          });
         },
         (error) => {
-          // alert("fail init 1")
+          //alert("fail init 1")
           this.loading = false;
           if (error.error && error.error.error) {
             Swal.fire({
@@ -886,7 +1027,7 @@ export class EditDetailsComponent implements OnInit {
               width: 400,
             });
           } else if (error.error && error.error.message) {
-            // alert("fail init 2")
+            //alert("fail init 2")
             Swal.fire({
               position: 'top',
               icon: 'error',
@@ -919,6 +1060,9 @@ export class EditDetailsComponent implements OnInit {
             DateTo: [this.presentGetData.DATE_TO],
           });
           this.addressForm.disable();
+          this.ishideEditPrsentAdd=true;
+          this.isHidePresentSubmitButton=false;
+          this.isHidePresentUpdateButton=true;
         },
         (error) => {
           // console.log("err", error);
@@ -962,6 +1106,7 @@ export class EditDetailsComponent implements OnInit {
             PermanentDateTo: [this.permanentGetData.DATE_TO],
           });
           this.addressForm1.disable();
+          this.ishideEditPermBtn=true;
         },
         (error) => {
           // console.log("err", error);
@@ -987,20 +1132,59 @@ export class EditDetailsComponent implements OnInit {
   }
 
 
-//------------------------------------------- Address type selection --------------------------------------------
+//------------------------------------------- Address type selection ----------------------------------------------------
+
+updatPermanenet(){
+ // alert(1)
+  const data = {
+    EMP_ID: this.addressForm1.value['EmployeeId'],
+    ADDRESS_TYPE: this.addressForm1.value['PermanentAdressType'],
+    ADDRESS: this.addressForm1.value['PermanentAddress'],
+    CITY: this.addressForm1.value['PermanentCity'],
+    STATE: this.addressForm1.value['PermanentState'],
+    COUNTRY: this.addressForm1.value['PermanentCountry'],
+    PIN_CODE: this.addressForm1.value['PermanentPincode'],
+    DATE_FROM: this.addressForm1.value['PermanentDateForm'],
+    DATE_TO: this.addressForm1.value['PermanentDateTo'],
+    PHONE_1: this.addressForm1.value['PermanentPhone1'],
+  };
+  // console.log("data",data);
+  this.employeeService.updateButtonPresentAddressData(data,this.employee.EMP_ID).subscribe((res)=>{
+    // console.log("res",res);
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'Successful',
+      showConfirmButton: false,
+      timer: 2000,
+    })
+    this.ishideEditPermBtn=true;
+    this.isHidePermanentSubmitbtn=false;
+    this.isHidePermanentUpdatebtn=true;  
+  },(error)=>{
+    // console.log(error);
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Oops...',
+      text: `${error.error.error}`,
+      width: 400,
+    });
+  })
+}
   
   addressTypeDate() {
     // alert("ok btn clicked");
     // alert("Address type date method called." +this.addressType);
     this.addressDateFrom = this.dateOfJoining;
     let enddate = '4712-12-31';
-    if (this.addressType === 'PRESENT' && this.getPresentAddr.length === 0 ) {
-      alert("1"+this.addressType)
+    if (this.getPresentAddr.length === 0 && this.addressType === 'PRESENT') {
+      // alert("1"+this.addressType)
       // this.ishidePresentAdd=true;
-      alert("Present Address init");
+      // alert("Present Address init");
       if (this.dateOfJoining2 >= this.dateOfJoining) {
         // alert("success alert")
-        this.ishideEditPrsentAdd = true;
+        // this.ishideEditPrsentAdd = true;
         this.addressForm = this.formbuilder.group({
           EmployeeId: [this.employee.EMP_ID, Validators.required],
           AddressType: ['PRESENT'],
@@ -1026,12 +1210,13 @@ export class EditDetailsComponent implements OnInit {
           width: 500,
         });
       }        
-    } else if(this.addressType === 'PRESENT' && this.getPresentAddr.length >= 1 ) {
-      alert("2"+ this.addressType)
-      alert("Present Address Update");
+    } else if(this.addressType === 'PRESENT') {
+      // alert("2"+ this.addressType)
+      // alert("Present Address Update");
       this.employeeService.sendAddresstypeDate(this.employeeData[0].EMP_ID,this.addressType,this.dateOfJoining2,enddate).subscribe((res: any) => {
             // console.log("ressdgh", res);
             this.AddressData = res.data;
+            this.ishidePresentAdd=true;
             // console.log("this.AddressData", this.AddressData.STATE);
             if (this.AddressData.ADDRESS_TYPE === 'PRESENT') {
               // console.log("this.AddressData", this.AddressData.STATE);
@@ -1040,7 +1225,7 @@ export class EditDetailsComponent implements OnInit {
                 // alert("012")
                 this.updateCountryChange(this.AddressData.COUNTRY);
               }
-              this.ishideEditPrsentAdd = false;
+              this.ishideEditPrsentAdd = true;
               this.addressForm = this.formbuilder.group({
                 EmployeeId: [this.AddressData.EMP_ID],
                 AddressType: [this.AddressData.ADDRESS_TYPE],
@@ -1054,6 +1239,8 @@ export class EditDetailsComponent implements OnInit {
                 DateTo: [this.AddressData.DATE_TO],
               });
               this.loading2 = true;
+              this.isHidePresentSubmitButton=false;
+              this.isHidePresentUpdateButton=true;
               this.addressForm.disable();
               this.openModal('custom-modal-3');
             }
@@ -1077,7 +1264,6 @@ export class EditDetailsComponent implements OnInit {
       // alert("1"+this.addressType)
       // alert("Permanent Address init");
       if (this.dateOfJoining2 >= this.dateOfJoining) {
-        this.ishideEditPermBtn = true;
         this.addressForm1 = this.formbuilder.group({
           EmployeeId: [this.employee.EMP_ID],
           PermanentAdressType: ['PERMANENT'],
@@ -1107,11 +1293,11 @@ export class EditDetailsComponent implements OnInit {
       // alert("Permanet Address Update");
       this.employeeService.sendAddresstypeDate(this.employee.EMP_ID,this.addressType,this.dateOfJoining2,enddate).subscribe((res: any) => {
             // console.log("ressdgh", res);
+            this.ishideEditPermBtn=true;
             this.AddressData = res.data;
             // console.log("this.AddressData", this.AddressData.STATE);
             if (this.AddressData.ADDRESS_TYPE === 'PERMANENT') {
               // alert("Prmanent Address Update");
-              this.ishideEditPermBtn = false;
               // console.log("this.AddressData", this.AddressData.STATE);
               if (this.AddressData.COUNTRY) {
                 // alert("012")
@@ -1131,6 +1317,8 @@ export class EditDetailsComponent implements OnInit {
               });
               this.loading3 = true;
               this.addressForm1.disable();
+              this.isHidePermanentSubmitbtn=false;
+              this.isHidePermanentUpdatebtn=true;
               // if (this.loading3) {
               this.openModal('custom-modal-4');
               // }
@@ -1222,8 +1410,9 @@ export class EditDetailsComponent implements OnInit {
   //............................sending to backend .........................................
 
   emergencyDetails() {
+    
     this.loading = true;
-    // console.log(this.emergencyContact.status);
+    //  console.log(this.emergencyContact.value);
     // alert("empId" + this.employee.EMP_ID)
     if (this.emergencyContact.invalid) {
       // Mark all controls as touched to trigger validation messages
@@ -1247,9 +1436,10 @@ export class EditDetailsComponent implements OnInit {
       EFFECTIVE_END_DATE: this.emergencyContact.value['Effectiveenddate'],
       ADDRESS_TYPE: this.emergencyContact.value['addressType'],
     };
-    // console.log("Emergency data:", emergencyData)
+    //  console.log("Emergency data:", emergencyData)
     this.employeeService.sendEmergencyData(emergencyData).subscribe((res: any) => {
-        // console.log("emergency", res);
+        //  console.log("emergency", res);
+         this.emergencyEditHideButton=true;
         this.loading = false;
         Swal.fire({
           position: 'top',
@@ -1259,11 +1449,11 @@ export class EditDetailsComponent implements OnInit {
           timer: 1500,
           width: 400,
         }).then(() => {
-          this.isHideEmergencyButtons = !this.isHideEmergencyButtons;
+          // this.isHideEmergencyButtons = !this.isHideEmergencyButtons;
           this.emergencyContact.disable();
           this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);        
         });
-        this.closeModal('custom-modal-5');
+        // this.closeModal('custom-modal-5');
       },
       (error) => {
         // console.log("error", error);
@@ -1289,7 +1479,7 @@ export class EditDetailsComponent implements OnInit {
 
   updateEmergency() {
     // alert(this.emergencyDataGet.FIRST_NAME)
-    // console.log("this.emergency contact:", this.emergencyContact.value['FirstName'])
+    // console.log("this.emergency contact:", this.emergencyContact.value)
     const emergencyData = {
       FIRST_NAME: this.emergencyContact.value['FirstName'],
       MIDDLE_NAME: this.emergencyContact.value['MiddleName'],
@@ -1303,7 +1493,7 @@ export class EditDetailsComponent implements OnInit {
       EFFECTIVE_END_DATE: this.emergencyContact.value['Effectiveenddate'],
       ADDRESS_TYPE: this.emergencyContact.value['addressType'],
     };
-    // console.log("emergencyData", emergencyData);
+  //  console.log("emergencyData", emergencyData);
     this.employeeService.updateEmergencyData(this.employee.EMP_ID, emergencyData).subscribe((res) => {
           // console.log("res", res);
           // let newEffectiveStartDate = res.EFFECTIVE_START_DATE
@@ -1367,6 +1557,162 @@ export class EditDetailsComponent implements OnInit {
           });
         });
   }
+
+//---------------------------------------------------salary-----------------------------------------------//
+
+
+salaryEdit() {
+  this.salarybutton = !this.salarybutton;
+  if (this.salarybutton) {
+    this.Employeesalary.enable();
+  } else {
+    this.Employeesalary.disable();
+    this.getsalarydata();
+  }
+}
+
+
+salaryform(){
+  this.Employeesalary=this.formbuilder.group({
+    changedSalaryDate:['',Validators.required],
+    dateToProposal:['',Validators.required],
+    comments:['',Validators.required],
+    // previousSalary:['',Validators.required],
+    proposalReason:['',Validators.required],
+    // reviewDate:['',Validators.required],
+    proposalSalary:['',Validators.required]
+  })
+  this.salaryEnable =true;
+  this.isHideSlaryEditButton = !this.isHideSlaryEditButton;
+}
+
+salarydata(){
+  // console.log("assignmentid",  this.employeeList.employment_details[0].ASSIGNMENT_ID);
+  //  console.log('dataa',this.Employeesalary.values);
+   const data = {
+    ASSIGNMENT_ID: this.employeeList.employment_details[0].ASSIGNMENT_ID,
+    CHANGED_SALARY_DATE: this.Employeesalary.value['changedSalaryDate'],
+    DATE_TO: this.Employeesalary.value['dateToProposal'],
+    COMMENTS: this.Employeesalary.value['comments'],
+    // PROPOSED_SALARY_N: this.Employeesalary.value['previousSalary'], // Ensure this is needed
+    PROPOSAL_REASON: this.Employeesalary.value['proposalReason'],
+    // REVIEW_DATE: this.Employeesalary.value['reviewDate'],
+    PROPOSED_SALARY: this.Employeesalary.value['proposalSalary']
+  }
+    // console.log("salaryData",data);
+    this.employeeService.salaryemployeedetails(data).subscribe((res)=>{
+      // console.log("res",res);
+      this.isHideSlaryEditButton = true;
+      this.updateHideSalaryButton=true;
+      this.submitHideSalaryButton=false;
+    this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      text: ' Salary details added Successfully',
+      showConfirmButton: false,
+      timer: 2000,
+      width: 400,
+    }).then(() => {
+      this.Employeesalary.disable();
+      // this.isHideSlaryEditButton = !this.isHideSlaryEditButton;
+      this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+    });
+  },error=>{
+    // console.log("err",error);
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Oops...',
+      text: `${error.error.error}`,
+      width: 400,
+    });
+  })
+}
+
+getsalarydata(){
+  this.updateHideSalaryButton=true;
+  this.submitHideSalaryButton=false;
+  // console.log("--->",this.employeeList.salary_details);
+  // console.log(this.employeeList.salary_details[0].PROPOSAL_REASON);
+  this.Employeesalary=this.formbuilder.group({
+    changedSalaryDate:[this.employeeList.salary_details[0].CHANGED_SALARY_DATE],
+    dateToProposal:[this.employeeList.salary_details[0].DATE_TO],
+    comments:[this.employeeList.salary_details[0].COMMENTS],
+    // PROPOSED_SALARY_N:[this.employeeList.salary_details[0].PROPOSED_SALARY_N],
+    proposalReason:[this.employeeList.salary_details[0].PROPOSAL_REASON],
+    // reviewDate:[this.employeeList.salary_details[0].REVIEW_DATE],
+    proposalSalary:[this.employeeList.salary_details[0].PROPOSED_SALARY],
+    previousSalary:[this.employeeList.salary_details[0].PROPOSED_SALARY_N],
+  });
+  this.Employeesalary.disable();
+}
+
+salaryUpdate(){
+  const updatedata={
+    ASSIGNMENT_ID:this.employeeList.employment_details[0].ASSIGNMENT_ID,
+    CHANGED_SALARY_DATE:this.Employeesalary.value['changedSalaryDate'],
+    DATE_TO:this.Employeesalary.value['dateToProposal'],
+    COMMENTS:this.Employeesalary.value['comments'],
+    // PROPOSED_SALARY_N:this.Employeesalary.value['previousSalary'],
+    PROPOSAL_REASON:this.Employeesalary.value['proposalReason'],
+    // REVIEW_DATE:this.Employeesalary.value['reviewDate'],
+    PROPOSED_SALARY:this.Employeesalary.value['proposalSalary']
+  }
+  // console.log("updatedata",updatedata);
+  this.employeeService.salaryUpadate(updatedata,this.employeeList.employment_details[0].ASSIGNMENT_ID).subscribe((res)=>{
+    // console.log("res",res);
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      text: ' Salary details updated Successfully',
+      showConfirmButton: false,
+      timer: 2000,
+      width: 400,
+    }).then(() => {
+      this.Employeesalary.disable();
+      this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+    });    
+  },error=>{
+    // console.log("err",error);
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Oops...',
+      text: `${error.error.error}`,
+      width: 400,
+    }); 
+  })
+}
+
+  //.................................salary record search  for previous dates..........................//
+
+salarySubmitDate(){
+  this.salaryDate=this.searchDOJ;
+  // console.log("this.salaryDate",this.salaryDate);
+  // console.log("Assignment id",this.employeeList.employment_details[0].ASSIGNMENT_ID,);
+  this.employeeService.salarySubmitDate(this.employeeList.employment_details[0].ASSIGNMENT_ID,this.salaryDate,this.salaryEnddate).subscribe((res:any)=>{
+    // console.log("res",res);
+    this.getSalaryBasedOnDate = res.data;
+    this.Employeesalary=this.formbuilder.group({
+      changedSalaryDate:[this.getSalaryBasedOnDate.CHANGED_SALARY_DATE,Validators.required],
+      dateToProposal:[this.getSalaryBasedOnDate.DATE_TO],
+      comments:[this.getSalaryBasedOnDate.COMMENTS],
+      proposalReason:[this.getSalaryBasedOnDate.PROPOSAL_REASON],
+      proposalSalary:[this.getSalaryBasedOnDate.PROPOSED_SALARY,Validators.required],
+    })
+    this.Employeesalary.disable();
+  },error=>{
+    // console.log("err",error);
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Oops...',
+      text: `${error.error.message}`,
+      width: 400,
+    });
+  });
+}
 
 
 

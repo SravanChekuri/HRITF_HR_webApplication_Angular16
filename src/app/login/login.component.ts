@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.invalid){
       return
     }
-
     const loginData = {
       username_or_email: this.loginForm.value['userName'],
       password: this.loginForm.value['password']
@@ -94,7 +93,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           position:'top',
           title: "Oops! 😞",
-          text: `${this.msg + ' in Server Connection'}`,
+          text: `${this.msg}`,
           icon: "error",
           showCancelButton:false,
           width:400

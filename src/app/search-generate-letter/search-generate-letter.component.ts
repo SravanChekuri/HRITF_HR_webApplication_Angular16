@@ -63,7 +63,7 @@ export class SearchGenerateLetterComponent implements OnInit {
 
     submitWorkerType(){
         this.template.getEmpLetters(this.employeeData[0].EMP_ID,this.employeeData[0].WORKER_TYPE).subscribe((res:any)=>{
-          // console.log("res for worker type--->",res);
+          //  console.log("res for worker type--->",res);
           this.lettersData = res.letters_details;
           // console.log("lettersData --->>", this.lettersData);
         },(error) =>{

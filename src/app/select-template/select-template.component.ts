@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,FormArray, Validators } from '@angular/forms';
 import { LettertemplateService } from '../services/Lettertemplate.service';
 import Swal from 'sweetalert2';
+import { ChangeDetectorRef } from '@angular/core';
  
 @Component({
   selector: 'app-select-template',
@@ -10,8 +11,10 @@ import Swal from 'sweetalert2';
 })
  
 export class SelectTemplateComponent implements OnInit {
+  years: number[] = [];
  
   letterarray:string[]=[];
+
   suggestedEmployeeNumbers: string[][] = [];
   suggestionsVisible: boolean[] = [];
   lettersData: any = [];
@@ -23,12 +26,19 @@ export class SelectTemplateComponent implements OnInit {
   msg:any;
   userData: any;
   buttonHide:boolean = true;
+ 
+  showRevisionModal = false;
+  genarateLetterHide:any=true;
 
+ 
+  revisionForm: FormGroup;
+ 
  
   constructor(
               private formbuilder: FormBuilder,
               private services: LettertemplateService,
-            ) { 
+              private cdr: ChangeDetectorRef
+            ) {
               const userData1 = localStorage.getItem('loginData');
               if (userData1) {
                   this.userData = JSON.parse(userData1);
@@ -38,13 +48,26 @@ export class SelectTemplateComponent implements OnInit {
  
   ngOnInit(): void {
     this.FormInitialization();
+    this.revisionForm = this.formbuilder.group({
+      revisionYear: ['', Validators.required]
+    });
+    this.populateYears();
   }
  
   letterTemplateName(event: any) {
+    // alert(event.target.value)
     const selectedTemplate = event.target.value;
+    // alert(selectedTemplate)
     this.buttonHide = selectedTemplate !== "Employement Letter";
+    if (selectedTemplate === 'Revision Letter') {
+      this.genarateLetterHide=false;
+      this.showRevisionModal = !this.showRevisionModal;
+    } else {
+      this.showRevisionModal = false;
+    }
+    // this.cdr.detectChanges();
   }
-
+ 
  
   FormInitialization() {
     this.TemplateForm = this.formbuilder.group({
@@ -85,7 +108,7 @@ export class SelectTemplateComponent implements OnInit {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   }
-
+ 
   private saveFile2(data: Blob, filename: string) {
     const blob = new Blob([data], { type: 'application/zip' });
     const url = window.URL.createObjectURL(blob);
@@ -97,7 +120,7 @@ export class SelectTemplateComponent implements OnInit {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   }
-
+ 
   letterData() {
     this.loading = true;
      // Convert employee numbers to uppercase
@@ -132,8 +155,8 @@ export class SelectTemplateComponent implements OnInit {
      });
     //  console.log('data1',data1);
     this.services.sendTemplateDetails(data1).subscribe((res:any) => {
-        // console.log(res);   
-        this.buttonHide = true;             
+        // console.log(res);  
+        this.buttonHide = true; 
         this.loading = false;
         Swal.fire({
           position:'top',
@@ -144,7 +167,7 @@ export class SelectTemplateComponent implements OnInit {
           showConfirmButton: false,
           width:400
         });
-
+ 
         if(res.type == 'application/rtf'){
           this.saveFile1(res, 'HRIT Factory '+ data1[0].EMP_NO +' '+ data1[0].TEMPLATE_NAME +'.rtf');
         }
@@ -223,17 +246,102 @@ export class SelectTemplateComponent implements OnInit {
       this.suggestionsVisible[index] = false;
     }
   }
-
+ 
   selectSuggestion(suggestion: string, index: number): void {
     this.employeeNumber.at(index).patchValue({ employeeNumber: suggestion });
     this.suggestionsVisible[index] = false;
   }
-
+ 
  
 getRoleClass(role: string): string {
   return this.userData.ROLE === 'Admin' ? 'align-btn2' : 'align-btn1';
 }
-
  
+onLetterTemplateChange(event: Event) {
+  const selectedValue = (event.target as HTMLSelectElement).value;
+  if (selectedValue === 'Revision Letter') {
+    this.showRevisionModal = true;
+  } else {
+    this.showRevisionModal = false;
+  }
 }
+ 
+closeRevisionModal() {
+  this.showRevisionModal = false;
+  this.genarateLetterHide=true;
+  this.TemplateForm.reset({employeeNumber: [], letterTemplate: ''})
+}
+
+populateYears() {
+  const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 10; // 10 years in the past
+    const endYear = currentYear + 10;   // 10 years in the future
+
+    for (let year = startYear; year <= endYear; year++) {
+      this.years.push(year);
+    }
+    // console.log(this.years);
+    
+}
+
+sendYear() {
+  if (this.revisionForm.valid) {
+    const currentYear = new Date().getFullYear();
+    const selectedYear = this.revisionForm.get('revisionYear')?.value;
+    // console.log("selectedYear:", selectedYear);
+    const data1: any = [];
+    this.TemplateForm.value['employeeNumber'].forEach((element: any) => {
+      data1.push({
+        TEMPLATE_NAME: this.TemplateForm.value['letterTemplate'],
+        EMP_NO: element.employeeNumber,
+        YEAR: selectedYear+'-06-01'
+      });
+    });
+    // console.log("data=>", data1);
+    this.services.sendTemplateDetails(data1).subscribe((res)=>{
+      // console.log("res",res);
+      Swal.fire({
+        position:'top',
+        icon:'success',
+        title:'Success',
+        text:'Letter Generated Successfully',
+        timer:1500,
+        showConfirmButton: false,
+        width:400
+      }).then(()=>{
+        this.closeRevisionModal();
+      });
+      
+      if(res.type == 'application/rtf'){
+        this.saveFile1(res, 'HRIT Factory '+ data1[0].EMP_NO +' '+ data1[0].TEMPLATE_NAME + ' ' + currentYear +'.rtf');
+      }
+      else{
+        this.saveFile2(res, 'HRIT Factory Letters.zip');
+      }
+      
+    },(error)=>{
+      // console.log("err",error);
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Oops...',
+        text: `${error.error.error || error.error.message }`,
+        width: 400,
+      });
+    })
+  } else {
+    // console.log("Form is invalid");
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please Enter the revision year',
+      width: 400,
+    });
+
+  }
+}
+
+}
+ 
  

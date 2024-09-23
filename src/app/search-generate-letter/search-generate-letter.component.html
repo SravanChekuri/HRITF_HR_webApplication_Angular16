@@ -1,67 +1,69 @@
 <div class="main">
-      
-        <div class="d-flex flex-row">
-          <div style="margin: 40px 20px 10px 6%;font-weight: bold;"><p>Prepare Letters by clicking on Prepare Letters button</p></div>
-          <button type="button" class="btn btn-primary mt-5" routerLink="/SelectTemplate" role="button" ><span class="text">Prepare letters</span></button>
-          <button type="button" class="btn btn-primary mt-5" routerLink="/editdetails" role="button"style="background-color:gray;" ><span class="text">Back</span></button>  
-        </div>
+     
+  <div class="d-flex flex-row">
+    <div style="margin: 40px 20px 10px 6%;font-weight: bold;"><p>Prepare Letters by clicking on Prepare Letters button</p></div>
+    <button type="button" class="btn btn-primary mt-5" routerLink="/SelectTemplate" role="button" ><span class="text">Prepare letters</span></button>
+    <button type="button" class="btn btn-primary mt-5" routerLink="/editdetails" role="button"style="background-color:gray;" ><span class="text">Back</span></button>  
+  </div>
 
-        <hr>
-        <h5 style="margin: 10px 0 10px 6%;"> Letters related to  {{ employeeData[0].WORKER_TYPE === "Employee" ? "Employee" : "Candidate" }} <span style="color: red;">{{employeeData[0].EMP_NO}}</span> :</h5>
+  <hr>
+  <h5 style="margin: 10px 0 10px 6%;"> Letters related to  {{ employeeData[0].WORKER_TYPE === "Employee" ? "Employee" : "Candidate" }} <span style="color: red;">{{employeeData[0].EMP_NO}}</span> :</h5>
 
-        <div class="employee-list-display">
-          <table class="employee-table" style="width: 100%; border-collapse: collapse;" *ngIf="revisionData.length > 0 || lettersData.length > 0">
-            <thead>
-              <tr class="heading">
-                <th style="text-align: center; color: #000; width: 7%;">S.no</th>
-                <th style="text-align: center; color: #000; width: 20%;">Letter Name</th>
-                <th style="text-align: center; color: #000; width: 12%;">Created Date</th>
-                <th style="text-align: center; color: #000; width: 10%;">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Revision Letters -->
-              <tr *ngIf="revisionData.length > 0">
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">{{ revisionData[0].LETTER_TYPE }}</td>
-                <td style="text-align: center;">{{ revisionData[0].CREATED_AT | date }}</td>
-                <td style="text-align: center;">
-                  <!-- Only show date picker for revision letters -->
-                  <app-date-picker (dateSelected)="onDateSelected($event)"></app-date-picker>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="downloadLetter(revisionData[0].EMP_NO, revisionData[0].LETTER_TYPE)">
-                    <i class="fa-solid fa-download"></i>
-                  </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="deleteLetter(revisionData[0].EMP_ID, revisionData[0].TEMPLATE_ID)">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-        
-              <!-- Other Letters -->
-              <tr *ngFor="let data of lettersData; let i = index">
-                <td style="text-align: center;">{{ revisionData.length > 0 ? i + 2 : i + 1 }}</td>
-                <td style="text-align: center;">{{ data?.LETTER_TYPE }}</td>
-                <td style="text-align: center;">{{ data?.CREATED_AT | date }}</td>
-                <td style="text-align: center;">
-                  <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="downloadLetter(data?.EMP_NO, data?.LETTER_TYPE)">
-                    <i class="fa-solid fa-download"></i>
-                  </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="deleteLetter(data?.EMP_ID, data?.TEMPLATE_ID)">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        
-          <div *ngIf="lettersData?.length === 0 && revisionData?.length === 0">
-            <p class="paragraph">No letters data found for this Employee.</p>
-          </div>
-        </div>
-        
+  <div class="employee-list-display">
+    <table class="employee-table" style="width: 100%; border-collapse: collapse;" *ngIf="revisionData.length > 0 || lettersData.length > 0">
+      <thead>
+        <tr class="heading">
+          <th style="text-align: center; color: #000; width: 7%;">S.no</th>
+          <th style="text-align: center; color: #000; width: 12%;">Letter Name</th>
+          <th style="text-align: center; color: #000; width: 12%;">Created Date</th>
+          <th style="text-align: center; color: #000; width: 10%;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Other Letters -->
+        <tr *ngFor="let data of lettersData; let i = index">
+          <td style="text-align: center;">{{ i + 1 }}</td>
+          <td style="text-align: center;">{{ data?.LETTER_TYPE }}</td>
+          <td style="text-align: center;">{{ data?.CREATED_AT | date }}</td>
+          <td style="text-align: center;">
+            <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="downloadLetter(data?.EMP_NO, data?.LETTER_TYPE)">
+              <i class="fa-solid fa-download"></i>
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="deleteLetter(data?.EMP_ID, data?.TEMPLATE_ID)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+    
+        <!-- Revision Letters -->
+        <!-- <tr *ngIf="revisionData.length > 0">
+          <td style="text-align: center;">{{ lettersData.length + 1 }}</td>
+          <td style="text-align: center;">{{ revisionData[0].LETTER_TYPE }}</td>
+          <td style="text-align: center;">{{ revisionData[0].CREATED_AT | date }}
+           
+          </td>
+          <td style="text-align: center;">
+            <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="downloadLetter(revisionData[0].EMP_NO, revisionData[0].LETTER_TYPE)">
+              <i class="fa-solid fa-download"></i>
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button style="margin: 1%;border: none;font-size: 25px;background-color: aliceblue;" (click)="deleteLetter(revisionData[0].EMP_ID, revisionData[0].TEMPLATE_ID)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr> -->
+    
+      </tbody>
+    </table>
+    
+    <div *ngIf="lettersData?.length === 0 && revisionData?.length === 0">
+      <p class="paragraph">No letters data found for this Employee.</p>
+    </div>
+  </div>
+ 
 
-        <div *ngIf="loading" class="loading-spinner-container">
-          <div class="loading-spinner"></div>
-        </div>
+  <div *ngIf="loading" class="loading-spinner-container">
+    <div class="loading-spinner"></div>
+  </div>
 
 </div>
+

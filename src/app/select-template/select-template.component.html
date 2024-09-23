@@ -1,8 +1,8 @@
-<div *ngIf="userData.ROLE==='Admin'" class="d-flex flex-row" style="margin-left: 3%;" >
+<div *ngIf="userData.ROLE === 'Admin'" class="d-flex flex-row" style="margin-left: 3%;" >
   <div style="font-weight: bold; margin-top: 10px;"><p>Click on Add template for add/update/delete letter templates</p></div>
   <div><button class="btn btn-primary " type="submit" role="button" routerLink="/addTemplate" style="width: 200px !important;"><b><span class="text">Add Template</span></b></button></div>
 </div>
-
+ 
 <div class="main-container">
  
   <div class="sub-container white-container">
@@ -18,7 +18,7 @@
           <label for="employeeNumber">Employee/Candidate Number<span style="color: red;font-weight: bold;">*</span>:</label>
  
       <div class="suggestions-container">
-          <input type="text" formControlName="employeeNumber" class="form-control" (input)="onEmployeeNumberChange($event, i)" placeholder="E.g.,E0001/C0001...">
+          <input type="text" formControlName="employeeNumber" class="form-control" (input)="onEmployeeNumberChange($event, i)" placeholder="E.g.,C0001/E0001...">
           <ul *ngIf="suggestionsVisible[i]" class="suggestions-list">
             <li *ngFor="let suggestion of suggestedEmployeeNumbers[i]" (click)="selectSuggestion(suggestion, i)">
               {{ suggestion }}
@@ -39,12 +39,14 @@
         </select>
       </div>
  
+     
+ 
   <div  style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
       <div class="button-container" *ngIf="buttonHide">
         <button type="button" (click)="addEmployeeNumber()" class="btn btn-primary" role="button"><span class="text">Add another number</span></button>
       </div>
-      
-    <div  style=" margin-top: 4%; margin-left: 13%;">
+     
+    <div  style=" margin-top: 4%; margin-left: 13%;" *ngIf="genarateLetterHide">
       <button type="submit" class="btn btn-danger"><span class="text">Generate Letter</span></button>
     </div>
  
@@ -63,3 +65,30 @@
 <div>
   <p class="note">Note: For letters generation, the candidate/employee must have employment details.</p>
 </div>
+ 
+ 
+<div *ngIf="showRevisionModal" class="modal-overlay">
+  <div class="modal-content">
+    <!-- <h4>Revision Letter Details</h4> -->
+    <form [formGroup]="revisionForm">
+      <div class="d-flex flex-row">
+        <div class="form-group" style="width: 300px; margin-left: 20px;">
+          <label for="revisionDate" style="font-weight: bold;margin-bottom: 6px;">Revision Review year<span style="color: red; font-weight: bold;">*</span>:</label>
+          <select id="revisionYear"  class="form-control" formControlName="revisionYear" required>
+            <option value="" disabled selected>Select a year</option>
+            <ng-container *ngFor="let year of years">
+              <option [value]="year">{{ year }}</option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="button-container">
+          <button type="button" class="submit-button" (click)="sendYear()"><span class="text">Generate Letter</span></button>
+          <button type="button" (click)="closeRevisionModal()" class="cancel"><span class="text">Cancel</span></button>
+        </div>
+      </div>
+   
+    </form>
+  </div>
+</div>
+ 
+ 
