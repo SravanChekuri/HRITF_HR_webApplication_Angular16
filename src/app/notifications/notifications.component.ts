@@ -45,7 +45,7 @@ import { filter } from 'rxjs/operators';
         this.notificationsData = res;  
         // console.log(res);
         this.newEmpData = res.newEmployees || [];
-        this.confrimEmp = res.one_year_confirmation_employees || [];
+        this.confrimEmp = res.confirmation_employees || [];
         this.probationData=res.probation_complete_employees
         this.notificationCount = res.count || 0;
         // console.log("newemp",this.newEmpData);
