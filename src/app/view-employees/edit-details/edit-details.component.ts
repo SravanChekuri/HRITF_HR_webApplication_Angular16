@@ -262,9 +262,12 @@ export class EditDetailsComponent implements OnInit {
         }));
         // console.log("This.states:", this.states)
       });
-    if (this.states.length > 0) {
+    // if (this.states.length > 0) {
+    //   this.updateStateChange(this.AddressData.STATE);
+    // }
+    setTimeout(() => {
       this.updateStateChange(this.AddressData.STATE);
-    }
+    }, 500);
   }
 
   updateStateChange(stateValue: any) {
@@ -938,6 +941,7 @@ export class EditDetailsComponent implements OnInit {
 
 
 ////---------------------------------updateButtonPrsentAddressData----------------------------------------///
+
   updatePresentAddress(){
     // alert('update')
     const Data = {
@@ -963,7 +967,8 @@ export class EditDetailsComponent implements OnInit {
         title: 'Successful',
         showConfirmButton: false,
         timer: 2000,
-      })  
+      })
+      this.addressForm.disable();  
     },(error)=>{
       // console.log("error",error);
       Swal.fire({
@@ -977,6 +982,7 @@ export class EditDetailsComponent implements OnInit {
   }
   
 //-----------------------------------------------------------------------------------------------------//
+
   submitPermanenetAdd() {
     this.loading = true;
     if (this.addressForm1.invalid) {
@@ -1371,7 +1377,7 @@ updatPermanenet(){
         LastName: [this.getEmergencydata[0].LAST_NAME, Validators.required],
         Gender: [this.getEmergencydata[0].GENDER],
         relation: [this.getEmergencydata[0].RELATION_TYPE, Validators.required],
-        contactNo: [this.getEmergencydata[0].CONTACT_NO, [Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),]],
+        contactNo: [this.getEmergencydata[0].CONTACT_NO, [Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
         Dateofbirth: [this.getEmergencydata[0].DATE_OF_BIRTH],
         Effectivestartdate: [this.getEmergencydata[0].EFFECTIVE_START_DATE,Validators.required,],
         Effectiveenddate: [this.getEmergencydata[0].EFFECTIVE_END_DATE],
@@ -1393,7 +1399,7 @@ updatPermanenet(){
         LastName: ['', Validators.required],
         Gender: [''],
         relation: ['', Validators.required],
-        contactNo: ['', Validators.required],
+        contactNo: ['',[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
         Dateofbirth: [''],
         Effectivestartdate: ['', Validators.required],
         Effectiveenddate: ['4712-12-31'],
@@ -1537,7 +1543,7 @@ updatPermanenet(){
             LastName: [this.getEmergencyBasedOnDate.LAST_NAME,Validators.required,],
             Gender: [this.getEmergencyBasedOnDate.GENDER],
             relation: [this.getEmergencyBasedOnDate.RELATION_TYPE,Validators.required,],
-            contactNo: [this.getEmergencyBasedOnDate.CONTACT_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),]],
+            contactNo: [this.getEmergencyBasedOnDate.CONTACT_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10)]],
             Dateofbirth: [this.getEmergencyBasedOnDate.DATE_OF_BIRTH],
             Effectivestartdate: [this.getEmergencyBasedOnDate.EFFECTIVE_START_DATE,Validators.required,],
             Effectiveenddate: [this.getEmergencyBasedOnDate.EFFECTIVE_END_DATE],
@@ -1605,7 +1611,7 @@ salarydata(){
       this.isHideSlaryEditButton = true;
       this.updateHideSalaryButton=true;
       this.submitHideSalaryButton=false;
-    this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+    // this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
     Swal.fire({
       position: 'top',
       icon: 'success',
@@ -1616,7 +1622,8 @@ salarydata(){
     }).then(() => {
       this.Employeesalary.disable();
       // this.isHideSlaryEditButton = !this.isHideSlaryEditButton;
-      this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+      // this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+      this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeData[0].EFFECTIVE_START_DATE,this.employee.EFFECTIVE_END_DATE);        
     });
   },error=>{
     // console.log("err",error);
@@ -1660,7 +1667,7 @@ salaryUpdate(){
     PROPOSED_SALARY_N:this.Employeesalary.value['proposalSalary']
   }
   // console.log("updatedata",updatedata);
-  this.employeeService.salaryUpadate(updatedata,this.employeeList.employment_details[0].ASSIGNMENT_ID).subscribe((res)=>{
+  this.employeeService.salaryUpadate(updatedata,this.employeeList.employment_details[0].ASSIGNMENT_ID).subscribe((res:any)=>{
     // console.log("res",res);
     Swal.fire({
       position: 'top',
@@ -1671,7 +1678,8 @@ salaryUpdate(){
       width: 400,
     }).then(() => {
       this.Employeesalary.disable();
-      this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+      // this.fetchEmpData(this.employee.EMP_NO,this.employeeESd,this.employee.EFFECTIVE_END_DATE);
+      this.fetchEmpData(this.employeeData[0].EMP_NO,this.employeeList.salary_details[0].CHANGED_SALARY_DATE,this.employeeList.salary_details[0].DATE_TO);        
     });    
   },error=>{
     // console.log("err",error);
