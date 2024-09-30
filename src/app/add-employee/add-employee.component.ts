@@ -48,6 +48,7 @@ export class AddEmployeeComponent implements OnInit {
       effectiveEndDate: ['4712-12-31'],
       dateOfJoinging: ['',[Validators.required, this.dateValidator.bind(this)],],
       email: ['', [Validators.required, Validators.email]],
+      status:['',Validators.required]
     });
 
     //dob
@@ -59,7 +60,7 @@ export class AddEmployeeComponent implements OnInit {
       today.getDate()
     );
     // console.log("minDate:", minDate)
-    this.maxDate = maxDate.toISOString().split('T')[0];
+    this.maxDate = maxDate.toISOString().split('T')[0]; 
     // console.log("Tostring date:", this.maxDate)
     this.minDate = minDate.toISOString().split('T')[0];
     this.maximumDate = today.toISOString().split('T')[0];
@@ -117,11 +118,12 @@ export class AddEmployeeComponent implements OnInit {
       EMAIL_ADDRESS: this.employeeForm.value['email'],
       DATE_OF_BIRTH: this.employeeForm.value['dateOfBirth'],
       WORKER_TYPE: this.employeeForm.value['workerType'],
+      STATUS:this.employeeForm.value['status'],
       DATE_OF_JOINING: this.employeeForm.value['dateOfJoinging'],
       EFFECTIVE_START_DATE: this.employeeForm.value['effectiveStartDate'],
       EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate'],
     };
-    // console.log('employeeData', employeeData);
+     console.log('employeeData', employeeData);
     // Submit the form
     this.service.addEmployee(employeeData).subscribe((res: any) => {
         // console.log("res",res.message);
@@ -161,6 +163,7 @@ export class AddEmployeeComponent implements OnInit {
       this.Employee = true;
       this.Candidate = false;
       this.sendWorkerType();
+      this.employeeForm.get('employeeNumber')?.setValue('');
     } else {
       this.Candidate = true;
       this.Employee = false;

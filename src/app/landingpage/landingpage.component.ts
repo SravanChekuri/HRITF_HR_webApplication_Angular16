@@ -22,6 +22,8 @@ export class LandingpageComponent implements OnInit {
   itemsPerPage: number = 8;
   loading: boolean = false;
   employeement: any;
+  isHidemessage:boolean=true;
+  serchresult:boolean=false;
  
   constructor(
     private employeeService: GetEmployeesService,
@@ -47,6 +49,8 @@ export class LandingpageComponent implements OnInit {
     this.loading = true;
     this.employeeService.filterEmployeesbyValue(this.filterInput.trim()).subscribe(
       (data: Employee[]) => {
+        this.serchresult=true;
+        this.isHidemessage=false
         this.loading = false;
         this.employees = data;
         this.employeeExists = this.employees.length > 0;
@@ -70,6 +74,8 @@ export class LandingpageComponent implements OnInit {
       this.employeeExists = this.employees.length > 0;
       this.currentPage = 1; // Reset to the first page on data fetch
       this.updateDisplayedEmployees();
+      this.isHidemessage = this.employeeExists;
+      this.serchresult=false;
     }, error => {
       console.error(error);
     });

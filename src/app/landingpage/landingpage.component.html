@@ -3,15 +3,18 @@
       <div class="text-center" style="margin: 2% 0 1% 0;"><h5>Quick Search an Employee</h5></div>
     
       <div class="search-bar">
-        <input type="text" id="filterInput" [(ngModel)]="filterInput" name="filterInput" placeholder="Search Employee by First/Last Name/Employee Number/Email" (keyup)="filterEmployees()">
+        <!-- <div class="input-cotainer"> -->
+          <input type="text" id="filterInput" [(ngModel)]="filterInput" name="filterInput" placeholder="Search Employee by First/Last Name/Employee Number/Email" (keyup)="filterEmployees()">
+          <i class="fas fa-search"></i>  
+        <!-- </div> -->
         <form (ngSubmit)="filterEmployees()">
           <div class="d-flex">&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-primary" (click)="addEmpLanding()" role="button"><b><span class="text">Add New Profile</span></b></button>
           </div>
         </form>
       </div>
-    
-      <div *ngIf="employeeExists"><h6 style="margin: 1% 0 0 2%;">Last 30 days newly added employees list and search results appear below:</h6></div>
+      <div *ngIf="serchresult"><h6 style="margin: 1% 0 0 2.5%;">Search Results:</h6></div>
+      <div *ngIf="employeeExists && isHidemessage"><h6 style="margin: 1% 0 0 2.5%;">Last 30 days newly added employees list and search results appear below:</h6></div>
     
       <div *ngIf="employeeExists; else noEmployeesFound" class="employee-list-display" style="overflow-y: auto; max-height: 400px; margin-top: 10px;">
         <table class="employee-table" style="width: 100%; border-collapse: collapse;">

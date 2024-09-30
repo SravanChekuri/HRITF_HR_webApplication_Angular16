@@ -56,6 +56,8 @@ export class GetEmployeesService {
     const httpheaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
+    // console.log(environment.baseApiKey + '/update_EmployementDetails/'+id,data);
+    
     return this.http.put(environment.baseApiKey + '/update_EmployementDetails/'+id,data, { headers: httpheaders });
  
   }
@@ -125,7 +127,7 @@ export class GetEmployeesService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     const api = environment.baseApiKey +'/getDetailsByEmpEsdEed/' + id +'/' + startDate + '/' + '4712-12-31';
-    // console.log('editapi', api);
+    //  console.log('editapi', api);
     return this.http.get<any>(api, { headers: httpheaders });
   }
  
@@ -137,6 +139,9 @@ export class GetEmployeesService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     const url = `${ environment.baseApiKey + '/searchEmployeeDetails'}/${filterInput.trim()}/${startDateValue}`;
+    // console.log(`${ environment.baseApiKey + '/searchEmployeeDetails'}/${filterInput.trim()}/${startDateValue}`);
+    
+    
     return this.http.get<any>(url, { headers: httpheaders });
   }
  
@@ -193,7 +198,7 @@ export class GetEmployeesService {
     });
     const setApi = environment.baseApiKey + '/getEmployeeDetails/' + id + '/' + date + '/' + enddate;
     // const setApi = `${this.api}getEmployeeDetails/${id}/${date}/${enddate}`;
-    // console.log('api', setApi);
+    //  console.log('api', setApi);
     return this.http.get(setApi, { headers: httpheaders });
   }
  

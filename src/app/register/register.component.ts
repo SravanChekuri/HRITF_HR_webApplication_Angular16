@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    this.router.navigate(['/landing']);
+                    this.router.navigate(['/viewUsers']);
                 });
             },error => {
                 this.loading = false;

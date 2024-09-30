@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       }
       else{
         this.authservice.login(this.loginData);
-        const expiryTime = new Date().getTime() +3 * 3600 * 1000;
+        const expiryTime = new Date().getTime() + 3* 3600 * 1000;
         localStorage.setItem('expiryTime', expiryTime.toString());
         this.router.navigate(['mfaOtp']);
       }

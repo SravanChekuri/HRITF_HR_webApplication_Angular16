@@ -158,6 +158,15 @@ button[type="reset"]:hover {
   }
 }
  
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEyIDYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMmgxMkw2IDZMNCA0eiIgZmlsbD0iIzAwMDAwMCIvPjwvc3ZnPg==");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+  padding-right: 30px;
+}
+
  
  
  

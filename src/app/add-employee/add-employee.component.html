@@ -130,7 +130,20 @@
             </div>
           </div>
 
-          <div class="form-col"></div></div>
+          <div class="form-col">                    
+            <label for="Status">Status<span style="color: red">*</span>:</label>
+            <select id="Status" formControlName="status" class="form-control">
+              <option value disabled selected>Select...</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            <div *ngIf="employeeForm.get('status')?.touched && employeeForm.get('status')?.hasError('required')" class="text-danger ms-3">
+              *Status is required
+            </div>
+          </div>
+
+        
+        </div>
 
         <div class="button-container">
           <button type="submit" class="btn btn-primary" role="button" style="left: 30%">

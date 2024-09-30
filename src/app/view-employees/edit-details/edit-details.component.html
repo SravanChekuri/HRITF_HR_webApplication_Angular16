@@ -10,7 +10,7 @@
             <h6>{{ updateForm.get("workerType").value === "Employee" ? "Employee Name :" : "Candidate Name :" }}
               <span style="color: rgb(255, 0, 200)"> {{ employeeData[0].FIRST_NAME }} {{ employeeData[0].MIDDLE_NAME }} {{ employeeData[0].LAST_NAME }} </span>
             </h6>
-            <h6> {{ updateForm.get("workerType").value === "Employee" ? "Employee Number :" : "Candidate Number :" }}<span style="color: blue"> {{ employeeData[0].EMP_NO }}</span> </h6>
+            <h6> {{ updateForm.get("workerType").value === "Employee" ? "Employee Number :" : "Candidate Number :" }}<span style="color: blue"> {{ employeeNumber }}</span> </h6>
           </div>
         </div>
 
@@ -168,7 +168,20 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-4"></div>
+                    <div class="form-group col-md-4">
+                      <label for="Status">Status<span style="color: red">*</span>:</label>
+                      <select id="Status" formControlName="status" class="form-control">
+                        <option value disabled selected>Select...</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </select>
+                      <div *ngIf="employementForm.get('status')?.touched && employementForm.get('status')?.hasError('required')" class="text-danger ms-3">
+                        *Status is required
+                      </div>
+                    </div>
+      
+
+                    <!-- <div class="form-group col-md-4"></div> -->
 
                   </div>
 
@@ -212,7 +225,9 @@
                     <span class="text">Emergency Details</span>
                   </button>
                 </span>
+ 
               </div>
+              
              
 
 
@@ -223,7 +238,7 @@
         </div><!-- emp/candi sec  main div -->
 
   </div><!--Div for candidate/employee details end-->
-
+  
 
   <!-------------------------------------- EMPLOYEMENT DETAILS ------------------------------------->
 
@@ -327,7 +342,7 @@
                 <label for="Status">Status<span style="color: red">*</span>:</label>
                 <select id="Status" formControlName="Status" class="form-control">
                   <option value disabled>Select...</option>
-                  <option value="ACTIVE" selected>Active</option>
+                  <option value="Active" selected>Active</option>
                   <option value="Inactive">Inactive</option>
                 </select>
                 <div *ngIf="employementForm.get('Status')?.touched && employementForm.get('Status')?.hasError('required')" class="text-danger ms-3">
@@ -919,7 +934,7 @@
 
                 <div class="form-group col-md-4">
                   <label for="contactNo">Contact No: <span style="color: red">*</span>:</label>
-                  <input type="tel" class="form-control" id="contactNo" name="contactNo" formControlName="contactNo" style="width: 230px"/>
+                  <input type="tel" class="form-control" id="contactNo" name="contactNo" formControlName="contactNo" style="width: 200px"/>
                   <div *ngIf="emergencyContact.get('contactNo')?.touched && emergencyContact.get('contactNo')?.hasError('required')" class="text-danger ms-3">
                     *Phone NO is required
                   </div>
@@ -1051,6 +1066,13 @@
 </form>
 </jw-modal>
 
+<div style="display: flex; align-items: center; justify-content: center; margin-bottom: 3%;">
+  <button class="btn btn-primary animated text-center"  
+  style="width: 200px;    background-color: gray"  [routerLink]="['/landing']">
+<span class="text">Back</span>
+</button>
+
+</div>
 
 
   <!-----------------------------------------------Loading Spinner------------------------------------------------------------>

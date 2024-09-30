@@ -1,3 +1,25 @@
+
+.search-bar {
+  position: relative;
+  margin-left: 10%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.fas.fa-search {
+  position: absolute;
+  left: 63%; 
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
 .emp:hover{
   color: blue;
   text-decoration: none;
@@ -172,7 +194,7 @@
  
   #filterInput {
     width: 100%;
-    margin-bottom: 10px;
+   
   }
  
   .btn-primary {
