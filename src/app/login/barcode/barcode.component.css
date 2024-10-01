@@ -21,7 +21,7 @@
   padding: 2%;
   background-color: white;
   width: 300%;
-  height: 85vh;
+  height: 75vh;
   margin:3% 10% 0 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
   /* overflow: auto; */
@@ -111,15 +111,19 @@ input.form-control {
 /* Responsive Styles */
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1292px) {
+
   .logo {
     width: 70%;
     margin: 30% 0 0 15%;
   }
 
   .content {
-    width: 200%;
+    width: 300%;
+    padding: 10%;
     margin: 3% 5% 0 0;
+    height: 80vh;
+
   }
 
   .btn-danger {

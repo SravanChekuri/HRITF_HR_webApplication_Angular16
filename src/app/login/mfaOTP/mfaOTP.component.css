@@ -100,4 +100,24 @@ input.form-control {
     color: #000;
   }
   
+  @media (max-width: 1292px) {
+
+    .content{
+      padding: 7%;
+      width: 300%;
+      height: 100%;
+      margin:10% 15% 0 0;
+    }
+
+    input.form-control {
+      width: 55px;
+      padding: 7px 20px;
+      margin: 10px 5px;
+      border: 2px solid #0d70c6;
+      border-radius: 5px;
+    }    
+
+  }
+
+  
 

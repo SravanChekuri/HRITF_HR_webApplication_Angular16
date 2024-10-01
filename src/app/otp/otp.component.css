@@ -120,5 +120,26 @@ li{
   }
 }
 
+@media (max-width: 1292px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    margin-top: 100px;
+    margin-left: 0;
+    max-width:40%; 
+  }
+
+  .logo-img {
+    position: absolute;
+    top:-10%;
+    margin-top: 10% !important;
+    margin-left: 0;
+    max-width: 20%;
+  }
+}
+
 
 
