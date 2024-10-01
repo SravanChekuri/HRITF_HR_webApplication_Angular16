@@ -494,6 +494,9 @@ export class EditDetailsComponent implements OnInit {
           }).then(() => {
             this.updateForm.disable();
             this.empButtons = !this.empButtons;
+            setTimeout(() => {
+              this.router.navigate(['/viewEmployees']);
+            }, 1000);
           });
         },
         (error) => {
