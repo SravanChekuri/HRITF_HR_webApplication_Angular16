@@ -57,11 +57,11 @@
           </div>
 
           <div class="form-col">
-            <label for="doj">Date of Joining<span class="required-star">*</span>:</label>
+            <label for="doj">Date of Joining :</label>
             <input type="date" id="doj" formControlName="dateOfJoinging" />
-            <div *ngIf="employeeForm.get('dateOfJoinging')?.touched && employeeForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
+            <!-- <div *ngIf="employeeForm.get('dateOfJoinging')?.touched && employeeForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
               *Date of Joining is required
-            </div>
+            </div> -->
             <div *ngIf="employeeForm.controls['dateOfJoinging'].hasError('invalidDate')" class="text-danger ms-3">
               *Invalid Date (No Saturdays, Sundays, Holidays)
             </div>

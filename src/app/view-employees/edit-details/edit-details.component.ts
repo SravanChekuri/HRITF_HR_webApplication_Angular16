@@ -447,7 +447,7 @@ export class EditDetailsComponent implements OnInit {
       userId: [this.employeeData[0].USER_ID, Validators.required],
       workLocation: [this.employeeData[0].WORK_LOCATION, Validators.required],
       workerType: [this.employeeData[0].WORKER_TYPE, Validators.required],
-      dateOfJoinging: [this.employeeData[0].DATE_OF_JOINING,Validators.required,],
+      dateOfJoinging: [this.employeeData[0].DATE_OF_JOINING],
       effectiveStartDate: [this.employeeData[0].EFFECTIVE_START_DATE,Validators.required,],
       effectiveEndDate: [this.employeeData[0].EFFECTIVE_END_DATE],
       status:[this.employeeData[0].STATUS,Validators.required]
@@ -494,9 +494,9 @@ export class EditDetailsComponent implements OnInit {
           }).then(() => {
             this.updateForm.disable();
             this.empButtons = !this.empButtons;
-            setTimeout(() => {
-              this.router.navigate(['/viewEmployees']);
-            }, 1000);
+            // setTimeout(() => {
+            //   this.router.navigate(['/viewEmployees']);
+            // }, 1000);
           });
         },
         (error) => {
@@ -545,7 +545,7 @@ export class EditDetailsComponent implements OnInit {
             workLocation: [this.empDate.WORK_LOCATION, Validators.required],
             workerType: [this.empDate.WORKER_TYPE, Validators.required],
             effectiveStartDate: [this.empDate.EFFECTIVE_START_DATE,Validators.required,],
-            dateOfJoinging: [this.empDate.DATE_OF_JOINING, Validators.required],
+            dateOfJoinging: [this.empDate.DATE_OF_JOINING],
             effectiveEndDate: [this.empDate.EFFECTIVE_END_DATE],
             status:[this.empDate.STATUS,Validators.required]
           });
@@ -608,7 +608,7 @@ export class EditDetailsComponent implements OnInit {
       Department: [this.employeeList.employment_details[0].DEPARTMENT],
       // Annual_Salary: [this.employeeList.employment_details[0].ANNUAL_SALARY,Validators.required,],
       // Previous_AnnualSalary: [this.employeeList.employment_details[0].PREVIOUS_ANNUAL_SALARY,],
-      dateOfJoining: [this.employeeList.employment_details[0].DATE_OF_JOINING,Validators.required,],
+      dateOfJoining: [this.employeeList.employment_details[0].DATE_OF_JOINING],
       MobileNo: [this.employeeList.employment_details[0].MOBILE_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
       Status: [this.employeeList.employment_details[0].STATUS],
       Notice_Period: [this.employeeList.employment_details[0].NOTICE_PERIOD],
@@ -618,6 +618,7 @@ export class EditDetailsComponent implements OnInit {
       CurrentCompanyExperience: [this.employeeList.employment_details[0].CURRENT_COMP_EXPERIENCE,],
       workerType: [this.employeeList.employment_details[0].WORKER_TYPE,Validators.required,],
       Probation_Period: [this.employeeList.employment_details[0].PROBATION_PERIOD,],
+      proposedSalary:[this.employeeList.employee_details[0].PROPOSED_SALARY_N]
     });
     
   }
@@ -630,7 +631,7 @@ export class EditDetailsComponent implements OnInit {
       Department: [''],
       // Annual_Salary: ['', Validators.required],
       // Previous_AnnualSalary: ['0'],
-      dateOfJoining: [this.dateOfJoining, Validators.required],
+      dateOfJoining: [this.dateOfJoining],
       MobileNo: ['',[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
       Status: ['', Validators.required],
       Confirmation_Date: [''],
@@ -641,6 +642,7 @@ export class EditDetailsComponent implements OnInit {
       workerType: ['', Validators.required],
       PreviousExperiences: ['0'],
       CurrentCompanyExperience: [''],
+      proposedSalary:['']
     });
     this.EmployementData = true;
     this.employmentbutton = !this.employmentbutton;
@@ -650,16 +652,13 @@ export class EditDetailsComponent implements OnInit {
 
   employmentSubmit() {
     this.loading = true;
-    // console.log(this.employementForm.status);
-    
+    // console.log(this.employementForm.values);
     if (this.employementForm.status === 'VALID') {
       const formattedData = {
         EMP_ID: this.employementForm.value['employementId1'],
         ORGANIZATION_NAME: this.employementForm.value['Organization_Name'],
         POSITION: this.employementForm.value['Position'],
         DEPARTMENT: this.employementForm.value['Department'],
-        // ANNUAL_SALARY: this.employementForm.value['Annual_Salary'],
-        // PREVIOUS_ANNUAL_SALARY:this.employementForm.value['Previous_AnnualSalary'],
         DATE_OF_JOINING: this.employementForm.value['dateOfJoining'],
         MOBILE_NO: this.employementForm.value['MobileNo'],
         STATUS: this.employementForm.value['Status'],
@@ -670,8 +669,9 @@ export class EditDetailsComponent implements OnInit {
         PREVIOUS_EXPERIENCE: this.employementForm.value['PreviousExperiences'],
         CURRENT_COMP_EXPERIENCE:this.employementForm.value['CurrentCompanyExperience'],
         WORKER_TYPE: this.employementForm.value['workerType'],
+        PROPOSED_SALARY_N:this.employementForm.value['proposedSalary']
       };
-      //  console.log("empdetails", formattedData);
+       console.log("empdetails", formattedData);
       this.employeeService.EmployeeDetails(formattedData).subscribe((res: any) => {
           this.isHideEditEmployementButton = true;
           this.loading = false;
@@ -691,7 +691,7 @@ export class EditDetailsComponent implements OnInit {
           });
         },
         (error) => {
-          // console.log("error",error);
+          console.log("error",error);
           this.loading = false;
           if (error.error && error.error.error) {
             Swal.fire({
@@ -742,6 +742,7 @@ export class EditDetailsComponent implements OnInit {
       PREVIOUS_EXPERIENCE: this.employementForm.value['PreviousExperiences'],
       CURRENT_COMP_EXPERIENCE:this.employementForm.value['CurrentCompanyExperience'],
       WORKER_TYPE: this.employementForm.value['workerType'],
+      PROPOSED_SALARY_N:this.employementForm.value['proposedSalary']
     };
     // console.log(updatedData);
     
@@ -793,7 +794,7 @@ export class EditDetailsComponent implements OnInit {
             Department: [this.employmentdate.DEPARTMENT],
             // Annual_Salary: [this.employmentdate.ANNUAL_SALARY,Validators.required,],
             // Previous_AnnualSalary: [this.employmentdate.PREVIOUS_ANNUAL_SALARY],
-            dateOfJoining: [this.employmentdate.DATE_OF_JOINING,Validators.required,],
+            dateOfJoining: [this.employmentdate.DATE_OF_JOINING,],
             MobileNo: [this.employmentdate.MOBILE_NO,[Validators.required,Validators.pattern(/^[0-9]{10}$/),Validators.maxLength(10),Validators.minLength(10),],],
             Status: [this.employmentdate.STATUS],
             Confirmation_Date: [''],

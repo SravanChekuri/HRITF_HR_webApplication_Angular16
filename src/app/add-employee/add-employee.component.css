@@ -33,6 +33,7 @@ label {
 input[type="text"],
 input[type="date"],
 input[type="email"],
+input[type="number"],
 select {
   width: calc(100% - 0px); /* Adjust width to include border and margin */
   padding: 8px;

@@ -35,7 +35,9 @@
               <td style="text-align: center;">{{ employee?.DATE_OF_BIRTH | date }}</td>
               <td style="text-align: center;">{{ employee?.EMAIL_ADDRESS }}</td>
               <td style="text-align: center;">{{ employee?.WORK_LOCATION }}</td>
-              <td style="text-align: center;">{{ employee?.DATE_OF_JOINING | date }}</td>
+              <!-- <td style="text-align: center;">{{ employee?.DATE_OF_JOINING | date }}</td> -->
+              <td style="text-align: center;"> {{ employee?.WORKER_TYPE === 'Employee' ? (employee?.DATE_OF_JOINING | date) : (employee?.EFFECTIVE_START_DATE | date) }}</td>
+
             </tr>
           </tbody>
         </table>
@@ -43,7 +45,7 @@
     
       <ng-template #noEmployeesFound>
         <div style="text-align: center; margin-top: 20px;">
-          <p class="text-danger" style="font-size: 20px;font-weight: 500;">No employee found!</p>
+          <p class="text-danger" style="font-size: 20px;font-weight: 500;">{{filterInput}} related data not found!</p>
         </div>
       </ng-template>
     

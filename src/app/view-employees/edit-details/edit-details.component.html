@@ -100,11 +100,11 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                      <label for="doj">Date of Joining<span class="required-star">*</span>:</label>
+                      <label for="doj">Date of Joining :</label>
                       <input type="date" id="doj" formControlName="dateOfJoinging" />
-                      <div *ngIf="updateForm.get('dateOfJoinging')?.touched &&updateForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
+                      <!-- <div *ngIf="updateForm.get('dateOfJoinging')?.touched &&updateForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
                         *Date of Joining is required
-                      </div>
+                      </div> -->
                       <div *ngIf="updateForm.controls['dateOfJoinging'].hasError('invalidDate')" class="text-danger ms-3">
                         *Invalid Date (No Saturdays, Sundays, Holidays)
                       </div>
@@ -331,11 +331,11 @@
               </div>
 
               <div class="form-group col-md-4" style="margin-bottom: 2%">
-                <label for="dateOfJoining">Date of Joining <span style="color: red">*</span>:</label>
+                <label for="dateOfJoining">Date of Joining :</label>
                 <input type="date" id="dateOfJoining" formControlName="dateOfJoining" required class="form-control disabled-select" readonly/>
-                <div *ngIf="employementForm.get('dateOfJoining')?.touched && employementForm.get('dateOfJoining')?.hasError('required')" class="text-danger ms-3">
+                <!-- <div *ngIf="employementForm.get('dateOfJoining')?.touched && employementForm.get('dateOfJoining')?.hasError('required')" class="text-danger ms-3">
                   *Date of Joining is required
-                </div>
+                </div> -->
               </div>
 
               <div class="form-group col-md-4">
@@ -415,7 +415,6 @@
 
             <div class="form-row">
 
-
               <div class="form-group col-md-4">
                 <label for="Probation-Period">Probation Period:</label>
                 <select id="Probation-Period" name="Probation_Period" formControlName="Probation_Period" class="form-control">
@@ -428,6 +427,17 @@
                   *Probation Period is required
                 </div>
               </div>
+
+              <div class="form-group col-md-4" *ngIf="updateForm.get('workerType')?.value !== 'Employee'">
+                <label for="psalary">Proposed Salary:</label>
+                <input type="text" id="psalary" class="form-control" formControlName="proposedSalary" />
+                <!-- <div *ngIf=" employementForm.get('proposedSalary')?.touched && employementForm.get('proposedSalary')?.hasError('required')" class="text-danger ms-3">
+                  *Proposed Salary is required
+                </div>           -->
+              </div>
+
+              <div class="form-group col-md-4"></div>
+
 
             </div>
 
@@ -458,15 +468,13 @@
                 </button>
             </div>
             
-            <div style="margin-top: 2%">
-         
+            <div style="margin-top: 2%" *ngIf="updateForm.get('workerType')?.value !== 'Candidate'">
               <span (click)="openModal('custom-modal-6');">
-              <button class="btn btn-primary animated" style="left: 55%; width: 200px; bottom: 50%;" (click)="closeModal('custom-modal-1')" >
-                <span class="text">Salary Details</span>
-              </button>
-            </span>
-      
-          </div>
+                <button class="btn btn-primary animated" style="left: 55%; width: 200px; bottom: 50%;" (click)="closeModal('custom-modal-1')" >
+                  <span class="text">Salary Details</span>
+                </button>
+              </span>
+            </div>
   
             </div>
       </jw-modal>

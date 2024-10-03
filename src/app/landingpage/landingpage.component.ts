@@ -41,18 +41,18 @@ export class LandingpageComponent implements OnInit {
   }
  
   filterEmployees() {
+    // console.log("input value",this.filterInput);
     if (!this.filterInput.trim()) {
       this.getNotifications();
       return;
-    }
- 
+    }    
     this.loading = true;
-    this.employeeService.filterEmployeesbyValue(this.filterInput.trim()).subscribe(
-      (data: Employee[]) => {
+    this.employeeService.filterEmployeesbyValue(this.filterInput.trim()).subscribe((data: Employee[]) => {
         this.serchresult=true;
         this.isHidemessage=false
         this.loading = false;
         this.employees = data;
+        // console.log("employees list1",this.employees);
         this.employeeExists = this.employees.length > 0;
         this.currentPage = 1;
         this.updateDisplayedEmployees();
@@ -66,6 +66,8 @@ export class LandingpageComponent implements OnInit {
     this.service.recentEmployees().subscribe((res) => {
       //  console.log("recent emp:",res);
       this.employees = [];
+      // console.log("employees list2",this.employees);
+
       res.forEach((element: any) => {
         this.employees.push({ ...element});
         //  console.log("recent employees", this.employees);
@@ -76,8 +78,9 @@ export class LandingpageComponent implements OnInit {
       this.updateDisplayedEmployees();
       this.isHidemessage = this.employeeExists;
       this.serchresult=false;
+      // console.log("emp data",this.displayedEmployees);
     }, error => {
-      console.error(error);
+      // console.error(error);
     });
   }
  

@@ -90,6 +90,7 @@ label {
 /* Style for form input fields */
 input[type="text"],
 input[type="email"],
+input[type="number"],
 input[type="date"],
 select {
   width: 100%;

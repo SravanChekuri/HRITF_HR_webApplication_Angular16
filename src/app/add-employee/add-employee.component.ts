@@ -46,7 +46,7 @@ export class AddEmployeeComponent implements OnInit {
       workerType: ['', Validators.required],
       effectiveStartDate: ['',[Validators.required, this.dateValidator.bind(this)],],
       effectiveEndDate: ['4712-12-31'],
-      dateOfJoinging: ['',[Validators.required, this.dateValidator.bind(this)],],
+      dateOfJoinging: ['',[ this.dateValidator.bind(this)],],
       email: ['', [Validators.required, Validators.email]],
       status:['',Validators.required]
     });
@@ -119,11 +119,11 @@ export class AddEmployeeComponent implements OnInit {
       DATE_OF_BIRTH: this.employeeForm.value['dateOfBirth'],
       WORKER_TYPE: this.employeeForm.value['workerType'],
       STATUS:this.employeeForm.value['status'],
-      DATE_OF_JOINING: this.employeeForm.value['dateOfJoinging'],
+      DATE_OF_JOINING: this.employeeForm.value['dateOfJoinging']? this.employeeForm.value['dateOfJoinging'] : null,
       EFFECTIVE_START_DATE: this.employeeForm.value['effectiveStartDate'],
       EFFECTIVE_END_DATE: this.employeeForm.value['effectiveEndDate'],
     };
-     console.log('employeeData', employeeData);
+    //  console.log('employeeData', employeeData);
     // Submit the form
     this.service.addEmployee(employeeData).subscribe((res: any) => {
         // console.log("res",res.message);
