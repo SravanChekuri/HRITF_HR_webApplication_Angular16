@@ -6,8 +6,9 @@ export class ModalService {
 
   add(modal: any) {
     // add modal to array of active modals
+    // console.log("modals:",modal)
     this.modals.push(modal);
-    alert('modals:' + this.modals);
+    // alert('modals:' + this.modals);
   }
 
   remove(id: string) {
@@ -17,6 +18,7 @@ export class ModalService {
 
   open(id: string) {
     // open modal specified by id
+    // alert('model serivice.ts file')
     const modal = this.modals.find((x) => x.id === id);
     modal.open();
   }

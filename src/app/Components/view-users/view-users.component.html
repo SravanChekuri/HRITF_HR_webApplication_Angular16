@@ -1,0 +1,55 @@
+<div class="main-container">
+ 
+    <div>
+        <div>
+            <h5 style="margin: 7% 0 0 0;">All Users List</h5>
+        </div>
+        <br>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>Role</th>                        
+                        <th>First Name</th>
+                        <!-- <th>Last Name</th> -->
+                        <th>Email</th>
+                        <th>Mobile Number</th>
+                        <th>Created By</th>
+                        <th>Last Updated By</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of adminData">
+                        <td><span class="click" (click)="editUser(data)">{{ data.USER_ID }}</span></td>
+                        <td (click)="editUser(data)"  class="click">{{ data.USER_NAME }}</td>
+                        <td>{{ data.ROLE }}</td>
+                        <td>{{ data.FIRST_NAME }}</td>
+                        <!-- <td>{{ data.LAST_NAME }}</td> -->
+                        <td>{{ data.EMAIL }}</td>
+                        <td>{{ data.MOBILE_NO }}</td>
+                        <td>{{ data.CREATED_BY }}</td>
+                        <td>{{ data.LAST_UPDATED_BY }}</td>      
+                        <td>{{ data.STATUS}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+   
+    </div>
+    <div *ngIf="loading" class="loading-spinner-container">
+        <div class="loading-spinner"></div>
+      </div>
+    <div>
+        <p class="align-note">Note: If you want to update the user information than click on respective user ID.</p>
+    </div>
+    <div class="text-center" style="margin-bottom: 5%;">
+        <button routerLink="/register" class="btn btn-secondary" role="button" style="background-color: gray;"><span class="text">Back</span></button> 
+    </div>
+ 
+</div>
+ 
+ 
+ 

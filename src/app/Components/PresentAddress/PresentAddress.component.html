@@ -1,0 +1,192 @@
+<div style="display: flex; flex-direction: row; margin-left: 5%">
+  <div class="d-flex flex-column" style="width: 30%">
+    <label> Date From: <span style="color: red">*</span></label>
+    <input type="date"  class="form-control"  [(ngModel)]="presentEsdDate" />
+  </div>
+
+  <div class="d-flex flex-column" style="width: 30%; margin-left: -4%">
+    <label for>Date To:</label>
+    <input type="date"  class="form-control" [(ngModel)]="presentEndDate"/>
+  </div>
+
+  <button class="btn btn-primary animated"  style="width: 100px; margin-top: 3%; margin-left: -4%" (click)="presentAddressDate()"><span class="text">Search</span></button>
+
+</div>
+
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="container-box">
+  <div class="edit_view">
+    <!-- <select class="select-dropdown">
+      <option class="options" selected disabled>Edit options</option>
+      <option class="options" value="Update">Update</option>
+      <option class="options" value="Correct">Correct</option>
+      <option class="options" value="DeleteRecord">Delete Record</option>
+    </select> -->
+
+    <button (click)="openModal('custom-modal-8')" class="btn btn-primary animated" style="height: 8%; width: 10%; margin-top: 2%; margin-right: 2%">
+      <span style="cursor: pointer" class="edit-icon"><i class="fa-solid fa-clock-rotate-left"></i> View History</span>
+    </button>
+
+  </div>
+
+<h3 class="btn btn-primary sub-button animated" style="margin-left: 87%" >
+  <span style="cursor: pointer" class="edit-icon text"><i class="fa-solid fa-pen-to-square"></i><span class="text">Edit</span></span>
+</h3>
+
+<br />
+
+<h3 style="margin-left: 4%">Employee Present Address :</h3>
+
+<!------------------------------------------------- Form Start ---------------------------------------------------------->
+
+<form  style="margin-left: 4%" [formGroup]="presentAddressForm" (ngSubmit)="presentAddressFormData()" *ngIf="wait">
+
+  <div class="form-row">
+
+    <!-- Date From -->
+    <div class="form-group col-md-4">
+      <label for="DateForm">Date From: <span style="color: red">*</span></label>
+      <input type="date" id="DateForm" name="DateForm" formControlName="DateForm" class="form-control" />
+      <!-- <div *ngIf="addressForm.get('DateForm')?.touched && addressForm.get('DateForm')?.hasError('required')" class="text-danger">*Date From is required </div> -->
+    </div>
+
+    <!-- Date To -->
+    <div class="form-group col-md-4">
+      <label for="DateTo">Date To:</label>
+      <input type="date" id="DateTo" name="DateTo" formControlName="DateTo" class="form-control" />
+    </div>
+
+    <!-- Mobile No -->
+    <div class="form-group col-md-4">
+      <label for="Phone1">Mobile No:</label>
+      <input type="tel" style="width: 80%;" id="Phone1" name="Phone1" formControlName="Phone1" class="form-control" maxlength="10" />
+      <!-- <div *ngIf="addressForm.get('Phone1').errors?.['pattern']" class="text-danger">
+        *Mobile Number must contain only numbers
+      </div>
+      <div *ngIf=" addressForm.get('Phone1').errors?.['maxlength'] || addressForm.get('Phone1').errors?.['minlength']" class="text-danger">
+        *Mobile Number must be 10 digits long
+      </div> -->
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <!-- Address -->
+    <div class="form-group col-md-4">
+      <label for="Address">Address:</label>
+      <input type="text" id="Address" name="Address" formControlName="Address" class="form-control" />
+    </div>
+
+    <!-- Pincode -->
+    <div class="form-group col-md-4">
+      <label for="Country">Country:</label>
+      <!-- <input type="text" formControlName="country"/> -->
+      <select formControlName="country" id="Country"
+      class="form-control" (change)="onCountryChange($event)">
+      <option *ngFor="let country of countries" [value]="country.lable">{{ country.lable }}</option>
+    </select>
+      <!-- <select formControlName="Country" id="Country"
+        class="form-control" (change)="onCountryChange($event)">
+        <option *ngFor="let country of countries" [value]="country.lable">{{ country.lable }}</option>
+      </select> -->
+    </div>
+
+    <!-- City -->
+    <div class="form-group col-md-4">
+      <label for="State">State:</label>
+      <!-- <input type="text" formControlName="state"/> -->
+      <select formControlName="state" id="State"
+      class="form-control" (change)="onStateChange($event)">
+      <option *ngFor="let state of states"
+        [value]="state.lable">{{ state.lable }}</option>
+    </select>
+      <!-- <select formControlName="State" id="State"
+        class="form-control" (change)="onStateChange($event)">
+        <option *ngFor="let state of states"
+          [value]="state.lable">{{ state.lable }}</option>
+      </select> -->
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <!-- State -->
+    <div class="form-group col-md-4">
+      <label for="City">City:</label>
+      <!-- <input type="text" formControlName="city"/> -->
+      <select formControlName="city" id="City" class="form-control">
+        <option *ngFor="let city of cities" [value]="city.label">{{city.label }}</option>
+      </select>
+      <!-- <select formControlName="City" id="City" class="form-control">
+        <option *ngFor="let city of cities" [value]="city.label">{{city.label }}</option>
+      </select> -->
+    </div>
+
+    <!-- Country -->
+    <div class="form-group col-md-4">
+      <label for="Pincode">Pincode:</label>
+      <input type="text" id="Pincode" name="Pincode" formControlName="pincode" class="form-control" />
+    </div>
+
+    <div class="form-group col-md-4"></div>
+
+  </div>
+
+  <div class="row justify-content-center  form-group col-md-12" style="margin-top: 5%;">
+    <!-- Submit Button -->
+    <div class="form-group d-flex flex-row">
+      <button type="submit" class="btn btn-primary animated" style="width: 50%" *ngIf="presentSubmitButton">
+        <span class="text">Submit</span>
+      </button>
+      <button type="button" class="btn btn-primary animated" style="width: 50%" (click)="updatePresentAddress()" *ngIf="presentUpdateButton">
+        <span class="text">Update</span>
+      </button>
+      <button class="btn btn-primary btn2 animated" type="button"  style="width: 50%; background-color: gray;">
+        <span class="text">Cancel</span>
+      </button>
+    </div>
+
+  </div>
+
+</form><!--------------Form end --------------->
+
+<!-- view history for present Address details -->
+<jw-modal id="custom-modal-8">
+
+  <button (click)="closeModal('custom-modal-8')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+  <hr />  
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px">
+    <thead>
+      <tr>
+        <th class="table-head-styles">Effective Start Date</th>
+        <th class="table-head-styles">Effective End Date</th>
+        <th class="table-head-styles">Changed Attributes</th>
+        <th class="table-head-styles">Last Updated By</th>
+        <th class="table-head-styles">Last Updated Date</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="presentAddressDataView">
+      <tr *ngFor="let data of presentAddressDataView" class="single-rec">
+        <td class="table-body-styles hover">
+          <a (click)="empSearchPresentViewHistory(data?.DATE_FROM)">
+            {{ data?.DATE_FROM | date : "yyyy-MM-dd" }}
+          </a>
+        </td>
+        <td class="table-body-styles">{{ data?.DATE_TO | date : "yyyy-MM-dd" }}</td>
+        <td class="table-body-styles">
+          <div *ngFor="let attr of data?.CHANGED_ATTRIBUTE">
+            {{ attr }}
+          </div>
+        </td>
+        <td class="table-body-styles">{{ data?.LAST_UPDATED_BY }}</td>
+        <td class="table-body-styles">{{ data?.LAST_UPDATED_AT | date : "yyyy-MM-dd" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</jw-modal>
+

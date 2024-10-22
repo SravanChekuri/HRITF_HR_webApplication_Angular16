@@ -1,0 +1,271 @@
+
+.search-bar {
+  position: relative;
+  margin-left: 10%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.fas.fa-search {
+  position: absolute;
+  left: 63%; 
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
+.emp:hover{
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+ 
+.error-message{
+  text-align: center;
+  color: red;
+  font-weight: bold;
+ font-size: 20px;
+}
+
+.main {
+  position: fixed;
+  top:9%;
+  background-color:#F5F5F5;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15%;
+  overflow: auto;
+  }
+ 
+/* For Chrome, Safari, and Opera */
+.employee-list-display::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Internet Explorer and Edge */
+.employee-list-display {
+  -ms-overflow-style: none;
+}
+
+/* For Firefox */
+.employee-list-display {
+  scrollbar-width: none;
+}
+
+.employee-list-display {
+  overflow-y: auto;
+  max-height: 500px;
+  flex-grow: 1;
+  margin: 2% 2% 0 2%;
+}
+ 
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+ 
+.employee-table th,
+.employee-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+ 
+.employee-table th {
+  background-color: #99d0ff;
+  color: #fff;
+}
+ 
+.no-employees-msg {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
+  
+#filterInput {
+  width: 50%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 15px;
+}
+ 
+.search-bar {
+  margin-left: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  background-color: white;
+  margin-top: 10px;
+}
+ 
+.single-employee:hover {
+  background-color: #f2f2f2;
+}
+ 
+.no-employees-msg {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+  margin-top: 10px;
+}
+ 
+.blink-text {
+  animation: blink-animation 1s infinite; 
+}
+ 
+@keyframes blink-animation {
+  0% { opacity: 1.0; } 
+  50% { opacity: 0.0; } 
+  100% { opacity: 1.0; } 
+}
+ 
+ 
+.pagination-controls button {
+  width: 100px;
+  margin: 0;
+  margin-right: 20px;
+  font-weight: bolder;
+}
+ 
+.pagination-controls button:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+.search-bar button{
+  margin-top: 10px;
+}
+ 
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+}
+ 
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
+ 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+ 
+ 
+@media (max-width: 768px) {
+  .main {
+    height: auto;
+    margin-bottom: 5%;
+  }
+ 
+  .search-bar {
+    flex-direction: column;
+    margin: 2% 5%;
+  }
+ 
+  #filterInput {
+    width: 100%;
+   
+  }
+ 
+  .btn-primary {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .employee-table th, .employee-table td {
+    font-size: 14px;
+    padding: 6px;
+  }
+}
+ 
+ 
+@media (min-width: 1200px) {
+ 
+  .main {
+    overflow-y: auto;
+    margin-bottom: 10%;
+    padding: auto 5%;
+  }
+ 
+}
+ 
+ 
+.btn-primary {
+  width: 210px;
+  padding: 10px;
+  border-radius: 30px;
+  margin-top: 20px;
+  margin-left: 10%;
+  margin-bottom: 6%;
+  position: relative;
+  overflow: hidden;
+  background-color: #007bff;
+  color: white;
+  border: 2px solid transparent;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.5s ease, border-color 0.5s ease;
+}
+ 
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFF;
+  color: #000;
+  transition: left 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+  z-index: 0;
+}
+ 
+.btn-primary:hover::before {
+  left: 0;
+}
+ 
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+  transition: black 0.5s ease;
+}
+ 
+.btn-primary:hover {
+  color: #000;
+}
+ 

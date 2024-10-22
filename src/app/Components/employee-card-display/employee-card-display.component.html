@@ -1,0 +1,50 @@
+<div class="main">
+
+    <div class="card-container">
+
+        <div class="employee-container">
+          <div class="employee-card" *ngFor="let employee of empList" style="  margin-left: 40%;">
+            <div class="employee-details">
+              
+              <div class="top-right-circles">
+                <div class="circle1">
+                  <button class="material-icon-button" (click)="handleEditClick(employee)">
+                    <span class="material-symbols-outlined" style="font-size: 25px; position: absolute; top: 2.8px; left: 8px;"> edit</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="employee-details1">
+                <div class="img-div">
+                  <img src="../../../assets/images/userDP.jpg" alt="userimage">
+                </div>
+                <p style="font-weight: bold;font-size: 1.2em;">{{ employees.EMPLOYEE_DETAILS.EMP_NO.startsWith('C') ?'Candidate No':'Employee No'}}
+                  <span style="color: red;">{{ employees.EMPLOYEE_DETAILS.EMP_NO }}</span>
+                  <br>
+                  Name: 
+                  <span style="color: red;">{{ employees.EMPLOYEE_DETAILS.FIRST_NAME }} {{ employees.EMPLOYEE_DETAILS.LAST_NAME }}</span>
+                </p>
+              </div>
+
+              <div class="employee-details2">
+                <p>
+                  <span class="material-symbols-outlined">calendar_month</span>
+                  Date of Birth:&nbsp;<strong> {{ employees.EMPLOYEE_DETAILS.DATE_OF_BIRTH | date:'shortDate' }}</strong>
+                  <br>
+                  <span class="material-symbols-outlined">home_pin</span>
+                  Work Location:&nbsp;<strong> {{ employees.EMPLOYEE_DETAILS.WORK_LOCATION }}</strong>
+                  <br>
+                  <span class="material-symbols-outlined">mail</span>
+                  Email Address:&nbsp;<strong>{{ employees.EMPLOYEE_DETAILS.EMAIL_ADDRESS }} </strong>
+                </p>
+              </div>
+              
+            </div>
+
+          </div>
+
+        </div>
+  
+    </div>
+  
+</div>

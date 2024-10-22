@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { LoginService } from './services/login.service';
+import { LoginService } from './Services/Login Services/login.service';
 
 @Component({
   selector: 'app-root',

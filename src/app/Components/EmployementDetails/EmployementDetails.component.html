@@ -1,0 +1,350 @@
+<div class="container-box" *ngIf="wait"> <!-- main div -->
+
+  <div style="display: flex; flex-direction: row"> <!---- Search fields ---->
+
+    <div class="d-flex flex-column" style="margin-left: 10%">
+      <label>Effective Start Date :</label>
+      <input type="date" class="input" class="form-control" style="width: 150%" [(ngModel)]="employeementEsd" />
+    </div>
+
+    <div class="d-flex flex-column" style="margin-left: 12%">
+      <label>Effective End Date :</label>
+      <input type="date" class="form-control" style="width: 150%" [value]="effectiveEndDate" />
+    </div>
+
+    <button class="btn btn-primary animated" style="width: 10%; height: 10%; left: 12%; margin-top: 3%"
+      (click)="empsubmitdate()">
+      <span class="text">Search</span>
+    </button>
+
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 3%;">
+
+    <h3 style="margin: 2% 0 1% 3%;">Employment Details :</h3>
+
+    <div style="display: flex; gap: 10px;">
+      <select class="select-option" (change)="onOptionChange($event)">
+        <option class="options" selected disabled>Edit options</option>
+        <option class="options" value="Update">Update</option>
+        <option class="options" value="Correct">Correct</option>
+        <option class="options" value="DeleteRecord">Delete Record</option>
+      </select>
+      <button (click)="openModal('custom-modal-3')" class="btn btn-primary animated viewH">
+        <span style="cursor: pointer" class="edit-icon">
+          <i class="fa-solid fa-clock-rotate-left"></i> View History
+        </span>
+      </button>
+    </div>
+
+  </div>
+
+  <br />
+
+  <!----------------------- Form start  ------------------------>
+
+  <form [formGroup]="employementForm" (ngSubmit)="employmentSubmit()" style="margin-left: 4%">
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="effectiveStartDate">Effective Start Date<span style="color: red">*</span>:</label>
+        <input type="date" id="effectiveStartDate" name="effectiveStartDate" formControlName="effectiveStartDate"
+          class="form-control" />
+        <div
+          *ngIf=" employementForm.get('effectiveStartDate')?.touched && employementForm.get('effectiveStartDate')?.hasError('required')"
+          class="text-danger ms-3">
+          *Effective Start Date is required
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="Effective_End_Date">Effective End Date:</label>
+        <input type="date" id="Effective_End_Date" name="Effective_End_Date" value="4712-12-31" class="form-control"
+          formControlName="Effective_End_Date" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="workerType">Worker Type<span style="color: red">*</span>:</label>
+        <select id="workerType" formControlName="workerType" class="form-control">
+          <option value selected disabled>Select...</option>
+          <option value="Candidate">Candidate</option>
+          <option value="Employee">Employee</option>
+        </select>
+        <div
+          *ngIf=" employementForm.get('workerType')?.touched && employementForm.get('workerType')?.hasError('required')"
+          class="text-danger ms-3">
+          *Worker Type is required
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4" style="margin-bottom: 2%">
+        <label for="dateOfJoining">Date of Joining :</label>
+        <input type="date" id="dateOfJoining" formControlName="dateOfJoining" required class="form-control" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="Status">Status<span style="color: red">*</span>:</label>
+        <select id="Status" formControlName="Status" class="form-control">
+          <option value disabled>Select...</option>
+          <option value="Active" selected>Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <div *ngIf="employementForm.get('Status')?.touched && employementForm.get('Status')?.hasError('required')"
+          class="text-danger ms-3">
+          *Status is required
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="Organization_Name">Organization Name <span style="color: red">*</span>:</label>
+        <input type="text" id="Organization_Name" name="Organization_Name" formControlName="Organization_Name"
+          class="form-control" />
+        <div
+          *ngIf="employementForm.get('Organization_Name')?.touched && employementForm.get('Organization_Name')?.hasError('required')"
+          class="text-danger ms-3">
+          *Organization name is required
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="Department">Department:</label>
+        <input type="text" id="Department" name="Department" formControlName="Department" class="form-control" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="Position-Name">Position:</label>
+        <input type="text" id="Position" name="Position" formControlName="Position" class="form-control" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="CurrentCompanyExperience">Current Company Experience:</label>
+        <input type="text" id="CurrentCompanyExperience" name="CurrentCompanyExperience"
+          formControlName="CurrentCompanyExperience" class="form-control" value="0" readonly />
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="PreviousExperiences">Previous Experiences:</label>
+        <input type="text" id="PreviousExperiences" name="PreviousExperiences" formControlName="PreviousExperiences"
+          class="form-control" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="Notice_Period">Notice Period:</label>
+        <select id="Notice_Period" name="Notice_Period" formControlName="Notice_Period" class="form-control">
+          <option value="" disabled selected>Select...</option>
+          <option value="30 Days">30 Days</option>
+          <option value="60 Days">60 Days</option>
+          <option value="90 Days">90 Days</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="Probation-Period">Probation Period:</label>
+        <select id="Probation_Period" name="Probation_Period" formControlName="Probation_Period" class="form-control">
+          <option value="" disabled selected>Select...</option>
+          <option value="3 Months">3 Months</option>
+          <option value="6 Months">6 Months</option>
+          <option value="9 Months">9 Months</option>
+        </select>
+        <!-- <select id="Probation-Period" name="Probation_Period" formControlName="Probation_Period" class="form-control">
+          <option [ngValue]="null" disabled selected>Select...</option>
+          <option *ngFor="let prf of Probation_Period" [ngValue]="prf">
+            {{ prf }}
+          </option>
+        </select> -->
+        <div
+          *ngIf="employementForm.get('Probation_Period')?.touched && employementForm.get('Probation_Period')?.hasError('required')"
+          class="text-danger ms-3">
+          *Probation Period is required
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4" [hidden]="workerTypeValue">
+        <label for="psalary">Proposed Salary:</label>
+        <input type="text" id="psalary" class="form-control" formControlName="proposedSalary" />
+      </div>
+
+      <!-- <div class="form-group col-md-4">
+        <label for="mngr">Manager :</label>
+        <input type="text" id="mngr" class="form-control" formControlName="manager" />
+      </div> -->
+      <div class="form-group col-md-4"></div>
+
+    </div>
+
+    <div class="form-row" [hidden]="employementForm.disabled">
+
+      <div class="col">
+
+        <button type="submit" class="btn btn-primary animated btn1" *ngIf="submitEmployeementButton">
+          <span class="text">Submit</span>
+        </button>
+
+        <button class="btn btn-primary animated btn1" type="button" (click)="updateEmploymentDetailsForm()" *ngIf="updateEmployeementButton">
+          <span class="text">Update</span>
+        </button>
+
+        <button class="btn btn-primary animated btn1" style="background-color: gray;" type="button">
+          <span class="text">Cancel</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </form>
+
+  <!---------------------------- Form end ---------------------------------------->
+
+  <div class="d-flex flex-colounm" style="margin-top: 50px;margin-left: -5%;">
+
+    <div style="margin-top: 2%">
+      <button class="btn btn-primary animated" routerLink="/employeeLetters"
+        style="width: 200px; bottom: 50%; left: 45%;">
+        <span class="text">Document of Records</span>
+      </button>
+    </div>
+
+    <div style="margin-top: 2%" *ngIf="employementForm.get('workerType')?.value !== 'Candidate'">
+      <button (click)="openModal('custom-modal-4')" class="btn btn-primary animated"
+        style="left: 55%; width: 200px; bottom: 50%;">
+        <span class="text">Salary Details</span>
+      </button>
+    </div>
+
+  </div>
+
+</div> <!-- main div -->
+
+
+<!-----------------------------------------employement view history --------------------------------------------------------->
+
+<jw-modal id="custom-modal-3">
+  <button (click)="closeModal('custom-modal-3')" type="button" class="btn-close" data-dismiss="modal"
+    aria-label="Close"></button>
+  <hr />
+
+  <h5 style="margin: 0 0 1% 2%;">Employement details View History :</h5>
+
+  <table style="table-layout: fixed; width: 100%;" *ngIf="wait">
+    <thead>
+      <tr>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+          Effective Start Date</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+          Effective End Date</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+          Changed Attribute</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+          Last Updated By</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+          Last Updated At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let num of viewHistoryEmployeementData">
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;" (click)="employmentSearchViewHistory( num.EFFECTIVE_START_DATE)">
+          {{ num.EFFECTIVE_START_DATE | date:'yyyy-MM-dd' }}
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+          {{ num.EFFECTIVE_END_DATE | date:'yyyy-MM-dd' }}
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+          <div *ngFor="let data of num?.CHANGED_ATTRIBUTE"> {{ data.CHANGED_ATTRIBUTE }}</div>
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+          {{ num.LAST_UPDATED_BY }}
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+          {{ num.LAST_UPDATED_AT | date:'yyyy-MM-dd' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</jw-modal>
+
+
+<!----------------------------------------- Salary details ------------------------------------------------------->
+
+<jw-modal id="custom-modal-4">
+  <button (click)="closeModal('custom-modal-4')" type="button" class="btn-close" data-dismiss="modal"
+    aria-label="Close"></button>
+  <hr />
+  <app-SalaryDetails [employeListData]="employeeList" [employeeStartDate]="employeementEsd" [loading]="loading" />
+</jw-modal>
+
+
+<!--------------------------------------Employement edit update correct--------------------------------------------->
+
+
+<div *ngIf="showUpdateModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Update Employment:</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal('custom-modal-12')"></button>
+
+    <div class="modal-body">
+      <label>Effective Start Date:</label>
+      <input type="date" [(ngModel)]="actionEsd" (ngModelChange)="onActionEsdChange()" />
+
+      <label for="position">Action:</label>
+      <select id="position" [(ngModel)]="selectedAction" (change)="onActionChange()">
+        <option *ngFor="let action of actions" [value]="action.value">{{ action.label }}</option>
+      </select>
+
+      <label for="actionReason">Action Reason:</label>
+      <select id="actionReason" [(ngModel)]="selectedReason">
+        <option *ngFor="let reason of reasons" [value]="reason.value">{{ reason.label }}</option>
+      </select>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" (click)="actionChange()"><span>Okay</span></button>
+      <button class="btn btn-secondary" (click)="closeModal('custom-modal-12')"><span>Cancel</span></button>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="showUpdateModalForCorrect" class="modal-overlay">
+  <div class="modal-content">
+    <h2> Correct Employment:</h2>
+    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+      (click)="closeModal('custom-modal-13')"></button>
+
+    <label for="position">Action:</label>
+    <select id="position" [(ngModel)]="selectedAction" (change)="onActionChangeCorrection()">
+      <option *ngFor="let action of actionsforCorrection" [value]="action.value">{{ action.label }}</option>
+    </select>
+
+    <label for="actionReasonForCorrection">Action Reason:</label>
+    <select id="actionReasonForCorrection" [(ngModel)]="selectedReason">
+      <option value="">Select a reason</option>
+      <option *ngFor="let reason of reasons" [value]="reason.value">{{ reason.label }}</option>
+    </select>
+
+    <div style="margin-top: 5%;">
+      <button class="btn btn-primary btn2 animated" (click)="actionChangeForCorrection()"><span>Okay</span></button>
+      <button class="btn btn-primary btn2 animated" (click)="cancelActionForCorretion()"><span>Cancel</span></button>
+    </div>
+  </div>
+</div>

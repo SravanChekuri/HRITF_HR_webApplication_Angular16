@@ -1,0 +1,56 @@
+<div class="main-container">
+
+  <div class="align-items">
+
+    <div>
+      <img src="../../../assets/logos/HRIT logo 5.png" alt="HRITF-logo" class="logo">
+    </div>
+
+    <div class="card content">
+      <div>
+        <h5 class="mb-4 text-center">Multi Factor Authentication</h5>
+        <p class="mb-2">Enter an MFA code to complete sign-in</p>
+        <div class="d-flex flex-column">
+          <label for="mfa" class="mb-2">MFA Code :</label>
+          <form [formGroup]="mfaotppage" (ngSubmit)="mfc()">
+            <div class="d-flex flex-row justify-content-center">
+              <div>
+                <input [type]="otpTypes[0]" #txt1 maxlength="1" autofocus (keyup)="move($event, '', txt1, txt2, 0)" formControlName="otp1" class="form-control">
+              </div>
+              <div>
+                <input [type]="otpTypes[1]" #txt2 maxlength="1" (keyup)="move($event, txt1, txt2, txt3, 1)" formControlName="otp2" class="form-control">
+              </div>
+              <div>
+                <input [type]="otpTypes[2]" #txt3 maxlength="1" (keyup)="move($event, txt2, txt3, txt4, 2)" formControlName="otp3" class="form-control">
+              </div>
+              <div>
+                <input [type]="otpTypes[3]" #txt4 maxlength="1" (keyup)="move($event, txt3, txt4, txt5, 3)" formControlName="otp4" class="form-control">
+              </div>
+              <div>
+                <input [type]="otpTypes[4]" #txt5 maxlength="1" (keyup)="move($event, txt4, txt5, txt6, 4)" formControlName="otp5" class="form-control">
+              </div>
+              <div>
+                <input [type]="otpTypes[5]" #txt6 maxlength="1" (keyup)="move($event, txt5, txt6, '', 5)" formControlName="otp6" class="form-control">
+              </div>
+            </div>
+            <div class="d-flex flex-row">
+              <button class="btn btn-danger mt-4" role="button" type="submit"><span class="text">Enable</span></button>&nbsp;&nbsp;
+            </div>
+          </form>
+    
+        </div>
+
+        <br>
+
+        <div class="d-flex flex-column text-center">
+          <div *ngIf="loading" class="spinner mb-2 text-center" style="margin-left: 50%;"></div> 
+          <a routerLink="" class="text-center " style="margin-left: 20px;">Cancel</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

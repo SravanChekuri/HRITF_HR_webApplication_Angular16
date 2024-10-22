@@ -1,0 +1,144 @@
+<div>
+
+  <div style="display: flex; flex-direction: row">
+
+    <div class="d-flex flex-column" style="width: 30%; margin-left: 5%">
+      <label>Date From:</label>
+      <input type="date" class="input" class="form-control"  [(ngModel)]="salaryEsd"/>
+    </div>
+
+    <div class="d-flex flex-column" style="width: 30%; margin-left: -4%">
+      <label for>Date To:</label>
+      <input type="date" class="form-control" [(ngModel)]="salaryEnd"/>
+    </div>
+
+    <button class="btn btn-primary sub-button animated" role="button" style="margin-left: -4%; margin-top: 3%" (click)="salarySubmitDate()">
+      <span class="text">Search</span>
+    </button>
+
+  </div>
+
+  <!-- <h3 class="btn btn-primary sub-button animated text" style="margin-left: 87%">
+        <span style="cursor: pointer" class="edit-icon"></span>
+    </h3> -->
+
+  <jw-modal id="custom-modal-5">
+    <button (click)="closeModal('custom-modal-5')" type="button" class="btn-close" data-dismiss="modal"
+      aria-label="Close"></button>
+    <hr />
+
+    <h5 style="margin: 0 0 1% 2%;">Employement details View History :</h5>
+
+    <table style="table-layout: fixed; width: 100%;">
+      <thead>
+        <tr>
+          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+            Effective Start Date</th>
+          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+            Effective End Date</th>
+          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+            Changed Attribute</th>
+          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+            Last Updated By</th>
+          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
+            Last Updated At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let num of viewHistoryEmployeementData">
+          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;" (click)="EmpSalarySearchViewHistory(num.ASSIGNMENT_ID, num.CHANGED_SALARY_DATE)">
+            {{ num.CHANGED_SALARY_DATE | date:'yyyy-MM-dd' }}
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+            {{ num.DATE_TO | date:'yyyy-MM-dd' }}
+          </td>
+
+          
+
+          <!-- <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><div *ngFor="let data of num?.CHANGED_ATTRIBUTE"> {{ data.CHANGED_ATTRIBUTE }}</div></td> -->
+          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"> {{ num.CHANGED_ATTRIBUTE }}</td>
+
+          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+            {{ num.LAST_UPDATED_BY }}
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+            {{ num.LAST_UPDATED_AT | date:'yyyy-MM-dd' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </jw-modal> 
+
+  <div style="display: flex; gap: 10px;">
+    <!-- <select class="select-option">
+        <option class="options" selected disabled>Edit options</option>
+        <option class="options" value="Update">Update</option>
+        <option class="options" value="Correct">Correct</option>
+        <option class="options" value="DeleteRecord">Delete Record</option>
+      </select> -->
+    <button (click)="openModal('custom-modal-5')" class="btn btn-primary animated viewH" style="margin-left: 70%;margin-top: 2%; ">
+      <span style="cursor: pointer" class="edit-icon">
+        <i class="fa-solid fa-clock-rotate-left"></i> View History
+      </span>
+    </button>
+  </div>
+
+
+  <h3 style="margin-left: 3%; padding: 20px 0;">Employee Salary Details :</h3>
+
+  <form [formGroup]="Employeesalary" (ngSubmit)="salarydata()">
+
+    <div style="margin: 0 0 0 20% ;">
+
+      <div class="form-section">
+        <label for="changedSalaryDate" class="form-label" style="margin-left: 1%;">Changed Salary Date<span
+            style="color: red">*</span>:</label>
+        <input id="changedSalaryDate" formControlName="changedSalaryDate" type="date"
+          class="input-field form-control" />
+      </div>
+
+      <div class="form-section">
+        <label for="dateToProposal" class="form-label" style="margin-left: 1%;">Date to:</label>
+        <input id="dateToProposal" formControlName="dateToProposal" type="date" class="input-field form-control" />
+      </div>
+
+      <div class="form-section">
+        <label for="comments" class="form-label" style="margin-left: 1%;">Comments:</label>
+        <textarea id="comments" formControlName="comments" class="textarea-field form-control"></textarea>
+      </div>
+
+      <div class="form-section">
+        <label for="proposalSalary" class="form-label" style="margin-left: 1%;">Proposal Salary<span
+            style="color: red">*</span>:</label>
+        <input id="proposalSalary" formControlName="proposalSalary" type="text" class="input-field form-control" />
+      </div>
+
+      <div class="form-section">
+        <label for="proposalReason" class="form-label" style="margin-left: 1%;">Proposal Reason:</label>
+        <textarea id="proposalReason" formControlName="proposalReason" class="textarea-field form-control"></textarea>
+      </div>
+
+    </div>
+
+    <div style="padding: 20px 0;margin-left: 35%;">
+
+      <button type="submit" class="btn btn-primary btn2 animated" style="width: 15%" *ngIf="salarySubmitButton">
+        <span class="text">Submit</span>
+      </button>
+
+      <button class="btn btn-primary btn2 animated" style="width: 15%;" type="button" (click)="salaryUpdate()" *ngIf="salaryUpdateButton">
+        <span class="text">Update</span>
+      </button>
+
+      <button class="btn btn-primary btn2 animated" style="width: 15%; background-color: gray" type="button">
+        <span class="text">Cancel</span>
+      </button>
+
+    </div>
+
+  </form>
+
+
+</div>

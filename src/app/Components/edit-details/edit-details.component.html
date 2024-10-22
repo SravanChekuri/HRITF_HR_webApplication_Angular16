@@ -1,0 +1,360 @@
+<div>
+  <!-- main div -->
+
+  <!--------------------------------------------- Profile display --------------------------------------------->
+
+  <div class="profile-container">
+    <img src="../../../assets/images/userDP.jpg"  alt="emp Img" class="profile-img"/>
+    <div class="profile-info" >
+      <h6> {{updateForm.get("workerType")?.value === "Employee" ? "Employee Name :": "Candidate Name :"}} 
+        <span style="color: rgb(255, 0, 200)"> {{ employeeData[0]?.FIRST_NAME }} {{ employeeData[0]?.MIDDLE_NAME }} {{ employeeData[0]?.LAST_NAME }} </span>
+      </h6>
+      <h6> {{ updateForm.get("workerType")?.value === "Employee"? "Employee Number :" : "Candidate Number :" }}
+        <span style="color: blue"> {{ employeeNumber }}</span>
+      </h6>
+    </div>
+  </div>
+
+  <!---------------------------------- Edit/Update Candidate/Employee details ----------------------------------->
+
+ <div class="edit-Container">
+
+  <!-------------------------------- Search fields --------------------------------------------------->
+
+    <div class="d-flex flex-column justify-content-center" style="width: 25%; margin: 2% 0 1% 0">
+      <label>Effective Start Date <span style="color: red">*</span></label>
+      <input type="date" class="input" style="width: 100%" [(ngModel)]="employeeESd" value="esd" />
+    </div>
+
+    <div class="d-flex flex-column justify-content-center" style="width: 30%; margin: 2% 0 1% 0">
+      <label style="margin-left: 8%">Effective End Date</label>
+      <input type="date" style="margin-left: 8%" [value]="effectiveEndDate" />
+    </div>
+
+    <button class="btn btn-primary animated" style="width: 9%; height: 9%; margin-top: 4%" (click)="submitDate()">
+      <span class="text">Search</span>
+    </button>
+  </div>
+
+  <div class="main" *ngIf="loadDisplayData">
+
+    <!--------------------------------- Candidate/Employee update form ------------------------------->
+
+    <div class="container-box">
+      <div class="edit_view">
+        <h3 style="margin: 2% 0 1% 3%">{{ updateForm.get("workerType")?.value === "Employee" ? "Employee Details :" : "Candidate Details :" }}</h3>
+        <select class="select-dropdown" (change)="onOptionChange($event)">
+          <option class="options" selected disabled>Edit options</option>
+          <option class="options" value="Update">Update</option>
+          <option class="options" value="Correct">Correct</option>
+          <option class="options" value="DeleteRecord">Delete Record</option>
+        </select>
+
+        <button (click)="openModal('custom-modal-1')" class="btn btn-primary animated" style="height: 8%; width: 10%; margin-top: 2%; margin-right: 4%">
+          <span style="cursor: pointer"><i class="fa-solid fa-clock-rotate-left"></i> View History</span>
+        </button>
+
+      </div>
+
+      <!----------------------------------------- form start  ---------------------------------------->
+
+      <form [formGroup]="updateForm" (ngSubmit)="submitForm()" style="margin-left: 5%">
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="effectiveStartDate">Effective Start Date<span style="color: red">*</span>:</label>
+            <input type="date" id="effectiveStartDate" name="effectiveStartDate" class="form-control" formControlName="effectiveStartDate"/>
+            <div *ngIf="updateForm?.get('effectiveStartDate')?.touched && updateForm?.get('effectiveStartDate')?.hasError('required')" class="text-danger ms-3">
+              *Effective Start Date is required
+            </div>
+            <div *ngIf="updateForm  .controls['effectiveStartDate'].hasError('invalidDate')" class="text-danger ms-3">
+              *Invalid Date (No Saturdays, Sundays)
+            </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="effectiveEndDate">Effective End Date:</label>
+            <input type="date" id="effectiveEndDate" name="effectiveEndDate" class="form-control" formControlName="effectiveEndDate" value="4712-12-31"/>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="workerType">Worker Type<span style="color: red">*</span>:</label>
+            <select id="workerType" class="form-control" formControlName="workerType" (change)="onchange($event)">
+              <option [selected]="updateForm.get('workerType')?.value === ''" disabled>Select...</option>
+              <option value="Employee" [selected]="updateForm.get('workerType')?.value === 'Employee'">Employee</option>
+              <option value="Candidate" [selected]="updateForm.get('workerType')?.value === 'Candidate'">Candidate</option>
+            </select>
+            <div *ngIf="updateForm.get('workerType')?.touched && updateForm.get('workerType')?.hasError('required')" class="text-danger ms-3">
+              *Worker Type is required
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group col-md-4">
+            <label for="employeeNumber" *ngIf="isCandidate">Candidate Number<span style="color: red">*</span></label>
+            <label for="employeeNumber" *ngIf="isEmployee">Employee Number<span style="color: red">*</span></label>
+            <input type="text" id="employeeNumber" name="employeeNumber" class="form-control disabled-select" formControlName="employeeNumber"/>
+            <div *ngIf="isEmployee">
+              <div *ngIf="updateForm.get('employeeNumber')?.touched && updateForm.get('employeeNumber')?.hasError('required')" class="text-danger ms-3">
+                *Employee Number is required
+              </div>
+            </div>
+            <div *ngIf="isCandidate">
+              <div *ngIf="updateForm.get('employeeNumber')?.touched && updateForm.get('employeeNumber')?.hasError('required')" class="text-danger ms-3">
+                *Candidate Number is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="dateOfJoinging">Date of Joining :</label>
+            <input type="date" id="dateOfJoinging" formControlName="dateOfJoinging"/>
+            <!-- <div *ngIf="updateForm.get('dateOfJoinging')?.touched &&updateForm.get('dateOfJoinging')?.hasError('required')" class="text-danger ms-3">
+              *Date of Joining is required
+            </div> -->
+            <div *ngIf="updateForm.controls['dateOfJoinging'].hasError('invalidDate')" class="text-danger ms-3">
+              *Invalid Date (No Saturdays, Sundays, Holidays)
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="firstName">First Name <span style="color: red">*</span>:</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" formControlName="firstName"/>
+            <div *ngIf="updateForm.get('firstName')?.touched && updateForm.get('firstName')?.hasError('required')"class="text-danger ms-3">
+              *First Name is required
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group col-md-4">
+            <label for="middleName">Middle Name:</label>
+            <input type="text" id="middleName" name="middleName" class="form-control" formControlName="middleName"/>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="lastName">Last Name<span style="color: red">*</span>:</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" formControlName="lastName"/>
+            <div *ngIf="updateForm.get('lastName')?.touched && updateForm.get('lastName')?.hasError('required')" class="text-danger ms-3">
+              *Last Name is required
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="email" *ngIf="isCandidate">Candidate Email :</label>
+            <label for="email" *ngIf="isEmployee">Employee Email :</label>
+            <input type="email" id="email" name="email" class="form-control disabled-select" formControlName="email"/>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="dateOfBirth">Date of Birth<span style="color: red">*</span>:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control" formControlName="dateOfBirth" [max]="maxDate" [min]="minDate"/>
+            <div *ngIf="updateForm.get('dateOfBirth')?.touched && updateForm.get('dateOfBirth')?.hasError('required')" class="text-danger ms-3">
+              *DOB Date is required
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="workLocation">Work Location<span style="color: red">*</span>:</label>
+            <select id="workLocation" formControlName="workLocation">
+              <option value selected disabled>Select...</option>
+              <option value="Hyderabad" selected>Hyderabad</option>
+              <option value="Bengaluru" selected>Bengaluru</option>
+              <option value="Chennai" selected>Chennai</option>
+              <option value="Mumbai" selected>Mumbai</option>
+              <option value="Pune" selected>Pune</option>
+            </select>
+            <div *ngIf="updateForm.get('workLocation')?.touched && updateForm.get('workLocation')?.hasError('required')" class="text-danger ms-3">
+              *Work Location is required
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="mobileNumber">Mobile Number<span style="color: red">*</span>:</label>
+            <input type="text" id="mobileNumber" name="effectiveStartDate" class="form-control" formControlName="mobileNumber"/>
+            <!-- <div *ngIf="updateForm.get('mobileNumber')?.touched && updateForm.get('mobileNumber')?.hasError('required')" class="text-danger ms-3">
+              *mobileNumber is required
+              </div> -->
+          </div>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group col-md-4">
+            <label for="status">Status<span style="color: red">*</span>:</label>
+            <select id="status" formControlName="status" class="form-control">
+              <option value disabled selected>Select...</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            <div *ngIf="updateForm.get('status')?.touched && updateForm.get('status')?.hasError('required')" class="text-danger ms-3">
+              *Status is required
+            </div>
+          </div>
+
+          <div class="form-group col-md-4"></div>
+
+          <div class="form-group col-md-4"></div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col" style="margin-bottom: 2%; text-align: center">
+            <button type="submit" class="btn btn-primary animated" style="width: 8%; margin-right: 2%" role="button" >
+              <span class="text">Update</span>
+            </button>
+
+            <button type="button" class="btn btn-primary m-1 animated" style="width: 8%; background-color: gray"  (click)="isEmployeeContent()" role="button">
+              <span class="text">Cancel</span>
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+      <!--------------------- form end --------------------->
+
+      <!-------------------------- Employement, Address, emergency buttons --------------------------->
+
+        <div class="d-flex flex-row">
+
+        <button (click)="openEmploymentDetails()" class="btn btn-primary animated" style="width: 200px; margin-bottom: 3%;margin-left: 8%;">
+          <span class="text" *ngIf="updateForm.get('workerType')?.value === 'Employee'">Employment Details</span>
+          <span class="text" *ngIf="updateForm.get('workerType')?.value !== 'Employee'" >Employment Details</span >
+        </button>
+
+        <span *ngIf="updateForm.get('workerType')?.value === 'Employee'">
+          <button (click)="openAddressDetails()" class="btn btn-primary animated" style=" width: 200px; left: 10%;">
+            <span class="text">Address Details</span>
+          </button>
+        </span>
+
+        <div *ngIf="updateForm.get('workerType')?.value === 'Employee'" style="margin-top: 2%">
+            <button (click)="openEmergency()" class="btn btn-primary animated" style=" width: 200px; bottom: 50%; left: 20%;">
+              <span class="text">Emergency Details</span>
+            </button>
+        </div>
+        
+      </div>
+
+    </div>
+
+  </div>
+
+  <div style="display: flex;align-items: center;justify-content: center;margin-bottom: 3%;margin-top: 1%;">
+    <button class="btn btn-primary animated text-center" style="width: 150px; background-color: gray" routerLink="/landing">
+      <span class="text">Back</span>
+    </button>
+
+  </div>
+  
+</div>
+<!-- main div -->
+
+<!-------------------------------------- View History of Candidate/Employee ------------------------------------->
+
+<jw-modal id="custom-modal-1">
+  <button (click)="closeModal('custom-modal-1')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+  <hr />
+
+  <h5 style="margin: 0 0 1% 2%">{{ updateForm.get("workerType")?.value }} details View History :</h5>
+
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px">
+    <thead>
+      <tr>
+        <th class="table-head-styles">Effective Start Date</th>
+        <th class="table-head-styles">Effective End Date</th>
+        <th class="table-head-styles">Changed Attributes</th>
+        <th class="table-head-styles">Last Updated By</th>
+        <th class="table-head-styles">Last Updated Date</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="loadHistoryData">
+      <tr *ngFor="let data of getEmpDataResult" class="single-rec">
+        <td class="table-body-styles hover">
+          <a (click)="empSearchViewHistory(data?.EFFECTIVE_START_DATE)">
+            {{ data?.EFFECTIVE_START_DATE | date : "dd-MM-yyyy" }}
+          </a>
+        </td>
+        <td class="table-body-styles">{{ data?.EFFECTIVE_END_DATE | date : "dd-MM-yyyy" }}</td>
+        <td class="table-body-styles">
+          <div *ngFor="let attr of data?.CHANGED_ATTRIBUTE">
+            {{ attr }}
+          </div>
+        </td>
+        <td class="table-body-styles">{{ data?.LAST_UPDATED_BY }}</td>
+        <td class="table-body-styles">{{ data?.LAST_UPDATED_AT | date : "dd-MM-yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</jw-modal>
+
+<!------------------------------------------- Model for update the record ------------------------------------------>
+
+<div *ngIf="showUpdateModal" class="modal-overlay">
+  <div class="modal-content">
+    <h5 style="padding: 20px 0">{{ updateForm.get("workerType")?.value }} Update details :</h5>
+    <form [formGroup]="updateForm2" class="form-fields">
+      <div class="d-flex flex-row">
+        <div class="form-group" style="width: 300px; margin-left: 20px">
+          <label for="effectiveStartDate">Effective Start Date<span style="color: red; font-weight: bold">*</span>:</label>
+          <input type="date" id="effectiveStartDate" name="effectiveStartDate" class="form-control" formControlName="effectiveStartDate" />
+          <div *ngIf="updateForm2.get('effectiveStartDate')?.touched && updateForm2.get('effectiveStartDate')?.hasError('required')" class="text-danger">
+            *Effective Start Date is required
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="button" class="submit-button" (click)="updateEffectiveStartDate()">
+            <span class="text">Update</span>
+          </button>
+          <button type="button" class="cancel" (click)="closeUpdateModel()">
+            <span class="text">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-------------------------------------- EMPLOYEMENT DETAILS ---------------------------------------------------->
+
+<jw-modal id="custom-modal-2">
+  <button (click)="closeModal('custom-modal-2')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close" ></button>
+  <hr />
+  <app-EmployementDetails *ngIf="isEmploymentDetailsOpen" [employeListData]="employeeList" [employeeStartDate]="employeeESd" [loading]="loading" (loadingChange)="onLoadingChange($event)"/>
+</jw-modal>
+
+<!-------------------------------------- ADDRESS DETAILS---------------------------------------------------------->
+
+<jw-modal id="custom-modal-6">
+  <button (click)="closeModal('custom-modal-6')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+  <hr />
+  <app-AddressDetails *ngIf="isAddressDetailsOpen" [loading]="loading" [employeListData]="employeeList" [employeeStartDate]="employeeESd"/>
+</jw-modal>
+
+<!--------------------------------------Emergency contacts---------------------------------------------------------->
+
+<jw-modal id="custom-modal-11">
+  <button (click)="closeModal('custom-modal-11')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+  <hr />
+  <app-EmergencyDetails *ngIf="isEmergencyDetailsOpen" [employeListData]="employeeList" [employeeStartDate]="employeeESd"/>
+</jw-modal>
+
+<!----------------------------------------- Loading spinner ------------------------------------------------------>
+
+<div *ngIf="loading" class="loading-spinner-container">
+  <div class="loading-spinner"></div>
+</div>
+
+<router-outlet />

@@ -1,0 +1,56 @@
+<div class="main">
+
+      <div style="margin-bottom: 7%;">
+
+        <div>
+          <h5 class="header">Templates for Generating letters:</h5>
+          <p class="description">Add the templates by selecting the type of template and upload the file.</p>
+        </div>
+
+        <div class="align-controls">
+
+          <div class="align-subcontrols">
+            <label for="letterType"> Template Name <span class="required">*</span>:</label>
+            <select id="letterType" (change)="onLetterTypeChange($event)" class="form-control">
+              <option value="" selected disabled>Select...</option>
+              <ng-container *ngFor="let data of lettersData">
+                <option value={{data.name}}>{{data.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+
+          <div class="align-subcontrols">
+            <label for="rtfFile">Choose RTF Template<span class="required">*</span>:</label>
+            <input type="file" id="rtfFile" (change)="onFileChange($event)" accept=".rtf" class="form-control">
+          </div>
+
+          <div class="align-subcontrols d-flex flex-row">
+            <button (click)="uploadFile()" class="btn btn-primary" type="submit" role="button"><span class="text">Submit</span></button>
+            <button class="btn btn-secondary" routerLink="/SelectTemplate" role="button"><span class="text">Back</span></button>
+          </div>
+
+        </div>
+
+
+        <hr class="divider">
+
+        <h5 class="view-header">View all templates:</h5>
+
+        <div class="templates-grid">
+          <div *ngFor="let letter of templateData" class="containerLetter">
+            <h5 class="template-name">{{letter.TEMPLATE_NAME}}</h5>
+            <h6 class="template-id">{{letter.TEMPLATE_ID}}</h6>
+            <div>
+              <button style="margin: 4%;border: none;font-size: 25px;background-color: #cae0f4;" (click)="viewTemplate1(letter.TEMPLATE_ID, letter.TEMPLATE_NAME)"><i class="fa-solid fa-download"></i></button>&nbsp;&nbsp;&nbsp;  
+              <button style="font-size: 25px;border: none;background-color: #cae0f4" (click)="deleteTemplate(letter.TEMPLATE_ID)"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="loading-spinner-overlay" *ngIf="loading">
+        <div class="loading-spinner"></div>
+      </div>
+  
+</div>

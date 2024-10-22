@@ -1,0 +1,9 @@
+<div class="main">
+    <app-employee-filter (filterApplied)="applyFilter($event)" (filterRemoved)="removeFilter()" />
+    <div class="employee-list-container">
+        <div *ngIf="!employeeExistsChange" id="errorContainer">
+            <p class="blink-text text-center" style="color: red;font-size: large; padding: 2%; text-align:10%;">No employee found !!Please Search</p>
+        </div>
+        <app-employee-card-display *ngIf="employeeExistsChange" [employees]="employees" [employeeCount]="employeeCount" />
+    </div>
+</div>

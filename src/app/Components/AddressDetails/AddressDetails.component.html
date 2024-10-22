@@ -1,0 +1,53 @@
+<div>
+  <h3>Employee Address Details:</h3>
+ 
+  <div class="modal-body" style="margin-bottom: 5%">
+    <div style="display: flex; flex-direction: row">
+ 
+      <div style="width: 35%; margin: 2% 0 0 2%">
+        <label>Date From: </label>
+        <input type="date" class="input form-control" [(ngModel)]="addreesDate"/>
+      </div>
+ 
+      <div style="width: 35%; margin-top: 2%">
+        <label for="workerType">Address Type:<span style="color: red">*</span>:</label>
+        <select id="workerType" class="form-control" [(ngModel)]="addressType">
+          <option value="" disabled>Select an option</option>
+          <option value="PRESENT">PRESENT</option>
+          <option value="PERMANENT">PERMANENT</option>
+        </select>
+      </div>
+ 
+      <div style="display: flex">
+        <button class="btn btn-primary esdButtons" role="button"
+          (click)="addressType==='PRESENT' ? openModal('custom-modal-7') : openModal('custom-modal-9')">
+          <span class="text">OK</span>
+        </button>
+ 
+        <div>
+          <button class="btn btn-primary esdButtons animated" role="button"
+            style="margin-left: 20px; background-color: gray">
+            <span class="text">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<div>
+  <jw-modal id="custom-modal-7">
+    <button (click)="closeModal('custom-modal-7')" type="button" class="btn-close" data-dismiss="modal"
+      aria-label="Close"></button>
+    <hr />
+    <app-PresentAddress [employeListData]="employeeList" [employeeStartDate]="employeeStartDate" *ngIf="actiavte" />
+  </jw-modal>
+ 
+  <jw-modal id="custom-modal-9">
+    <button (click)="closeModal('custom-modal-9')" type="button" class="btn-close" data-dismiss="modal"
+      aria-label="Close"></button>
+    <hr />
+    <app-PermanentAddress [employeListData]="employeListData" [employeeStartDate]="employeeStartDate" />
+  </jw-modal>
+</div>
+ 

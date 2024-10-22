@@ -1,29 +1,39 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ModalModule } from './modal.module';
 
-@Injectable({ providedIn: 'root' })
-export class ModalService {
-  private modals: any[] = [];
-  
-  add(modal: any) {
-    // console.log('modal', modal);
-    // alert('modal' + modal);
-      this.modals.push(modal);
-    // console.log("modals--->",this.modals);
-  }
+platformBrowserDynamic()
+  .bootstrapModule(ModalModule)
+  .catch((err) => console.error(err));
+// @Injectable({ providedIn: 'root' })
+// export class ModalService {
+//   private modals: any[] = [];
 
-  remove(id: string) {
-    this.modals = this.modals.filter((x) => x.id !== id);
-  }
+//   // refresh(){
+//   //   this.add(modal:any)
+//   // }
+//   add(modal: any) {
+//     console.log('modal', modal);
+//     console.log('modal.....', modal.id);
+//     // alert('modal' + modal);
+//     // alert('modal' + modal.element);
+//     this.modals.push(modal);
+//     // console.log("modals--->",this.modals);
+//   }
 
-  open(id: string) {
-    // console.log('id', id);
-    const modal = this.modals.find((x) => x.id === id);
-    // console.log("modal",modal)
-    modal.open();
-  }
+//   remove(id: string) {
+//     this.modals = this.modals.filter((x) => x.id !== id);
+//   }
 
-  close(id: string) {
-    const modal = this.modals.find((x) => x.id === id);
-    modal.close();
-  }
-}
+//   open(id: string) {
+//     // console.log('id', id);
+//     const modal = this.modals.find((x) => x.id === id);
+//     // console.log("modal",modal)
+//     modal.open();
+//   }
+
+//   close(id: string) {
+//     const modal = this.modals.find((x) => x.id === id);
+//     modal.close();
+//   }
+// }

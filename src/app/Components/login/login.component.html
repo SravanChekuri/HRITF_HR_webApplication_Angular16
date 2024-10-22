@@ -1,0 +1,56 @@
+<div class="fullScreen">
+
+    <div class="container d-flex flex-column flex-lg-row justify-content-between">
+
+      <div>
+        <img class="mt-4 logo-img" src="../../../assets/logos/HRIT logo 5.png" alt="logo">
+      </div>
+
+      <div>
+
+        <div class="card">
+
+          <h1>Login</h1>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="input-container">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" placeholder="User Name/Email ID" formControlName="userName" class="form-control">
+              <div class="error-message">
+                    <div *ngIf="loginForm.get('userName')?.touched && loginForm.get('userName')?.hasError('required')" class="text-danger">
+                        *Username/UserEmail is required
+                    </div>
+                </div>
+            </div>
+  
+            <div class="input-container">
+              <i class="fa-solid fa-key input-icon"></i>
+              <input [type]="passwordFieldType" placeholder="Password" id="password" formControlName="password" class="form-control">
+              <fa-icon [icon]="eyeIcon" class="input-icon-eye" (click)="togglePasswordVisibility()"></fa-icon>
+              <div class="error-message">
+                <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')" class="text-danger">
+                  *Password is required
+                </div>
+              </div>
+            </div>
+  
+            <div *ngIf="submitted" class="text-danger">Incorrect Username or Password!!!</div>
+  
+            <div>
+              <a routerLink="/forgotPassword" class="forgot-pw">Forgot_Password?</a>
+            </div>
+  
+            <div>
+              <button class="btn btn-primary" role="button" type="submit" [disabled]="loginForm.invalid"><span class="text">Login</span></button>
+              <div *ngIf="loading" class="spinner"></div>
+            </div>
+
+          </form>
+        </div>
+        
+      </div>
+  
+    </div>
+    
+  </div>
+  

@@ -1,0 +1,188 @@
+<div>
+ 
+  <div>
+    <div style="display: flex; flex-direction: row">
+
+      <div class="d-flex flex-column" style="width: 30%; margin-left: 5%">
+        <label> Date Form: <span style="color: red">*</span> </label>
+        <input type="date" class="input"  class="form-control"  [(ngModel)]="permanentEsdDate" />
+      </div>
+
+      <div class="d-flex flex-column" style="width: 30%; margin-left: -4%">
+        <label for>Date To:</label>
+        <input type="date"  [value]="4712 - 12 - 31" class="form-control" [(ngModel)]="permanentEedDate" />
+      </div>
+
+      <button class="btn btn-primary sub-button animated"  role="button" style="margin-left: -4%; margin-top: 3%" (click)="PermanentAddressSearchByData()">
+        <span class="text">Search</span>
+      </button>
+
+    </div>
+
+    <h3 class="btn btn-primary sub-button animated" style="margin-left: 87%" >
+      <span style="cursor: pointer" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i>
+        <span class="text">Edit</span></span>
+    </h3>
+    <div class="container-box">
+      <div class="edit_view">
+        <!-- <select class="select-dropdown">
+          <option class="options" selected disabled>Edit options</option>
+          <option class="options" value="Update">Update</option>
+          <option class="options" value="Correct">Correct</option>
+          <option class="options" value="DeleteRecord">Delete Record</option>
+        </select> -->
+ 
+        <button (click)="openModal('custom-modal-10')" class="btn btn-primary animated" style="height: 8%; width: 10%; margin-top: 2%; margin-right: 2%">
+          <span style="cursor: pointer" class="edit-icon"><i class="fa-solid fa-clock-rotate-left"></i> View History</span>
+        </button>
+ 
+      </div>
+ 
+
+    <h3 style="margin-left: 4%">Employee Permanent Address :</h3>
+
+    <!--------------------------------------------------Form start ------------------------------------------>
+
+    <form style="margin-left: 5%" [formGroup]="permanentAddressForm" (ngSubmit)="permanentFormDataSubmit()">
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="PermanentDateForm">Date From:<span style="color: red">*</span></label>
+        <input type="date" id="PermanentDateForm" name="PermanentDateForm" formControlName="PermanentDateForm" class="form-control" />
+        <!-- <div *ngIf=" addressForm1.get('PermanentDateForm')?.touched && addressForm1.get('PermanentDateForm')?.hasError('required')" class="text-danger ms-3">
+          *PermanentDateForm is required
+        </div> -->
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="PermanentDateTo">Date To:</label>
+        <input type="date" id="PermanentDateTo" name="PermanentDateTo" formControlName="PermanentDateTo" value="4712-12-31" class="form-control" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="PermanentPhone1">Mobile No:</label>
+        <input type="tel" style="width: 80%;" id="PermanentPhone1" name="PermanentPhone1" formControlName="PermanentPhone1" class="form-control" />
+        <!-- <div *ngIf="addressForm1.get('PermanentPhone1').errors?.['pattern']" class="text-danger">
+          *Mobile Number must contain only numbers
+        </div>
+        <div *ngIf="addressForm1.get('PermanentPhone1').errors?.['maxlength']" class="text-danger">
+          *Mobile Number must be 10 digits long
+        </div>
+        <div *ngIf="addressForm1.get('PermanentPhone1').errors?.['minlength']" class="text-danger">
+          *Mobile Number must be 10 digits long
+        </div> -->
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="Address">Address:</label>
+        <input type="text" id="Address" name="Address" formControlName="PermanentAddress" class="form-control" />
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="PermanentCountry">Country:</label>
+        <!-- <input type="text" formControlName="PermanentCountry"/> -->
+        <select formControlName="PermanentCountry" id="PermanentCountry" class="form-control" (change)="onCountryChange($event)">
+          <option *ngFor="let country of countries" [value]="country.lable">{{ country.lable }}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="PermanentState">State:</label>
+        <!-- <input type="text" formControlName="PermanentState"/> -->
+
+        <select formControlName="PermanentState" id="PermanentState" class="form-control" (change)="onStateChange($event)">
+          <option *ngFor="let state of states" [value]="state.lable">{{ state.lable }}</option>
+        </select>
+
+      
+      </div>
+
+    </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-4">
+          <label for="PermanentCity">City:</label>
+          <!-- <input type="text" formControlName="PermanentCity"/> -->
+
+          <select formControlName="PermanentCity" id="PermanentCity" class="form-control">
+            <option *ngFor="let city of cities" [value]="city.label">{{ city.label }}</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="PermanentPincode">Pincode:</label>
+          <input type="text" id="PermanentPincode" name="PermanentPincode" class="form-control" formControlName="PermanentPincode" />
+        </div>
+
+        <div class="form-group col-md-4"></div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-row" style="text-align: center" >
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary animated" style="width: 15%" *ngIf="permanentSubmitButton">
+            <span class="text">Submit</span>
+          </button>
+
+          <button type="button" class="btn btn-primary animated" style="width: 15%" (click)="presentAddressUpdateData()" *ngIf="permanentUpdateButton">
+            <span class="text">Update</span>
+          </button>
+
+          <button class="btn btn-primary btn2 animated" style="width: 15%; background-color: gray" type="button" >
+            <span class="text">Cancel</span>
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<!-- view history for permanent -->
+<jw-modal id="custom-modal-10">
+
+  <button (click)="closeModal('custom-modal-10')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+  <hr />  
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px">
+    <thead>
+      <tr>
+        <th class="table-head-styles">Effective Start Date</th>
+        <th class="table-head-styles">Effective End Date</th>
+        <th class="table-head-styles">Changed Attributes</th>
+        <th class="table-head-styles">Last Updated By</th>
+        <th class="table-head-styles">Last Updated Date</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="permanentAddressDataView">
+      <tr *ngFor="let data of permanentAddressDataView" class="single-rec">
+        <td class="table-body-styles hover">
+          <a (click)="empSearchPermanentViewHistory(data?.DATE_FROM)">
+            {{ data?.DATE_FROM | date : "yyyy-MM-dd" }}
+          </a>
+        </td>
+        <td class="table-body-styles">{{ data?.DATE_TO | date : "yyyy-MM-dd" }}</td>
+        <td class="table-body-styles">
+          <div *ngFor="let attr of data?.CHANGED_ATTRIBUTE">
+            {{ attr }}
+          </div>
+        </td>
+        <td class="table-body-styles">{{ data?.LAST_UPDATED_BY }}</td>
+        <td class="table-body-styles">{{ data?.LAST_UPDATED_AT | date : "yyyy-MM-dd" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</jw-modal>
+
+
