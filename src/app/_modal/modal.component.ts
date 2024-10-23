@@ -32,13 +32,12 @@ export class ModalComponent implements OnInit, OnDestroy {
     // move element to bottom of page (just before </body>) so it can be displayed above everything else
     document.body.appendChild(this.element);
     // add self (this modal instance) to the modal service so it's accessible from controllers
-    console.log('this', this);
+    // console.log('this', this);
     this.modalService.add(this);
   }
 
   // remove self from modal service when component is destroyed
   ngOnDestroy(): void {
-    alert(1);
     this.modalService.remove(this.id);
     this.element.remove();
   }

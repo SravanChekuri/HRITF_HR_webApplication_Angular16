@@ -21,11 +21,11 @@ export class AddressDetailsComponent implements OnInit {
     console.log('Employee List Data:', this.employeListData);
     this.employeeList=this.employeListData
     this.addreesDate=this.employeeStartDate
-    alert(this.addreesDate)
+    // alert(this.addreesDate)
   }
  
   openModal(id: any) {
-    alert(`Selected Address Type: ${this.addressType}`);
+    // alert(`Selected Address Type: ${this.addressType}`);
  
     // if (this.addressType === 'PRESENT') {
     //   alert('Opening Present Address Modal');
@@ -45,7 +45,7 @@ export class AddressDetailsComponent implements OnInit {
   }
  
   closeModal(id: any) {
-    alert(`Opening modal: ${id}`);
+    // alert(`Opening modal: ${id}`);
     this.modalId = id;
     this.modalService.close(id);
     // this.modalService.open(id)

@@ -17,58 +17,47 @@ import Swal from 'sweetalert2';
 export class EditDetailsComponent implements OnInit, OnDestroy {
 
   //------------- epm/Candi form variables -------------//
-
-  updateForm: FormGroup;
-  empButtons: boolean = false;
-  isCandidate: boolean = false;
-  isEmployee: boolean = false;
-  // effectiveStartDate:any;
-  employeeESd: any;
-  effectiveEndDate: any = '4712-12-31';
-  isConvertedToEmployee: boolean = false;
-  empDate: any;
-  msg: any;
-  maxDate: any;
-  employeeNumber: any;
-  workerTypeValue: boolean = true;
-  loading: boolean = false;
-  loadHistoryData: boolean = false;
-  loadDisplayData: boolean = false;
-  maximumDate: any;
-  minDate: any;
-  selectedValue:any;
-
+  updateForm: FormGroup; // form group for employee
+  empButtons: boolean = false; // emp btn hide and visible
+  isCandidate: boolean = false; // checking candidate or not
+  isEmployee: boolean = false; // checking employee or not
+  employeeESd: any; //searched esd for searching globally
+  effectiveEndDate: any = '4712-12-31'; //searched enddate for searching globally
+  isConvertedToEmployee: boolean = false; //disable emp number
+  msg: any; // msgs from backend
+  workerTypeValue: boolean = true; // checking worker type
+  loading: boolean = false; // loading spinner
+  loadDisplayData: boolean = false; // stoping UI untill data is getting
+  maximumDate: any; //dob validation
+  minDate: any; //dob validation
+  maxDate: any; //dob validation
+  isReadOnly: boolean = false; // esd eed disabling
 
  //--------------- stoping data --------------//
-  
-  isEmploymentDetailsOpen:boolean = false;
-  isAddressDetailsOpen:boolean = false;
-  isEmergencyDetailsOpen:boolean = false;
+  isEmploymentDetailsOpen:boolean = false; // stoping executing employement data
+  isAddressDetailsOpen:boolean = false; // stoping executing address data
+  isEmergencyDetailsOpen:boolean = false; // stoping executing emergency data
+  waitForViewHistoryData:boolean = false; // for stoping UI untill the View history data is getting
+
 
   //------------- ngOnInt-Variables ---------//
-
-  employee: Employee = {} as Employee;
-  employeeData: any;
-  filterESD: any;
-  employeeList: any;
-  currentPath: any;
-  todaysDate: any;
-  dateOfJoining: any;
-
-  //----------- Model boxs variables ---------//
-
-  modalId: any;
+  employee: Employee = {} as Employee; // geting data from local storage
+  employeeData: any; //storing employee data
+  employeeNumber: any; //profile emp num
+  filterESD: any; //start date
+  employeeList: any; //storing all the details 
+  currentPath: any; // path for identifing
+  todaysDate: any; // storing today date
 
   //---------- view history variables -------//
-
-  getEmpDataResult: any;
+  getEmpDataResult: any; // data for view history
 
   //---------- update model box ------------//
+  selectedValue:string = ''; //edit options reset
+  showUpdateModal: boolean = false; // for showing popup
+  updateForm2: FormGroup; // form of esd for update 
 
-  showUpdateModal: boolean = false;
-  updateForm2: FormGroup;
-
-  subscription: Subscription | undefined;
+  subscription: Subscription | undefined; // subscription prop
 
   constructor(
                 private employeeService: GetEmployeesService,
@@ -79,8 +68,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    
-   this.updateFormintilization();
+
+    this.updateFormintilization();
+
     this.filterESD = localStorage.getItem('empstartDate');
     // console.log("empstartDate : ",this.filterESD);
 
@@ -95,22 +85,15 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
 
     if (empData) {
       this.employee = JSON.parse(empData);
-
       if (this.currentPath === '/editdetails') {
         localStorage.removeItem('empstartDate');
         this.employeeESd = this.todaysDate;
       }
       if (this.employee) {
         this.fetchEmpData(this.employee.EMP_NO, this.employeeESd, this.employee.EFFECTIVE_END_DATE);
-        console.log("subscription :",this.subscription);
+        // console.log("subscription :",this.subscription);
       }
     }
-  }
-
-  updateFormintilization(){
-    this.updateForm2 = this.formbuilder.group({
-      effectiveStartDate: ['', Validators.required] // Form control for effective start date
-    });
   }
 
   onLoadingChange(loading: boolean) {
@@ -135,7 +118,7 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
         // console.log('results of Fetch Employee details :', result);
 
         this.employeeList = result;
-        console.log("employeeList data:", this.employeeList);
+        // console.log("employeeList data:", this.employeeList);
 
         this.employeeData = result.employee_details;
         console.log("employeeData", this.employeeData);
@@ -146,7 +129,6 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
 
         this.check(this.employeeData[0].WORKER_TYPE);
 
-        this.dateOfJoining = this.employeeData[0].DATE_OF_JOINING;
 
         if (!this.check(this.employeeData[0].WORKER_TYPE)) {
           this.isCandidate = true;
@@ -175,29 +157,40 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   isEmployeeContent() {
     this.empButtons = !this.empButtons;
     if (this.empButtons) {
-      // this.updateForm.enable();
+      this.updateForm.enable();
     } else {
-      // this.updateForm.disable();
+      this.updateForm.disable();
+      this.resetSelect();
       this.updateform1();
     }
   }
 
   onOptionChange(event: any) {
     this.selectedValue = event.target.value;
-
     if (this.selectedValue === 'Update') {
       this.showUpdateModal = !this.showUpdateModal;
     } else if (this.selectedValue === 'Correct') {
       this.isEmployeeContent();
-    } else if (this.selectedValue === 'DeleteRecord') {
-
     }
+
+    if (this.selectedValue === 'Correct') {
+      // console.log('Correct option selected');
+      this.isReadOnly = true;
+    } else {
+      this.isReadOnly = false;
+    }
+
+  }
+
+  resetSelect() {
+    this.selectedValue = ''; 
   }
 
  //------ custom model ------//
 
   closeUpdateModel() {
     this.showUpdateModal = false;
+    this.resetSelect();
   }
 
 //--------------------- worker type change -------------------------//
@@ -241,8 +234,9 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     this.maxDate = maxDate;
     this.maximumDate = maximumDate;
 
-    // this.updateForm.disable();
+    this.updateForm.disable();
     this.loadDisplayData = true;
+
   }
 
   //.............................. update Employee Submit to backend .............................................//
@@ -270,28 +264,22 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
       };
 
       console.log("update employee data to backend: ", sendData);
-      console.log("selectedValue",this.selectedValue);
+      // console.log("selectedValue",this.selectedValue);
 
-      if (this.updateForm.value['workerType']==="Candidate"){
-        this.selectedValue="Correct"
-        console.log("this.selectedValue",this.selectedValue);
-        
-
-
-      }
-
-      else{
+      if ((this.updateForm.value['workerType'] === "Employee" || this.updateForm.value['workerType'] === "Candidate") && this.selectedValue === "Correct" ){
+        this.selectedValue = "Correct"
+        // console.log("selectedValue",this.selectedValue);
+      } else{
         this.selectedValue=this.selectedValue;
-        console.log("this.selectedValue",this.selectedValue);
-        
+        // console.log("selectedValue",this.selectedValue);
       }
       
       this.employeeService.updateID(this.employee.EMP_ID, sendData,this.selectedValue).subscribe((response: any) => {
         console.log("response after update employee data to backend: ", response);
         this.msg = response.message;
         this.employeeData = response.data;
-        console.log("employeeData from update response :", this.employeeData);
-        // this.fetchEmpData(response.data.EMP_NO, response.data.EFFECTIVE_START_DATE, response.data.EFFECTIVE_END_DATE);
+        // console.log("employeeData from update response :", this.employeeData);
+        this.fetchEmpData(response.data.EMP_NO, response.data.EFFECTIVE_START_DATE, response.data.EFFECTIVE_END_DATE);
         this.loading = false;
         Swal.fire({
           position: 'top',
@@ -301,7 +289,8 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
           timer: 2000,
           width: 400,
         }).then(() => {
-          // this.updateForm.disable();
+          this.resetSelect(); 
+          this.updateForm.disable();
           this.empButtons = !this.empButtons;
         });
       },
@@ -323,16 +312,16 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
 
   //.......................... for searching previous records for Candidate/Employee .........................................//
 
-  submitDate() {
-    this.employeeESd=this.employeeESd;
+  submitDate(date:any) {
+    this.employeeESd = date;
     this.loading = true;
     this.employeeService.searchAllData(this.employeeESd, this.employee.EMP_NO, this.effectiveEndDate).subscribe((res: any) => {
       console.log("employee search based on emp&end", res);
       this.employeeList=res;
-      console.log("this.employeeList",this.employeeList);
-      
-      this.employeeData = res.employee_details;
-      console.log("this.employeeData", this.employeeData);
+      // console.log("employeeList",this.employeeList);
+      this.employeeData = this.employeeList.employee_details;
+      // this.employeeData = res.employee_details;
+      // console.log("employeeData", this.employeeData);
       this.updateform1();
       if (this.employeeData) {
         this.loading = false;
@@ -359,18 +348,19 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
   empSearchViewHistory(date: any) {
     this.loading = true;
     this.employeeESd = date;
+    this.submitDate(this.employeeESd)
     this.employeeService.empSearchViewHistory(date, this.employee.EMP_ID, this.effectiveEndDate).subscribe((res: any) => {
       console.log("res from emp/candi view history --> ", res);
       this.employeeData = res.data;
-      console.log("employeeData", this.employeeData);
-      this.loadHistoryData = true;
+      // console.log("employeeData", this.employeeData);
+      this.waitForViewHistoryData = true;
       this.loading = false;
       if (this.employeeData) {
         this.closeModal('custom-modal-1');
       }
       this.updateform1();
     }, error => {
-      this.loadHistoryData = false;
+      this.waitForViewHistoryData = false;
       this.loading = false;
       console.log("error from selected view history: ", error);
     });
@@ -381,38 +371,60 @@ export class EditDetailsComponent implements OnInit, OnDestroy {
     this.employeeService.empViewHistoryData(this.employee.EMP_ID).subscribe((res: any) => {
       console.log("res -->", res);
       this.getEmpDataResult = res.data;
-      console.log("getEmpDataResult", this.getEmpDataResult);
-      this.loadHistoryData = true;
+      // console.log("getEmpDataResult", this.getEmpDataResult);
+      this.waitForViewHistoryData = true;
       this.loading = false;
     }, error => {
-      this.loadHistoryData = false;
+      this.waitForViewHistoryData = false;
       this.loading = false;
       console.log("error from view history :", error);
     });
   }
 
+
+//------------------ update form for ESD -----------------//
+
+updateFormintilization(){
+  this.updateForm2 = this.formbuilder.group({
+    effectiveStartDateUpdate: ['', [Validators.required,dateValidator]]
+  });
+}
   
 //------------------- model windows ----------------------//
 
 updateEffectiveStartDate() {
-  const effectiveStartDate = this.updateForm2.get('effectiveStartDate')?.value;
-  alert(effectiveStartDate); // This should now show the selected date
+  const effectiveStartDateControl = this.updateForm2.get('effectiveStartDateUpdate');
 
-  if (effectiveStartDate) {
+  if (effectiveStartDateControl?.invalid) {
+    effectiveStartDateControl.markAsTouched();
+    // console.log('Effective Start Date is required');
+    return; 
+  }
+
+  const effectiveStartDateUpdate = effectiveStartDateControl?.value;
+  
+  if (effectiveStartDateUpdate) {
     this.updateForm.patchValue({
-      effectiveStartDate: effectiveStartDate // Update the main form's effective start date
+      effectiveStartDate: effectiveStartDateUpdate 
     });
-    this.showUpdateModal = false; // Close the modal
-    this.updateForm2.reset(); // Reset the modal form
+    this.showUpdateModal = false; 
+    this.updateForm.enable();
+    this.updateForm2.reset(); 
   }
 }
 
 
   closeModal(id: any) {
     // alert(`close ${id}`);
-    this.isEmploymentDetailsOpen = false;
-    this.isAddressDetailsOpen = false;
-    this.isEmergencyDetailsOpen = false;
+    if(id === 'custom-modal-2'){
+      this.isEmploymentDetailsOpen = false;
+    }
+    if(id === 'custom-modal-6'){
+      this.isAddressDetailsOpen = false;
+    } 
+    if(id === 'custom-modal-11'){
+      this.isEmergencyDetailsOpen = false;
+    }     
     this.modalService?.close(id);
   }
   
@@ -421,7 +433,6 @@ updateEffectiveStartDate() {
     if(id === 'custom-modal-1'){
       this.empViewHistory();
     }
-    this.modalId = id;
     this.modalService?.open(id);
   }
   
@@ -442,7 +453,7 @@ updateEffectiveStartDate() {
   
 
   ngOnDestroy(): void {
-    alert("destroied");
+    // alert("destroied");
     try {
       if (this.subscription) {
         this.subscription.unsubscribe();
@@ -450,8 +461,7 @@ updateEffectiveStartDate() {
     } catch (error) {
       console.error("Error unsubscribe the Data:", error);
     }
-    console.log("subscription :",this.subscription);
-
+    // console.log("subscription :",this.subscription);
   }
 
 

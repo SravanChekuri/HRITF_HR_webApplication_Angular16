@@ -40,7 +40,7 @@ export class EmergencyDetailsComponent implements OnInit {
     
  
       if(this.employeListData.emergency_address_details.length===0){
-        alert(1)
+        // alert(1)
         this.emergencyFormInitialization();
         // this.emergencySubmitButton=true;
  
@@ -48,7 +48,7 @@ export class EmergencyDetailsComponent implements OnInit {
       }
  
       else{
-        alert(2)
+        // alert(2)
         this.getEmergencyData()
         // this.emergencyUpdateButton=true;
 
@@ -65,8 +65,8 @@ export class EmergencyDetailsComponent implements OnInit {
  
   esdChange(event:any){
     this.emergencyEsdDate=event.target.value;
-   alert(1)
-    alert(event.target.value)
+  //  alert(1)
+    // alert(event.target.value)
    
  
    
@@ -74,17 +74,17 @@ export class EmergencyDetailsComponent implements OnInit {
  
   openModal(id: any) {
     // this.closeModal('custom-modal-10')
-    alert(`open ${id}`);
+    // alert(`open ${id}`);
     // this.empViewHistory()
    
     this.modalService?.open(id);
  
     if (id === 'custom-modal-12') {
-      alert('sssssssss')
+      // alert('sssssssss')
       this.closeModal('custom-modal-11')
       // this.closeModal('custom-modal-6')
     }
-    alert(`modelId : ${this.modalId}`);
+    // alert(`modelId : ${this.modalId}`);
     // this.viewHistoryPresentAddressData()
     this.modalId = id;
     this.modalService.open(id);
@@ -245,7 +245,7 @@ export class EmergencyDetailsComponent implements OnInit {
  
  
   emergencysubmitdate() {
-    alert(this.emergencyEsdDate)
+    // alert(this.emergencyEsdDate)
    
     // console.log("search doj",this.searchDOJ);
     this.emergencyService.getemergencyAddressData(this.employeListData.employee_details[0].EMP_ID, this.emergencyEsdDate, this.emergencyEndDate).subscribe((res: any) => {

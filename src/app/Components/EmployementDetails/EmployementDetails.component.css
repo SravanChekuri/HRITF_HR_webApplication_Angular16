@@ -34,7 +34,7 @@
     padding: 20px;
     width: 100%;
     max-width: 400px; /* Adjust as needed */
-    min-height: 350px; /* Ensure enough height */
+    min-height: 420px; /* Ensure enough height */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column; /* Stack children vertically */
@@ -43,22 +43,44 @@
   .modal-body {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Allow the body to grow */
+    width: 100%;
   }
+
+  .modal-body input{
+      width: 450px;
+  }
+
+  .modal-body select{
+    width: 450px;
+}
+
   
   .modal-footer {
     display: flex;
-    margin-top: 2%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
-  
-  /* Additional styles for button */
-  .btn-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
+
+  .align-feild{
+    margin: 2% 10%;
   }
-  
+
+  .update{
+    width: 18% !important;
+  }
+
+  .update:disabled{
+    background-color: #d6d6d6;
+    color: #999;           
+    cursor: not-allowed;       
+    opacity: 0.7;     
+  }
+
+  .cancel{
+    margin-top: 0 !important;
+  }
+    
 .viewH{
     width: 70% !important; 
     height: 8%; 
@@ -99,6 +121,11 @@
     color: #000;
   }
 
+  .table-body-styles {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 

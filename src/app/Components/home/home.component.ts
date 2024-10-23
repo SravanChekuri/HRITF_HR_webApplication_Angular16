@@ -4,6 +4,7 @@ import { ModalService } from 'src/app/_modal/modal.servcie';
 import { AuthService } from 'src/app/AuthServices/auth.service';
 import { LoginService } from 'src/app/Services/Login Services/login.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
               }
 
   ngOnInit() {
+
     const justLoggedIn = sessionStorage.getItem('justLoggedIn');
     const notificationsViewed = sessionStorage.getItem('notificationsViewed');
     if (justLoggedIn === 'true' && notificationsViewed !== 'true') {
@@ -67,6 +69,11 @@ export class HomeComponent implements OnInit {
   crossIcon(){
     this.buttonClick=false;
     location.reload();
+  }
+  
+  navigateToEditProfile() {
+    this.closeModal('exampleModal'); 
+    this.router.navigate(['/editProfile']); 
   }
 
   onBellIconClick() {

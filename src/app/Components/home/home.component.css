@@ -102,26 +102,28 @@ nav img.logo {
   top: 100%;
   left: 0;
   z-index: 999; 
-  white-space: nowrap; 
+  white-space: nowrap;
+  flex-direction: column;  
 }
  
 .head:hover .submenu {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
  
 }
  
 .head .submenu li {
-  display: inline-block; 
+  display:block; 
   margin: 0; 
 }
  
 .head .submenu li a {
   color: black;
-  display: inline-block;
+  display: block;
   padding: 10px 20px;
   text-decoration: none;
   white-space: nowrap; 
+  border-right: none;
 }
  
 .head .submenu li a:hover {
@@ -235,6 +237,21 @@ i:hover{
 }
 
 .custom-close:hover{
+  color: red;
+}
+
+.yellow-hover:hover{
+  color: rgb(247, 247, 40);
+}
+
+.edit-profile{
+  margin-top: 10px; 
+  text-decoration: none; 
+  align-items: center;
+}
+
+.edit-profile:hover{
+  text-decoration: underline;
   color: red;
 }
 

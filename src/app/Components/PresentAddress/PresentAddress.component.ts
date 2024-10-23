@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/_modal/modal.servcie';
 import { AddressService } from 'src/app/Services/Address Services/address.service';
-import { AddressstatecitycountryService } from 'src/app/Services/addressstatecitycountry.service';
+import { AddressstatecitycountryService } from 'src/app/Services/Address Services/addressstatecitycountry.service';
 import Swal from 'sweetalert2';
 
 interface Country {
@@ -56,7 +56,7 @@ export class PresentAddressComponent implements OnInit {
   ) {}
  
   ngOnInit() {
-     alert(22222);
+    //  alert(22222);
      this.getCountriesData();
      this.presentEsdDate=this.employeeStartDate
     console.log('employeListData', this.employeListData);
@@ -71,7 +71,7 @@ export class PresentAddressComponent implements OnInit {
     // alert('length:' + this.presentAddressData.length);
  
     if (this.presentAddressData.length === 0) {
-      alert(1);
+      // alert(1);
       this.formInilization();
       this.presentSubmitButton=true;
     } else {
@@ -117,7 +117,7 @@ export class PresentAddressComponent implements OnInit {
   }
  
   updatePresentAddress() {
-    alert('update');
+    // alert('update');
     const Data = {
       EMP_ID: this.employeListData.employee_details[0].EMP_ID,
       ADDRESS_TYPE: 'PRESENT',
@@ -223,21 +223,21 @@ export class PresentAddressComponent implements OnInit {
   }
  
   openModal(id: any) {
-    alert(`open ${id}`);
+    // alert(`open ${id}`);
     if (id === 'custom-modal-8') {
-      alert('sssssssss')
+      // alert('sssssssss')
       this.closeModal('custom-modal-7')
       this.closeModal('custom-modal-6')
     }
-    alert(`modelId : ${this.modalId}`);
+    // alert(`modelId : ${this.modalId}`);
     this.viewHistoryPresentAddressData()
     this.modalId = id;
     this.modalService.open(id);
   }
  
   presentAddressDate() {
-    alert(this.presentEsdDate);
-    alert(this.presentEndDate);
+    // alert(this.presentEsdDate);
+    // alert(this.presentEndDate);
     let addressType = 'PRESENT';
     this.addreessService.getPresentAddressData(this.employeListData.employee_details[0].EMP_ID, addressType, this.presentEsdDate, this.presentEndDate).subscribe((res: any) => {
       console.log("res",res);
@@ -248,16 +248,8 @@ export class PresentAddressComponent implements OnInit {
       if (this.presentAddressData){
         this.presentAddressDataa()
       }
- 
- 
- 
- 
-     
-     
- 
     },(error:any)=>{
       console.log("err",error);
-     
     })
   }
  
@@ -266,24 +258,17 @@ export class PresentAddressComponent implements OnInit {
       console.log("res.............", res);
        this.presentAddressDataView=res.data;
        console.log("this.presentAddressDataView", this.presentAddressDataView);
-       
- 
- 
  
     }, (error:any) => {
       console.log("err", error);
- 
- 
-    }
- 
-    )
+    })
   }
  
  
   empSearchPresentViewHistory(date:any){
     this.presentEsdDate=date;
     let type = "PRESENT"
-    alert("gdfb")
+    // alert("gdfb")
     let eed = "4712-12-31"
     // this.addressDateFrom = date;
     this.addreessService.getPresentAddressData(this.employeListData.employee_details[0].EMP_ID, type, date, eed).subscribe((res: any) => {

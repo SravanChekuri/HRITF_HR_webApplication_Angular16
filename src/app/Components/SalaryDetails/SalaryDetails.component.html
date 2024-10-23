@@ -1,144 +1,175 @@
-<div>
+<div class="container-box" *ngIf="waitForSalaryData"> <!---- main div ----->
 
-  <div style="display: flex; flex-direction: row">
+  <div style="display: flex; flex-direction: row"> <!--- search feilds --->
 
-    <div class="d-flex flex-column" style="width: 30%; margin-left: 5%">
+    <div class="d-flex flex-column" style="margin-left: 10%">
       <label>Date From:</label>
-      <input type="date" class="input" class="form-control"  [(ngModel)]="salaryEsd"/>
+      <input type="date" class="input" class="form-control"  style="width: 150%" [(ngModel)]="salaryEsd"/>
     </div>
 
-    <div class="d-flex flex-column" style="width: 30%; margin-left: -4%">
+    <div class="d-flex flex-column" style="margin-left: 12%">
       <label for>Date To:</label>
-      <input type="date" class="form-control" [(ngModel)]="salaryEnd"/>
+      <input type="date" class="form-control" style="width: 150%"  [value]="salaryEed"/>
     </div>
 
-    <button class="btn btn-primary sub-button animated" role="button" style="margin-left: -4%; margin-top: 3%" (click)="salarySubmitDate()">
+    <button class="btn btn-primary sub-button animated" role="button" (click)="salarySubmitDate()" style="width: 10%; height: 10%; left: 12%; margin-top: 3%">
       <span class="text">Search</span>
     </button>
 
   </div>
 
-  <!-- <h3 class="btn btn-primary sub-button animated text" style="margin-left: 87%">
-        <span style="cursor: pointer" class="edit-icon"></span>
-    </h3> -->
+  <br>
 
-  <jw-modal id="custom-modal-5">
-    <button (click)="closeModal('custom-modal-5')" type="button" class="btn-close" data-dismiss="modal"
-      aria-label="Close"></button>
-    <hr />
-
-    <h5 style="margin: 0 0 1% 2%;">Employement details View History :</h5>
-
-    <table style="table-layout: fixed; width: 100%;">
-      <thead>
-        <tr>
-          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
-            Effective Start Date</th>
-          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
-            Effective End Date</th>
-          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
-            Changed Attribute</th>
-          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
-            Last Updated By</th>
-          <th style="border: 1px solid #ddd; padding: 8px; text-align: center; width: 25%; background-color: #c8e3ff;">
-            Last Updated At</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let num of viewHistoryEmployeementData">
-          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;" (click)="EmpSalarySearchViewHistory(num.ASSIGNMENT_ID, num.CHANGED_SALARY_DATE)">
-            {{ num.CHANGED_SALARY_DATE | date:'yyyy-MM-dd' }}
-          </td>
-          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-            {{ num.DATE_TO | date:'yyyy-MM-dd' }}
-          </td>
-
-          
-
-          <!-- <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><div *ngFor="let data of num?.CHANGED_ATTRIBUTE"> {{ data.CHANGED_ATTRIBUTE }}</div></td> -->
-          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"> {{ num.CHANGED_ATTRIBUTE }}</td>
-
-          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-            {{ num.LAST_UPDATED_BY }}
-          </td>
-          <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-            {{ num.LAST_UPDATED_AT | date:'yyyy-MM-dd' }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-------------- edit button and view history button ------------------->
 
 
-  </jw-modal> 
-
-  <div style="display: flex; gap: 10px;">
-    <!-- <select class="select-option">
-        <option class="options" selected disabled>Edit options</option>
+  <div style="display: flex; gap: 10px;" >
+    <h3 style="margin: 2% 0 1% 3%;">Employee Salary Details :</h3>
+      <select class="select-option" *ngIf="isHideEditSalaryBtn" [(ngModel)]="selectedValue" (change)="onOptionChange($event)">
+        <option class="options" selected disabled value="">Edit options</option>
         <option class="options" value="Update">Update</option>
         <option class="options" value="Correct">Correct</option>
-        <option class="options" value="DeleteRecord">Delete Record</option>
-      </select> -->
-    <button (click)="openModal('custom-modal-5')" class="btn btn-primary animated viewH" style="margin-left: 70%;margin-top: 2%; ">
-      <span style="cursor: pointer" class="edit-icon">
-        <i class="fa-solid fa-clock-rotate-left"></i> View History
-      </span>
-    </button>
+      </select>
+      <button (click)="openModal('custom-modal-5')" class="btn btn-primary animated viewH" *ngIf="isHideEditSalaryBtn">
+        <span style="cursor: pointer" class="edit-icon">
+          <i class="fa-solid fa-clock-rotate-left"></i> View History
+        </span>
+      </button>
   </div>
 
+  <br />
 
-  <h3 style="margin-left: 3%; padding: 20px 0;">Employee Salary Details :</h3>
+
+  <!--------------------------------- From starts -------------------------------->
 
   <form [formGroup]="Employeesalary" (ngSubmit)="salarydata()">
 
-    <div style="margin: 0 0 0 20% ;">
-
+    <div class="form-div">
+      
       <div class="form-section">
-        <label for="changedSalaryDate" class="form-label" style="margin-left: 1%;">Changed Salary Date<span
-            style="color: red">*</span>:</label>
-        <input id="changedSalaryDate" formControlName="changedSalaryDate" type="date"
-          class="input-field form-control" />
+        <label for="changedSalaryDate" class="form-label">Changed Salary Date<span style="color: red">*</span>:</label>
+        <input id="changedSalaryDate" formControlName="changedSalaryDate" type="date" class="input-field form-control" [readonly]="isReadOnly"/>
+        <div *ngIf="Employeesalary.get('changedSalaryDate')?.touched && Employeesalary.get('changedSalaryDate')?.hasError('required')" class="text-danger ms-3">
+          *Changed salary Date is required
+        </div>
+        <div *ngIf="Employeesalary.get('changedSalaryDate')?.touched && Employeesalary.get('changedSalaryDate')?.hasError('invalidDate')" class="text-danger ms-3">
+          *Invalid Date (No Saturdays, Sundays)
+        </div>
       </div>
 
       <div class="form-section">
-        <label for="dateToProposal" class="form-label" style="margin-left: 1%;">Date to:</label>
-        <input id="dateToProposal" formControlName="dateToProposal" type="date" class="input-field form-control" />
+        <label for="dateToProposal" class="form-label">Date to:</label>
+        <input id="dateToProposal" formControlName="dateToProposal" type="date" class="input-field form-control" [readonly]="isReadOnly"/>
       </div>
 
       <div class="form-section">
-        <label for="comments" class="form-label" style="margin-left: 1%;">Comments:</label>
+        <label for="comments" class="form-label">Comments:</label>
         <textarea id="comments" formControlName="comments" class="textarea-field form-control"></textarea>
       </div>
 
       <div class="form-section">
-        <label for="proposalSalary" class="form-label" style="margin-left: 1%;">Proposal Salary<span
-            style="color: red">*</span>:</label>
+        <label for="proposalSalary" class="form-label">Proposal Salary<span style="color: red">*</span>:</label>
         <input id="proposalSalary" formControlName="proposalSalary" type="text" class="input-field form-control" />
+        <div *ngIf="Employeesalary.get('proposalSalary')?.touched && Employeesalary.get('proposalSalary')?.hasError('required')" class="text-danger ms-3">
+          *Proposal Salary is required
+        </div>
       </div>
 
       <div class="form-section">
-        <label for="proposalReason" class="form-label" style="margin-left: 1%;">Proposal Reason:</label>
+        <label for="proposalReason" class="form-label">Proposal Reason:</label>
         <textarea id="proposalReason" formControlName="proposalReason" class="textarea-field form-control"></textarea>
       </div>
 
     </div>
 
-    <div style="padding: 20px 0;margin-left: 35%;">
+    <div style="display: flex; align-items: center; justify-content: center;" [hidden]="Employeesalary.disabled">
 
-      <button type="submit" class="btn btn-primary btn2 animated" style="width: 15%" *ngIf="salarySubmitButton">
+      <button type="submit" class="btn btn-primary btn2 animated" style="width: 100px;margin-right: 2%;" *ngIf="salarySubmitButton">
         <span class="text">Submit</span>
       </button>
 
-      <button class="btn btn-primary btn2 animated" style="width: 15%;" type="button" (click)="salaryUpdate()" *ngIf="salaryUpdateButton">
+      <button class="btn btn-primary btn2 animated" style="width: 100px;margin-right: 2%;" type="button" (click)="salaryUpdate()" *ngIf="salaryUpdateButton">
         <span class="text">Update</span>
       </button>
 
-      <button class="btn btn-primary btn2 animated" style="width: 15%; background-color: gray" type="button">
+      <button class="btn btn-primary btn2 animated" type="button" style="background-color: gray; width: 100px;" (click)="isScalaryButtons()">
         <span class="text">Cancel</span>
       </button>
 
     </div>
 
   </form>
+  <!--------------------------------- From end -------------------------------->
+</div><!---- main div ----->
 
 
+<!--------------------------------------- View history model ---------------------------------------->
+
+<jw-modal id="custom-modal-5">
+  <button (click)="closeModal('custom-modal-5')" type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+  <hr />
+  <h5 style="margin: 0 0 2% 2%;">Employement details View History :</h5>
+  <div *ngIf="!waitForViewHistoryData">
+    <p class="history-error">No History</p>
+  </div>
+  <div style="overflow-x: auto;">
+    <table style="table-layout: auto; width: 100%;" *ngIf="waitForViewHistoryData">
+      <thead>
+        <tr>
+          <th class="table-head-styles">Effective Start Date</th>
+          <th class="table-head-styles">Effective End Date</th>
+          <th class="table-head-styles">Changed Attribute</th>
+          <th class="table-head-styles">Last Updated By</th>
+          <th class="table-head-styles">Last Updated At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of viewHistoryScalaryData" class="single-rec">
+          <td class="table-body-styles hover" (click)="EmpSalarySearchViewHistory(data.ASSIGNMENT_ID, data.CHANGED_SALARY_DATE)">
+            {{ data.CHANGED_SALARY_DATE | date:'dd-MM-yyyy' }}
+          </td>
+          <td class="table-body-styles">{{ data.DATE_TO | date:'dd-MM-yyyy' }}</td>
+          <td class="table-body-styles">
+            <ul style="list-style-type: none; padding: 0; margin: 0;">
+              <li *ngFor="let data of data.CHANGED_ATTRIBUTE">{{ data }}</li>
+            </ul>
+          </td>
+          <td class="table-body-styles">{{ data.LAST_UPDATED_BY }}</td>
+          <td class="table-body-styles">{{ data.LAST_UPDATED_AT | date:'dd-MM-yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</jw-modal> 
+
+<!------------------------------------------- Model for update the record ------------------------------------------>
+
+<div *ngIf="showUpdateModal" class="modal-overlay">
+  <div class="modal-content">
+    <h5>Salary update details :</h5>
+    <p>Select the Effective Start Date to determine when it will take effect:</p>
+    <form [formGroup]="updateForm" class="form-fields">
+      <div class="d-flex flex-row">
+        <div class="form-align">
+          <label for="changedSalaryDateUpdate">Effective Start Date<span style="color: red; font-weight: bold">*</span>:</label>
+          <input type="date" id="changedSalaryDateUpdate" name="changedSalaryDateUpdate" class="form-control" formControlName="changedSalaryDateUpdate" />
+          <div *ngIf="updateForm.get('changedSalaryDateUpdate')?.touched && updateForm.get('changedSalaryDateUpdate')?.hasError('required')" class="text-danger">
+            *Effective Start Date is required
+          </div>
+          <div *ngIf="updateForm.controls['changedSalaryDateUpdate'].hasError('invalidDate')" class="text-danger ms-3">
+            *Invalid Date (No Saturdays, Sundays)
+          </div>
+
+        </div>
+        <div class="button-container">
+          <button type="button" class="submit-button" (click)="updateEffectiveStartDate()">
+            <span class="text">Select</span>
+          </button>
+          <button type="button" class="cancel" (click)="closeUpdateModel()">
+            <span class="text">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

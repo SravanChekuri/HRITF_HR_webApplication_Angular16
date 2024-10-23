@@ -96,9 +96,11 @@ export class BarcodeComponent implements OnInit {
       otp: otpCombined,
     };
     console.log("mfaDataSend",mfaDataSend);
+    
     this.service.mfaAuth(mfaDataSend).subscribe((res: any) => {
       this.loading = false;
       this.mfaData = res['data'];
+      console.log("mfa data:",this.mfaData);
       Swal.fire({
         position: "top",
         icon: "success",

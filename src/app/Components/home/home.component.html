@@ -11,19 +11,26 @@
             <a routerLink="/landing">Home</a>
           </li>
           <li class="head has-submenu" style="margin-top: 1%; margin-bottom: 0.5%; display: flex; flex-direction: row;">
-            <a>Employee</a>
+            <a>Employee <i class="fa-solid fa-caret-down"></i></a>
             <ul class="submenu">
               <li><a routerLink="/addNewEmployeePage">Add Profile</a></li>
               <li><a routerLink="/viewEmployees">View Profiles</a></li>
               <li><a routerLink="/SelectTemplate">Letters</a></li>
-              <li *ngIf="userData.ROLE==='Admin'"><a routerLink="/register">Add User</a></li>
             </ul>
           </li>
           <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Payroll</a></li>
           <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Leaves</a></li>
           <li class="has-submenu" style="margin-top: 1%; margin-bottom: 0.5%;"><a>Workflow</a></li>
+          <li class="head has-submenu" style="margin-top: 1%; margin-bottom: 0.5%; display: flex; flex-direction: row;" *ngIf="userData.ROLE==='Admin'">
+            <a>Admin Settings <i class="fa-solid fa-caret-down"></i></a>
+            <ul class="submenu">
+              <li><a routerLink="/addRole">Add Role</a></li>
+              <li><a routerLink="/register">Add User</a></li>
+            </ul>
+          </li>
+
           <li class="has-submenu1 no-hover-effect" style="margin-top: 1%; cursor: pointer;" routerLink="/notifications" (click)="onBellIconClick()">
-            <i class="fa-regular fa-bell" style="font-weight: bolder; font-size: x-large; position: relative;">
+            <i class="fa-regular fa-bell yellow-hover" style="font-weight: bolder; font-size: x-large; position: relative;">
               <span *ngIf="notificationCount > 0" class="badge">{{ notificationCount}}</span>
             </i>
           </li>
@@ -47,12 +54,17 @@
             <div><img src="../../assets/images/userDP.jpg" alt="HR Dp"></div>
           </div>
           <div>
-            <p>User Name: <span class="p" style="font-weight: 600;">{{userData.username}}</span></p>
-            <p>User ID: <span class="p" style="font-weight: 600;">{{userData.user_id}}</span></p>
-            <p>Email: <span class="p" style="font-weight: 600;">{{userData.email}}</span></p>
-            <p>Role: <span class="p" style="font-weight: 600;">{{userData.ROLE}}</span></p>
+            <p>User Name: <span  style="font-weight: 600;">{{userData.username}}</span></p>
+            <p>User ID: <span  style="font-weight: 600;">{{userData.user_id}}</span></p>
+            <!-- <p>Email: <span class="p" style="font-weight: 600;">{{userData.email}}</span></p> -->
+            <p>Role: <span  style="font-weight: 600;">{{userData.ROLE}}</span></p>
           </div>
-          <div style="margin-top: 30px;">
+
+          <!-- <a routerLink="/editProfile"  class="edit-profile">view profile</a> -->
+          <a (click)="navigateToEditProfile()" class="edit-profile">view profile</a>
+
+
+          <div style="margin-top: 10px;">
             <button type="button" class="btn btn-danger" role="button" (click)="Signout()"><span class="text">Logout</span></button>
           </div>
         </div>

@@ -39,7 +39,9 @@ export class ResetComponent implements OnInit {
      this.userData = localStorage.getItem("loginData");
       if (this.userData) {
         this.userData = JSON.parse(this.userData);
-        // console.log("dfghh",this.userData['username']);
+        console.log("data:",this.userData);
+        
+        console.log("dfghh",this.userData['username']);
         this.username=this.userData['username'];
         // console.log("username",this.username);
         // console.log("Username:", this.userData.username);

@@ -4,7 +4,7 @@ import { ModalService } from 'src/app/_modal/modal.servcie';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AddressService } from 'src/app/Services/Address Services/address.service';
-import { AddressstatecitycountryService } from 'src/app/Services/addressstatecitycountry.service';
+import { AddressstatecitycountryService } from 'src/app/Services/Address Services/addressstatecitycountry.service';
 
 interface Country {
   iso2: any;
@@ -211,13 +211,13 @@ PermanentAddressSearchByData(){
  
  
 openModal(id: any) {
-  alert(`open ${id}`);
+  // alert(`open ${id}`);
   if (id === 'custom-modal-10') {
     alert('sssssssss')
     this.closeModal('custom-modal-9')
     this.closeModal('custom-modal-6')
   }
-  alert(`modelId : ${this.modalId}`);
+  // alert(`modelId : ${this.modalId}`);
   this.permanentViewHistoryData()
   this.modalId = id;
   this.modalService.open(id);
@@ -247,7 +247,7 @@ empSearchPermanentViewHistory(date:any){
   this.permanentEsdDate=date;
  
   let type = "PRESENT"
-  alert("gdfb")
+  // alert("gdfb")
   let eed = "4712-12-31"
   // this.addressDateFrom = date;
   this.addressService.getPresentAddressData(this.employeListData.employee_details[0].EMP_ID, type, date, eed).subscribe((res: any) => {

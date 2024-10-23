@@ -7,12 +7,12 @@
         <form (ngSubmit)="onSubmit()">
             <div class="row mb-3">
                 <div class="col-md-5 ">
-                    <label for="filter1">Search by Employee Number:<span class="required-star">*</span></label>
-                    <input type="text" id="filter1" [(ngModel)]="filterInput" name="filterInput" class="form-control" placeholder="Search Employee/CandidateNO">
+                    <label for="filter1">Search by Employee Number<span class="required-star">*</span>:</label>
+                    <input type="text" id="filter1" [(ngModel)]="filterInput" name="filterInput" class="form-control" placeholder="Search Employee/Candidate number">
                 </div>
  
                 <div class="col-md-4">
-                    <label for="empstartDate">Effective start Date:<span class="required-star">*</span></label>
+                    <label for="empstartDate">Effective start Date<span class="required-star">*</span>:</label>
                     <input type="date"  name="empstartDate" [(ngModel)]="empstartDate" id="empstartDate" class="form-control" (change)="esdDate($event)">
                 </div>
  

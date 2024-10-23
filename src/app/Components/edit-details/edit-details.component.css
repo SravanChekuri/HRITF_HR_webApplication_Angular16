@@ -219,14 +219,15 @@
 .modal-overlay {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6); 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   z-index: 1000;
 }
 
@@ -236,30 +237,42 @@
   border-radius: 8px;
   max-width: 600px; 
   width: 100%;
-  max-height:200px;
-  height: 100vh;
+  max-height:400px;
+  height: 33%;
+  margin-top: 7%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .form-fields{
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-left: 20px;
+  justify-content: left;
+  margin: 10px 0 0 20px;
+}
+
+.form-align {
+  position: relative; 
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .button-container{
   display: flex;
+  flex-direction: row;
   margin-left: 3%;
+  height: 50px;
 }
 
 .submit-button{
   background-color: #007bff;
-  height: 50px !important;
+  width: 100px;
+  height: 45px;
   color: white;
-  margin: 2%;
+  margin: 10% 0 0 0;
   border: 0.5px solid black;
-  padding: 4%;
   border-radius: 34px;
   margin-left: 40px;
 }
@@ -273,10 +286,10 @@
  
 .cancel{
   color: white;
-  width: 90px;
-  height: 50px !important;
+  width: 100px;
+  height: 45px;
   background-color: #6c757d;
-  margin: 2%;
+  margin: 10% 0 0 4%;
   border: 0.5px solid black;
   padding: 1%;
   border-radius: 34px; 
@@ -289,6 +302,21 @@
 
 }
 
+.form-align label{
+  width: 200px;
+}
+
+.form-align input{
+  width: 250px;
+}
+
+/* .text-danger {
+  position: absolute; 
+  top: 100%;
+  left: 0;
+  margin-top: 5px; 
+  font-size: 0.875rem;
+} */
 
 .loading-spinner-container {
   display: flex;
@@ -319,4 +347,30 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.back-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3%;
+  margin-top: 1%;
+}
+
+.viewH{
+  height: 8%; 
+  width: 10%; 
+  margin-top: 2%; 
+  margin-right: 4%
+}
+
+input.form-control:read-only {
+  background-color: #e9ecef; 
+  cursor: not-allowed;       
+}
+
+.history-error{
+  margin: 2% 0 1% 45%;
+  color: red;
+  font-weight: bold;
 }
